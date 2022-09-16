@@ -7,7 +7,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Note />} />
-        <Route exact path="/" element={<Create />} />
+        <Route exact path="/create" element={<Create />} />
       </Routes>
     </BrowserRouter>
   );
