@@ -16,7 +16,7 @@ const Posts = () => {
   return (
     <Card sx={{ margin: 3 }}>
       <CardHeader
-        avatar={<Avatar sx={{ bgcolor: red[500] }}>R</Avatar>}
+        avatar={<Avatar sx={{ bgcolor: red[500] }}>J</Avatar>}
         action={
           <IconButton aria-label="settings">
             <MoreVert />
@@ -28,7 +28,7 @@ const Posts = () => {
       <CardMedia
         component="img"
         height="194"
-        image="https://unsplash.com/photos/x-XwnC7FgFM"
+        image="https://freerangestock.com/sample/128669/scenic-view-of-mountain-lake-.jpg"
         alt="mountain"
       />
       <CardContent>

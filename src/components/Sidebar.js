@@ -31,7 +31,7 @@ const lists = [
 
 const Sidebar = () => {
   return (
-    <Box flex={1}>
+    <Box flex={1} p={2}>
       <Box position="fixed">
         <List>
           {lists.map((element) => (
