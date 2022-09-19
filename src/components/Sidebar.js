@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Box,
   List,
   ListItem,
   ListItemButton,
@@ -30,25 +31,27 @@ const lists = [
 
 const Sidebar = () => {
   return (
-    <div>
-      <List>
-        {lists.map((element) => (
-          <ListItem disablePadding key={element.id}>
-            <ListItemButton component="a" href={element.text}>
-              <ListItemIcon>{<element.icon />}</ListItemIcon>
-              <ListItemText primary={element.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+    <Box flex={1}>
+      <Box position="fixed">
+        <List>
+          {lists.map((element) => (
+            <ListItem disablePadding key={element.id}>
+              <ListItemButton component="a" href={element.text}>
+                <ListItemIcon>{<element.icon />}</ListItemIcon>
+                <ListItemText primary={element.text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
 
-        <ListItemButton>
-          <ListItemIcon>
-            <Brightness4 />
-          </ListItemIcon>
-          <Switch defaultChecked />
-        </ListItemButton>
-      </List>
-    </div>
+          <ListItemButton>
+            <ListItemIcon>
+              <Brightness4 />
+            </ListItemIcon>
+            <Switch defaultChecked />
+          </ListItemButton>
+        </List>
+      </Box>
+    </Box>
   );
 };
 
