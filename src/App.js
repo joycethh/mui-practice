@@ -1,15 +1,19 @@
-import Note from "./pages/Note";
-import Create from "./pages/Create";
+import { Button, styled } from "@mui/material";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
+  const MyButton = styled(Button)({
+    backgroundColor: "red",
+    color: "#888",
+    margin: 5,
+    "&:hover": {
+      backgroundColor: "blue",
+    },
+  });
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<Note />} />
-        <Route exact path="/create" element={<Create />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <MyButton>one</MyButton>
+      <MyButton>two</MyButton>
+    </div>
   );
 }
 
