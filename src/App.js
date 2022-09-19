@@ -1,23 +1,19 @@
-import { Button, styled } from "@mui/material";
+import Rightbar from "./components/Rightbar";
+import Feed from "./components/Feed";
+import Sidebar from "./components/Sidebar";
+import { Box, Stack } from "@mui/material";
+import Navbar from "./components/Navbar";
 
 function App() {
-  const MyButton = styled(Button)(({ theme }) => ({
-    backgroundColor: theme.palette.main,
-    color: "#888",
-    margin: 5,
-    "&:hover": {
-      backgroundColor: "blue",
-    },
-  }));
   return (
-    <div>
-      <Button variant="contained">secondary</Button>
-      <Button variant="contained" color="secondary">
-        secondary
-      </Button>
-      <MyButton>one</MyButton>
-      <MyButton>two</MyButton>
-    </div>
+    <Box>
+      <Navbar />
+      <Stack direction="row" spacing={2} justifyContent="space-between">
+        <Sidebar />
+        <Feed />
+        <Rightbar />
+      </Stack>
+    </Box>
   );
 }
 
