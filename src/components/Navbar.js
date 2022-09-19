@@ -50,14 +50,13 @@ const Navbar = () => {
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
-    console.log("event", e);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <StyledToolbar>
         <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
           JT
