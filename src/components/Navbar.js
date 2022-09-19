@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -45,6 +45,17 @@ const MobileIcons = styled(Box)(({ theme }) => ({
 }));
 
 const Navbar = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+    console.log("event", e);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <AppBar position="static">
       <StyledToolbar>
@@ -62,9 +73,9 @@ const Navbar = () => {
           <Badge badgeContent={3} color="error">
             <CircleNotifications />
           </Badge>
-          <Avatar sx={{ width: 30, height: 30 }} />
+          <Avatar sx={{ width: 30, height: 30 }} onClick={handleClick} />
         </Icons>
-        <MobileIcons>
+        <MobileIcons onClick={handleClick}>
           <Avatar sx={{ width: 30, height: 30 }} />
           <Typography variant="h6">User name</Typography>
         </MobileIcons>
@@ -73,40 +84,20 @@ const Navbar = () => {
       <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
-        open={true}
-        onClose={() => {
-          console.log("close clicked");
-        }}
+        open={open}
+        onClose={handleClose}
         anchorOrigin={{
           vertical: "top",
-          horizontal: "left",
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "left",
+          horizontal: "right",
         }}
       >
-        <MenuItem
-          onClick={() => {
-            console.log("close clicked");
-          }}
-        >
-          Profile
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            console.log("close clicked");
-          }}
-        >
-          My account
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            console.log("close clicked");
-          }}
-        >
-          Logout
-        </MenuItem>
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
     </AppBar>
   );
