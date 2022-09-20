@@ -31,8 +31,8 @@ const lists = [
 
 const Sidebar = () => {
   return (
-    <Box flex={1} p={2}>
-      <Box position="fixed">
+    <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+      <Box>
         <List>
           {lists.map((element) => (
             <ListItem disablePadding key={element.id}>
