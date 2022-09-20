@@ -3,122 +3,94 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  styled,
+  Fab,
   Box,
-  InputBase,
-  Badge,
+  Tooltip,
+  IconButton,
   Avatar,
   Menu,
   MenuItem,
-  Fab,
 } from "@mui/material";
 
-import {
-  AcUnit,
-  Mail,
-  CircleNotifications,
-  Search as SearchIcon,
-} from "@mui/icons-material";
+import { AcUnit, Search } from "@mui/icons-material";
+
 import Add from "./Add";
+import Webnav from "./Webnav";
 
-const StyledToolbar = styled(Toolbar)({
-  display: "flex",
-  justifyContent: "space-between",
-});
-
-const Search = styled("div")(({ theme }) => ({
-  backgroundColor: "#fff",
-  padding: theme.spacing(0, 2),
-  borderRadius: theme.shape.borderRadius,
-  width: "50%",
-}));
-
-const Icons = styled(Box)(({ theme }) => ({
-  display: "none",
-  alignItems: "center",
-  gap: theme.spacing(2),
-  [theme.breakpoints.up("sm")]: {
-    display: "flex",
-  },
-}));
-
-const MobileIcons = styled(Box)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: theme.spacing(1),
-  [theme.breakpoints.up("sm")]: {
-    display: "none",
-  },
-}));
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const open = Boolean(anchorElUser);
 
-  const handleClick = (e) => {
-    setAnchorEl(e.currentTarget);
+  const handleOpenUserMenu = (e) => {
+    setAnchorElUser(e.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
   return (
     <AppBar position="sticky">
-      <StyledToolbar>
-        <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
+      <Toolbar>
+        <AcUnit sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+        <Typography
+          variant="h6"
+          component="a"
+          href="/"
+          sx={{
+            display: { xs: "none", md: "flex" },
+            color: "inherit",
+            textDecoration: "none",
+          }}
+        >
           JT
         </Typography>
-        <AcUnit sx={{ display: { xs: "block", sm: "none" } }} />
+        {/* search bar  && notification*/}
+        <Webnav />
 
-        {/* search bar */}
-        <Search>
-          <InputBase placeholder="search..." />
-        </Search>
-
-        <Fab
-          size="small"
-          sx={{ display: { xs: "block", sm: "none", md: "none", lg: "none" } }}
+        <Box
+          sx={{
+            display: "flex",
+          }}
         >
-          <SearchIcon />
-        </Fab>
+          {/* add icon && mobile search icon && user accounnt */}
+          <Add />
+          <IconButton sx={{ display: { md: "none" } }}>
+            <Fab size="small">
+              <Search />
+            </Fab>
+          </IconButton>
 
-        {/* icons section */}
-        <Add />
-        <Icons>
-          <Badge badgeContent={2} color="error">
-            <Mail />
-          </Badge>
-          <Badge badgeContent={3} color="error">
-            <CircleNotifications />
-          </Badge>
-          <Avatar sx={{ width: 30, height: 30 }} onClick={handleClick} />
-        </Icons>
-
-        <MobileIcons onClick={handleClick}>
-          <Avatar sx={{ width: 30, height: 30 }} />
-          <Typography variant="h6">User name</Typography>
-        </MobileIcons>
-      </StyledToolbar>
-
-      {/* dropdown menu section */}
-      <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-      >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
+          <Tooltip title="Account settings">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="Joyce" src="" />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{ mt: "45px" }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={open}
+            onClose={handleCloseUserMenu}
+          >
+            {settings.map((setting) => (
+              <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">{setting}</Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
+      </Toolbar>
     </AppBar>
   );
 };
