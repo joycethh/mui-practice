@@ -10,9 +10,16 @@ import {
   Avatar,
   Menu,
   MenuItem,
+  Fab,
 } from "@mui/material";
 
-import { AcUnit, Mail, CircleNotifications } from "@mui/icons-material";
+import {
+  AcUnit,
+  Mail,
+  CircleNotifications,
+  Search as SearchIcon,
+} from "@mui/icons-material";
+import Add from "./Add";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -62,9 +69,21 @@ const Navbar = () => {
           JT
         </Typography>
         <AcUnit sx={{ display: { xs: "block", sm: "none" } }} />
+
+        {/* search bar */}
         <Search>
           <InputBase placeholder="search..." />
         </Search>
+
+        <Fab
+          size="small"
+          sx={{ display: { xs: "block", sm: "none", md: "none", lg: "none" } }}
+        >
+          <SearchIcon />
+        </Fab>
+
+        {/* icons section */}
+        <Add />
         <Icons>
           <Badge badgeContent={2} color="error">
             <Mail />
@@ -74,12 +93,14 @@ const Navbar = () => {
           </Badge>
           <Avatar sx={{ width: 30, height: 30 }} onClick={handleClick} />
         </Icons>
+
         <MobileIcons onClick={handleClick}>
           <Avatar sx={{ width: 30, height: 30 }} />
           <Typography variant="h6">User name</Typography>
         </MobileIcons>
       </StyledToolbar>
 
+      {/* dropdown menu section */}
       <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
