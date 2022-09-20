@@ -13,7 +13,7 @@ import {
   ListItemText,
   ListItemButton,
   List,
-  Menu,
+  IconButton,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {
@@ -41,10 +41,12 @@ const Add = () => {
 
   return (
     <>
-      <Tooltip onClick={handleOpen} title="Add">
-        <Fab size="small">
-          <AddIcon />
-        </Fab>
+      <Tooltip title="Add">
+        <IconButton onClick={handleOpen}>
+          <Fab size="small">
+            <AddIcon />
+          </Fab>
+        </IconButton>
       </Tooltip>
 
       <StyledModal open={open} onClose={handleClose}>
