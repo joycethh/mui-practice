@@ -10,12 +10,19 @@ import {
   Avatar,
   Menu,
   MenuItem,
+  styled,
+  InputBase,
+  Badge,
 } from "@mui/material";
 
-import { AcUnit, Search } from "@mui/icons-material";
+import {
+  AcUnit,
+  Search as SearchIcon,
+  Mail,
+  CircleNotifications,
+} from "@mui/icons-material";
 
 import Add from "./Add";
-import Webnav from "./Webnav";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -46,19 +53,35 @@ const Navbar = () => {
         >
           JT
         </Typography>
-        {/* search bar  && notification*/}
-        <Webnav />
+        {/* WEB: search bar  && notification*/}
+        <ToolBox>
+          <SearchBox>
+            <InputBase placeholder="search..." />
+          </SearchBox>
+          <IconsBox>
+            <Box sx={{ paddingRight: 2 }}>
+              <Badge badgeContent={2} color="error">
+                <Mail />
+              </Badge>
+            </Box>
+            <Box>
+              <Badge badgeContent={3} color="error">
+                <CircleNotifications />
+              </Badge>
+            </Box>
+          </IconsBox>
+        </ToolBox>
 
         <Box
           sx={{
             display: "flex",
           }}
         >
-          {/* add icon && mobile search icon && user accounnt */}
+          {/* add icon && MOBILE search icon && user accounnt */}
           <Add />
           <IconButton sx={{ display: { md: "none" } }}>
             <Fab size="small">
-              <Search />
+              <SearchIcon />
             </Fab>
           </IconButton>
 
@@ -94,5 +117,27 @@ const Navbar = () => {
     </AppBar>
   );
 };
+
+const SearchBox = styled("div")(({ theme }) => ({
+  backgroundColor: "#eee",
+  padding: theme.spacing(0, 2),
+  borderRadius: theme.shape.borderRadius,
+  width: "50%",
+}));
+
+const IconsBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  padding: theme.spacing(0, 3),
+}));
+
+const ToolBox = styled(Box)(({ theme }) => ({
+  justifyContent: "space-between",
+  padding: theme.spacing(0, 4),
+  width: "80%",
+  display: "none",
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+  },
+}));
 
 export default Navbar;
