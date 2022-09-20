@@ -16,7 +16,6 @@ import React from "react";
 const Rightbar = () => {
   return (
     <Box
-      backgroundColor="skyblue"
       flex={2}
       alignItems="center"
       p={2}
