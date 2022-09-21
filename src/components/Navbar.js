@@ -81,11 +81,10 @@ const Navbar = () => {
         >
           {/* add icon && MOBILE search icon && user accounnt */}
           <Add />
-          <IconButton sx={{ display: { md: "none" } }}>
-            <Fab size="small">
-              <SearchIcon />
-            </Fab>
-          </IconButton>
+
+          <Fab size="small" sx={{ display: { md: "none" } }}>
+            <SearchIcon />
+          </Fab>
 
           <Tooltip title="Account settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
