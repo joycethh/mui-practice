@@ -29,7 +29,7 @@ const lists = [
   { text: "Setting", icon: Settings, id: 7 },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ isDarkMode, setIsDarkMode }) => {
   return (
     <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box>
@@ -47,7 +47,12 @@ const Sidebar = () => {
             <ListItemIcon>
               <Brightness4 />
             </ListItemIcon>
-            <Switch defaultChecked />
+            <Switch
+              checked={isDarkMode}
+              onChange={() => {
+                setIsDarkMode(!isDarkMode);
+              }}
+            />
           </ListItemButton>
         </List>
       </Box>
