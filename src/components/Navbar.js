@@ -40,6 +40,7 @@ const Navbar = () => {
   return (
     <AppBar position="sticky">
       <Toolbar>
+        {/* logo section */}
         <AcUnit sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
         <Typography
           variant="h6"
@@ -53,6 +54,7 @@ const Navbar = () => {
         >
           JT
         </Typography>
+
         {/* WEB: search bar  && notification*/}
         <ToolBox>
           <SearchBox>

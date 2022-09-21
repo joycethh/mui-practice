@@ -25,12 +25,12 @@ import {
 } from "@mui/icons-material";
 
 const Add = () => {
-  const [open, setOpen] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,14 +42,14 @@ const Add = () => {
   return (
     <>
       <Tooltip title="Add">
-        <IconButton onClick={handleOpen}>
+        <IconButton onClick={handleOpenModal}>
           <Fab size="small">
             <AddIcon />
           </Fab>
         </IconButton>
       </Tooltip>
 
-      <StyledModal open={open} onClose={handleClose}>
+      <StyledModal open={openModal} onClose={handleCloseModal}>
         <Box
           width={400}
           height={200}
@@ -78,9 +78,10 @@ const Add = () => {
           <Box
             sx={{ display: "flex", justifyContent: "center", padding: 1.5 }}
             aria-controls={openMenu ? "basic-menu" : undefined}
-            onClick={handleClick}
           >
-            <KeyboardArrowUp />
+            <IconButton onClick={handleClick}>
+              <KeyboardArrowUp />
+            </IconButton>
           </Box>
 
           <Stack direction="row" spacing={1}>
