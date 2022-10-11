@@ -20,7 +20,7 @@ const Add = () => {
   return (
     <>
       <Tooltip title="Add">
-        <Edit />
+        <Edit onClick={handleOpenModal} />
       </Tooltip>
 
       <StyledModal open={openModal} onClose={handleCloseModal}>
