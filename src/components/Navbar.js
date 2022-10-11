@@ -5,7 +5,7 @@ import {
   Typography,
   styled,
   InputBase,
-  Box,
+  Stack,
   ListItem,
 } from "@mui/material";
 
@@ -75,7 +75,7 @@ const Navbar = () => {
         </Search>
 
         {/* nav icons  */}
-        <Box component="Stack" sx={{ display: { xs: "flex" } }}>
+        <Stack direction="row">
           <ListItem>
             <Home />
           </ListItem>
@@ -87,7 +87,7 @@ const Navbar = () => {
           <ListItem>
             <MobileCreate />
           </ListItem>
-        </Box>
+        </Stack>
       </Toolbar>
     </AppBar>
   );
