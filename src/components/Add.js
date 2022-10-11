@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Tooltip,
-  Fab,
   Box,
   Modal,
   Typography,
@@ -10,7 +9,7 @@ import {
   Avatar,
 } from "@mui/material";
 
-import { Add as AddIcon } from "@mui/icons-material";
+import { Edit } from "@mui/icons-material";
 import ComposeMenu from "./ComposeMenu";
 
 const Add = () => {
@@ -21,9 +20,7 @@ const Add = () => {
   return (
     <>
       <Tooltip title="Add">
-        <Fab size="small" onClick={handleOpenModal}>
-          <AddIcon />
-        </Fab>
+        <Edit />
       </Tooltip>
 
       <StyledModal open={openModal} onClose={handleCloseModal}>
