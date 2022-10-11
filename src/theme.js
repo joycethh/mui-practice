@@ -13,6 +13,23 @@ const LightTheme = createTheme({
       default: "#eeeeee",
     },
   },
+  components: {
+    MuiToolbar: {
+      styleOverrides: {
+        dense: {
+          height: 28,
+          minHeight: 28,
+        },
+      },
+    },
+    MuiFab: {
+      styleOverrides: {
+        sizeSmall: {
+          height: 30,
+        },
+      },
+    },
+  },
 });
 
 const DarkTheme = createTheme({
