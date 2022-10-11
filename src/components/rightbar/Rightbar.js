@@ -1,7 +1,6 @@
 import {
   Box,
   Typography,
-  AvatarGroup,
   Avatar,
   ImageList,
   ImageListItem,
@@ -118,7 +117,7 @@ const Rightbar = () => {
     </Box>
   );
 };
-const srcset = (image: string, size: number, rows = 1, cols = 1) => {
+const srcset = (image, size, rows = 1, cols = 1) => {
   return {
     src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
     srcSet: `${image}?w=${size * cols}&h=${
