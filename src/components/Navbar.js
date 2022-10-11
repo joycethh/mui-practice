@@ -58,7 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
   return (
-    <AppBar>
+    <AppBar position="sticky">
       <Toolbar>
         {/* logo section */}
         <Typography variant="h6">Funget</Typography>

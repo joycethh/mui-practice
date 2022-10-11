@@ -14,7 +14,7 @@ import {
 import { MoreVert, Favorite, Share } from "@mui/icons-material";
 const Posts = () => {
   return (
-    <Card sx={{ margin: 3 }}>
+    <Card sx={{ margin: 2 }}>
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: red[500] }}>J</Avatar>}
         action={

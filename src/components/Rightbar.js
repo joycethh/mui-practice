@@ -22,14 +22,6 @@ const Rightbar = () => {
       sx={{ display: { xs: "none", sm: "block" } }}
     >
       <Box postion="fixed">
-        <Typography variant="h6">Online Friends</Typography>
-        <AvatarGroup total={24}>
-          <Avatar alt="A">A</Avatar>
-          <Avatar alt="B">B</Avatar>
-          <Avatar alt="C">C</Avatar>
-          <Avatar alt="D">D</Avatar>
-        </AvatarGroup>
-
         <Typography variant="h6"> New Posts</Typography>
         <ImageList
           sx={{ width: 500, height: 450 }}
@@ -52,7 +44,7 @@ const Rightbar = () => {
           ))}
         </ImageList>
 
-        <Typography variant="h6"> New Posts</Typography>
+        <Typography variant="h6"> Trending Topics</Typography>
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
