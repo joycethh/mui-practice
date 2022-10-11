@@ -12,7 +12,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import { MoreVert, Favorite, Share } from "@mui/icons-material";
-const Posts = () => {
+const Post = () => {
   return (
     <Card sx={{ margin: 2 }}>
       <CardHeader
@@ -51,4 +51,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default Post;

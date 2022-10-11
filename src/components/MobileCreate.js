@@ -12,7 +12,7 @@ import {
 import { Edit } from "@mui/icons-material";
 import ComposeMenu from "./ComposeMenu";
 
-const Add = () => {
+const MobileCreate = () => {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
@@ -67,4 +67,4 @@ const PostBox = styled(Box)({
   gap: 10,
 });
 
-export default Add;
+export default MobileCreate;

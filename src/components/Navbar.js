@@ -15,7 +15,7 @@ import {
   LocalFireDepartment,
 } from "@mui/icons-material";
 
-import Add from "./Add";
+import MobileCreate from "./MobileCreate";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -85,7 +85,7 @@ const Navbar = () => {
           </ListItem>
 
           <ListItem>
-            <Add />
+            <MobileCreate />
           </ListItem>
         </Box>
       </Toolbar>
