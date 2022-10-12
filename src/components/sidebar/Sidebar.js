@@ -7,6 +7,7 @@ import {
   ListItemText,
   ListItemIcon,
   Switch,
+  Paper,
 } from "@mui/material";
 import { List as ListIcon, Favorite, Brightness4 } from "@mui/icons-material";
 
@@ -18,7 +19,7 @@ const lists = [
 const Sidebar = ({ isDarkMode, setIsDarkMode }) => {
   return (
     <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
-      <Box>
+      <Paper elevation={0}>
         <List>
           {lists.map((element) => (
             <ListItem disablePadding key={element.id}>
@@ -41,7 +42,7 @@ const Sidebar = ({ isDarkMode, setIsDarkMode }) => {
             />
           </ListItemButton>
         </List>
-      </Box>
+      </Paper>
     </Box>
   );
 };

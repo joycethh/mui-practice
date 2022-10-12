@@ -1,5 +1,6 @@
 import {
   Box,
+  Paper,
   Typography,
   Avatar,
   ImageList,
@@ -20,7 +21,7 @@ const Rightbar = () => {
       p={2}
       sx={{ display: { xs: "none", sm: "block" } }}
     >
-      <Box postion="fixed">
+      <Paper postion="fixed">
         <Typography variant="h6"> New Posts</Typography>
         <ImageList
           sx={{ width: 500, height: 450 }}
@@ -113,7 +114,7 @@ const Rightbar = () => {
             />
           </ListItem>
         </List>
-      </Box>
+      </Paper>
     </Box>
   );
 };

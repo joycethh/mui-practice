@@ -6,7 +6,7 @@ import { InsertPhoto, Tag } from "@mui/icons-material/";
 const Create = () => {
   return (
     <>
-      <Card sx={{ margin: (0, 2) }}>
+      <Card sx={{ marginLeft: 2, marginRight: 2 }}>
         <InputBox>
           <TextField
             label="what is your thought?"
