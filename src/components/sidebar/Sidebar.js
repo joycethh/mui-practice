@@ -9,11 +9,17 @@ import {
   Switch,
   Paper,
 } from "@mui/material";
-import { List as ListIcon, Favorite, Brightness4 } from "@mui/icons-material";
+import {
+  List as ListIcon,
+  Favorite,
+  Brightness4,
+  Star,
+} from "@mui/icons-material";
 
 const lists = [
   { text: "News Feed", icon: ListIcon, id: 1 },
   { text: "Favorite", icon: Favorite, id: 2 },
+  { text: "Saved", icon: Star, id: 3 },
 ];
 
 const Sidebar = ({ isDarkMode, setIsDarkMode }) => {
