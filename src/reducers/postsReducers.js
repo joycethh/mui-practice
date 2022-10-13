@@ -1,6 +1,6 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from "../contants/actionType";
+import { FETCH_ALL, CREATE, UPDATE, DELETE } from "../constants/actionType";
 
-export const postsReducer = (state, action) => {
+export const postsReducer = (state = {}, action) => {
   switch (action.type) {
     case FETCH_ALL:
       return {
