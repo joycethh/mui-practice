@@ -13,7 +13,7 @@ const NewsFeed = () => {
 
   useEffect(() => {
     dispatch(fetchPosts());
-  }, [posts, dispatch]);
+  }, [dispatch]);
 
   return (
     <Box flex={4} p={2}>
