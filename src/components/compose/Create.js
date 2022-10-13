@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Box, TextField, styled, Button, Card, Stack } from "@mui/material";
-
 import { InsertPhoto, Tag } from "@mui/icons-material/";
-import { CreatePost } from "../../services";
 
-const Create = () => {
+import { useDispatch } from "react-redux";
+import { createPost } from "../../actions/postsAction";
+
+const Create = ({ id, setId }) => {
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
     // author:"",
@@ -21,12 +21,7 @@ const Create = () => {
 
   const handleSumbit = (e) => {
     e.preventDefault();
-    dispatch(
-      CreatePost({
-        ...postData,
-      })
-    );
-    console.log("dispatch", dispatch(CreatePost));
+    dispatch(createPost(postData));
   };
 
   return (
