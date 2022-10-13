@@ -2,7 +2,7 @@ import { useState } from "react";
 import Rightbar from "./components/rightbar/Rightbar";
 import NewsFeed from "./components/posts/NewsFeed";
 import Sidebar from "./components/sidebar/Sidebar";
-import { Stack, ThemeProvider, CssBaseline, Container } from "@mui/material";
+import { Stack, ThemeProvider, CssBaseline } from "@mui/material";
 import Navbar from "./components/navbar/Navbar";
 import { DarkTheme, LightTheme } from "./theme";
 
