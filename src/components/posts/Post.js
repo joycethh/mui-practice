@@ -1,6 +1,7 @@
 import React from "react";
 import { red } from "@mui/material/colors";
 import {
+  Tooltip,
   Card,
   CardHeader,
   Avatar,
@@ -11,8 +12,15 @@ import {
   CardActions,
   Checkbox,
 } from "@mui/material";
-import { MoreVert, Favorite, Share } from "@mui/icons-material";
-const Post = () => {
+import {
+  MoreVert,
+  Favorite,
+  Share,
+  Delete,
+  ThumbUp,
+} from "@mui/icons-material";
+
+const Post = ({ id, post }) => {
   return (
     <Card sx={{ m: 2 }}>
       <CardHeader
@@ -23,26 +31,47 @@ const Post = () => {
           </IconButton>
         }
         title="Post"
-        subheader="September 14, 2022"
+        subheader={post.createdAt}
       />
       <CardMedia
         component="img"
         height="194"
-        image="https://freerangestock.com/sample/128669/scenic-view-of-mountain-lake-.jpg"
+        image={
+          post.seletedFile ||
+          "https://freerangestock.com/sample/128669/scenic-view-of-mountain-lake-.jpg"
+        }
         alt="mountain"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          Layers of moutain.
+          {post.message}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <Checkbox
-            icon={<Favorite />}
-            checkedIcon={<Favorite sx={{ color: "red" }} />}
-          />
-        </IconButton>
+        <Tooltip label="like">
+          <IconButton aria-label="add to favorites">
+            <Checkbox
+              icon={<ThumbUp />}
+              checkedIcon={<ThumbUp sx={{ color: "red" }} />}
+            />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip label="save">
+          <IconButton aria-label="add to favorites">
+            <Checkbox
+              icon={<Favorite />}
+              checkedIcon={<Favorite sx={{ color: "red" }} />}
+            />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip label="delete">
+          <IconButton aria-label="add to favorites">
+            <Checkbox icon={<Delete />} />
+          </IconButton>
+        </Tooltip>
+
         <IconButton aria-label="share">
           <Share />
         </IconButton>
