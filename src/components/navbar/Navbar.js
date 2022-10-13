@@ -5,7 +5,7 @@ import {
   Typography,
   styled,
   InputBase,
-  Box,
+  Stack,
   ListItem,
 } from "@mui/material";
 
@@ -15,7 +15,7 @@ import {
   LocalFireDepartment,
 } from "@mui/icons-material";
 
-import Add from "./Add";
+import MobileCreate from "../compose/MobileCreate";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,7 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
   return (
-    <AppBar>
+    <AppBar position="sticky">
       <Toolbar>
         {/* logo section */}
         <Typography variant="h6">Funget</Typography>
@@ -75,7 +75,7 @@ const Navbar = () => {
         </Search>
 
         {/* nav icons  */}
-        <Box component="Stack" sx={{ display: { xs: "flex" } }}>
+        <Stack direction="row">
           <ListItem>
             <Home />
           </ListItem>
@@ -85,9 +85,9 @@ const Navbar = () => {
           </ListItem>
 
           <ListItem>
-            <Add />
+            <MobileCreate />
           </ListItem>
-        </Box>
+        </Stack>
       </Toolbar>
     </AppBar>
   );

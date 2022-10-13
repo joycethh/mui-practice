@@ -1,7 +1,7 @@
 import {
   Box,
+  Paper,
   Typography,
-  AvatarGroup,
   Avatar,
   ImageList,
   ImageListItem,
@@ -15,21 +15,8 @@ import React from "react";
 
 const Rightbar = () => {
   return (
-    <Box
-      flex={2}
-      alignItems="center"
-      p={2}
-      sx={{ display: { xs: "none", sm: "block" } }}
-    >
-      <Box postion="fixed">
-        <Typography variant="h6">Online Friends</Typography>
-        <AvatarGroup total={24}>
-          <Avatar alt="A">A</Avatar>
-          <Avatar alt="B">B</Avatar>
-          <Avatar alt="C">C</Avatar>
-          <Avatar alt="D">D</Avatar>
-        </AvatarGroup>
-
+    <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+      <Paper postion="fixed">
         <Typography variant="h6"> New Posts</Typography>
         <ImageList
           sx={{ width: 500, height: 450 }}
@@ -52,7 +39,7 @@ const Rightbar = () => {
           ))}
         </ImageList>
 
-        <Typography variant="h6"> New Posts</Typography>
+        <Typography variant="h6"> Trending Topics</Typography>
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
@@ -122,11 +109,11 @@ const Rightbar = () => {
             />
           </ListItem>
         </List>
-      </Box>
+      </Paper>
     </Box>
   );
 };
-const srcset = (image: string, size: number, rows = 1, cols = 1) => {
+const srcset = (image, size, rows = 1, cols = 1) => {
   return {
     src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
     srcSet: `${image}?w=${size * cols}&h=${

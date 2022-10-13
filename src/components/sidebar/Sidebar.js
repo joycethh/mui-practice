@@ -7,32 +7,25 @@ import {
   ListItemText,
   ListItemIcon,
   Switch,
+  Paper,
 } from "@mui/material";
 import {
-  Home,
-  Article,
-  Storefront,
-  Event,
-  Plagiarism,
-  Group,
-  Settings,
+  List as ListIcon,
+  Favorite,
   Brightness4,
+  Star,
 } from "@mui/icons-material";
 
 const lists = [
-  { text: "Homepage", icon: Home, id: 1 },
-  { text: "News Feed", icon: Article, id: 2 },
-  { text: "Market", icon: Storefront, id: 3 },
-  { text: "Event", icon: Event, id: 4 },
-  { text: "Pages", icon: Plagiarism, id: 5 },
-  { text: "Groups", icon: Group, id: 6 },
-  { text: "Setting", icon: Settings, id: 7 },
+  { text: "News Feed", icon: ListIcon, id: 1 },
+  { text: "Favorite", icon: Favorite, id: 2 },
+  { text: "Saved", icon: Star, id: 3 },
 ];
 
 const Sidebar = ({ isDarkMode, setIsDarkMode }) => {
   return (
     <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
-      <Box>
+      <Paper elevation={0}>
         <List>
           {lists.map((element) => (
             <ListItem disablePadding key={element.id}>
@@ -55,7 +48,7 @@ const Sidebar = ({ isDarkMode, setIsDarkMode }) => {
             />
           </ListItemButton>
         </List>
-      </Box>
+      </Paper>
     </Box>
   );
 };
