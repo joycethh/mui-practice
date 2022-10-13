@@ -22,7 +22,7 @@ const NewsFeed = () => {
         posts.length > 0 &&
         posts.map((post) => (
           <div key={post._id}>
-            <Post id={id} post={post} />
+            <Post setId={setId} post={post} />
           </div>
         ))}
     </Box>

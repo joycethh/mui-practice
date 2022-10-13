@@ -20,7 +20,15 @@ import {
   ThumbUp,
 } from "@mui/icons-material";
 
-const Post = ({ id, post }) => {
+import { useDispatch } from "react-redux";
+import { deletePost } from "../../actions/postsAction";
+
+const Post = ({ post }) => {
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    dispatch(deletePost(post._id));
+  };
   return (
     <Card sx={{ m: 2 }}>
       <CardHeader
@@ -48,27 +56,30 @@ const Post = ({ id, post }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Tooltip label="like">
+        <Tooltip title="like" arrow>
           <IconButton aria-label="add to favorites">
             <Checkbox
               icon={<ThumbUp />}
-              checkedIcon={<ThumbUp sx={{ color: "red" }} />}
+              checkedIcon={<ThumbUp color="primary" />}
             />
           </IconButton>
         </Tooltip>
 
-        <Tooltip label="save">
+        <Tooltip title="save" arrow>
           <IconButton aria-label="add to favorites">
             <Checkbox
               icon={<Favorite />}
-              checkedIcon={<Favorite sx={{ color: "red" }} />}
+              checkedIcon={<Favorite color="red" />}
             />
           </IconButton>
         </Tooltip>
 
-        <Tooltip label="delete">
-          <IconButton aria-label="add to favorites">
-            <Checkbox icon={<Delete />} />
+        <Tooltip title="delete" arrow>
+          <IconButton aria-label="add to favorites" onClick={handleDelete}>
+            <Checkbox
+              icon={<Delete />}
+              checkedIcon={<Delete color="warning" />}
+            />
           </IconButton>
         </Tooltip>
 
