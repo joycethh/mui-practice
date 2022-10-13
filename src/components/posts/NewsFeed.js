@@ -7,9 +7,6 @@ const NewsFeed = () => {
     <Box flex={4} p={2}>
       <Create />
       <Post />
-      <Post />
-      <Post />
-      <Post />
     </Box>
   );
 };
