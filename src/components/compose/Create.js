@@ -1,24 +1,39 @@
 import React, { useState } from "react";
-import { Box, TextField, styled, Button, Card, Stack } from "@mui/material";
-import { InsertPhoto, Tag } from "@mui/icons-material/";
-
+import {
+  Box,
+  TextField,
+  styled,
+  Button,
+  Card,
+  Stack,
+  IconButton,
+} from "@mui/material";
+import { InsertPhoto, Tag, Clear } from "@mui/icons-material/";
+import Uploader from "../Uploader";
 import { useDispatch } from "react-redux";
 import { createPost } from "../../actions/postsAction";
 
 const Create = ({ id, setId }) => {
   const dispatch = useDispatch();
+
   const [postData, setPostData] = useState({
     // author:"",
     message: "",
     tags: "",
-    selectedFile: "",
+    imageList: [],
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPostData({ ...postData, [name]: value });
+    console.log("e.target.name", e.target.name);
+    console.log("e.target.value", e.target.value);
   };
 
+  const handleUploadImages = (e) => {
+    setPostData({ ...postData, imageList: e.target.value });
+    console.log("imageList", postData.imageList);
+  };
   const handleSumbit = (e) => {
     e.preventDefault();
     dispatch(createPost(postData));
@@ -42,8 +57,22 @@ const Create = ({ id, setId }) => {
               onChange={handleChange}
             />
           </InputBox>
+          <div type="input" name="imageList" onChange={handleChange}>
+            <Uploader handleUploadImages={handleUploadImages} />
+          </div>
 
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <BtnWrapper>
+            <StyledButton
+              variant="contained"
+              color="secondary"
+              size="small"
+              onClick={handleSumbit}
+            >
+              Submit
+            </StyledButton>
+          </BtnWrapper>
+
+          {/* <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <StyledStack direction="row" spacing={2}>
               <InsertPhoto sx={{ color: "#ff7f31" }} />
               <Tag sx={{ color: "#ff7f31" }} />
@@ -58,7 +87,7 @@ const Create = ({ id, setId }) => {
                 Submit
               </StyledButton>
             </BtnWrapper>
-          </Box>
+          </Box> */}
         </form>
       </Card>
     </>

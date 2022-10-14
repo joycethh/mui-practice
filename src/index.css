@@ -7,3 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.image-item{
+  display: flex;
+  margin: 10px 0;
+    position: "relative";
+}
+.image-overlay-btn {
+  position: "absolute";
+  top: "20px";
+  right: "20px";
+  color: "red";
+}
