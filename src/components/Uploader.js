@@ -3,13 +3,17 @@ import ImageUploading from "react-images-uploading";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
 import { IconButton } from "@mui/material";
 
-const Uploader = ({ handleUploadImages }) => {
+const Uploader = () => {
   const [images, setImages] = useState([]);
   const maxNumber = 5;
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
-    handleUploadImages(setImages(imageList));
+    // console.log(imageList, addUpdateIndex);
+    console.log("imageList", imageList);
+    setImages(imageList);
+    // Uploader needs to pass imageList to its parent component
+    // Create can pass a handleUploadImages function to Uploader
+    // When handleUploadImages fires in Create, you can update Create state
   };
   return (
     <ImageUploading

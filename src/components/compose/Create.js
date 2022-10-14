@@ -9,33 +9,56 @@ import {
   IconButton,
 } from "@mui/material";
 import { InsertPhoto, Tag, Clear } from "@mui/icons-material/";
-import Uploader from "../Uploader";
+
 import { useDispatch } from "react-redux";
 import { createPost } from "../../actions/postsAction";
+import ImageUploading from "react-images-uploading";
 
 const Create = ({ id, setId }) => {
   const dispatch = useDispatch();
+  const maxNumber = 3;
+  const [message, setMessage] = useState("");
+  const [images, setImages] = useState([]);
 
-  const [postData, setPostData] = useState({
-    // author:"",
-    message: "",
-    tags: "",
-    imageList: [],
-  });
+  // const [postData, setPostData] = useState({
+  //   // author:"",
+  //   message: "",
+  //   tags: "",
+  //   imageList: [],
+  // });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setPostData({ ...postData, [name]: value });
-    console.log("e.target.name", e.target.name);
-    console.log("e.target.value", e.target.value);
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setPostData({ ...postData, [name]: value });
+  // };
+
+  // const handleSumbit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(createPost(postData));
+  // };
+
+  const handleMssgChange = (e) => {
+    const mssgInput = e.target.value;
+    setMessage(mssgInput);
+    console.log("message", message);
   };
 
-  const handleUploadImages = (e) => {
-    setPostData({ ...postData, imageList: e.target.value });
-    console.log("imageList", postData.imageList);
+  const handleImgChange = (imageList) => {
+    console.log("handleImageChange");
+    // Set image state to whatever image was selected
+    setImages(imageList);
+    console.log("imageList", imageList);
+    images.push(imageList[0]);
+    console.log("images", images);
   };
+
+  //how to assign array to new array, postModel, image: [String], set to equal react useState images
+  //how to access the imageList outside
+
   const handleSumbit = (e) => {
     e.preventDefault();
+    const postData = { message, image: images };
+    console.log("postData", postData);
     dispatch(createPost(postData));
   };
 
@@ -54,12 +77,40 @@ const Create = ({ id, setId }) => {
               InputProps={{
                 disableUnderline: true,
               }}
-              onChange={handleChange}
+              onChange={handleMssgChange}
             />
           </InputBox>
-          <div type="input" name="imageList" onChange={handleChange}>
-            <Uploader handleUploadImages={handleUploadImages} />
-          </div>
+
+          <ImageUploading
+            multiple
+            value={images}
+            onChange={handleImgChange}
+            maxNumber={maxNumber}
+            dataURLKey="data_url"
+            acceptType={["jpg", "png", "gif"]}
+            resolutionWidth="500"
+          >
+            {({ imageList, onImageUpload, onImageRemove }) => (
+              <div>
+                <IconButton onClick={onImageUpload}>
+                  <InsertPhoto />
+                </IconButton>
+
+                {/* image preview */}
+                {imageList.map((image, index) => (
+                  <div key={index} className="image-item">
+                    <img src={image.data_url} alt="" width="100" />
+
+                    <div className="image-overlay-btn">
+                      <IconButton onClick={() => onImageRemove(index)}>
+                        <Clear />
+                      </IconButton>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </ImageUploading>
 
           <BtnWrapper>
             <StyledButton

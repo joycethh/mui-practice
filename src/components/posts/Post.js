@@ -41,11 +41,14 @@ const Post = ({ post }) => {
         title="Post"
         subheader={post.createdAt}
       />
+      <div style={{ backgroundColor: "pink" }}>
+        <p> {post.image.map((src) => src.data_url)}</p>
+      </div>
+
       <CardMedia
         component="img"
         height="194"
         image={
-          post.seletedFile ||
           "https://freerangestock.com/sample/128669/scenic-view-of-mountain-lake-.jpg"
         }
         alt="mountain"
