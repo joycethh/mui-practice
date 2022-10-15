@@ -19,23 +19,7 @@ const Create = ({ id, setId }) => {
   const maxNumber = 3;
   const [message, setMessage] = useState("");
   const [images, setImages] = useState([]);
-
-  // const [postData, setPostData] = useState({
-  //   // author:"",
-  //   message: "",
-  //   tags: "",
-  //   imageList: [],
-  // });
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setPostData({ ...postData, [name]: value });
-  // };
-
-  // const handleSumbit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(createPost(postData));
-  // };
+  const [imageInput, setImageInput] = useState([]);
 
   const handleMssgChange = (e) => {
     const mssgInput = e.target.value;
@@ -45,21 +29,26 @@ const Create = ({ id, setId }) => {
 
   const handleImgChange = (imageList) => {
     console.log("handleImageChange");
-    // Set image state to whatever image was selected
     setImages(imageList);
     console.log("imageList", imageList);
-    images.push(imageList[0]);
-    console.log("images", images);
-  };
 
-  //how to assign array to new array, postModel, image: [String], set to equal react useState images
-  //how to access the imageList outside
+    const imageArray = imageList.map((element) => element.data_url);
+    imageInput.push(imageArray);
+    // imageInput.push(imageArray[imageArray.length - 1]);
+
+    // images.push(imageList[0]);
+    // console.log("images", images);
+  };
+  console.log("imageInput", imageInput);
 
   const handleSumbit = (e) => {
     e.preventDefault();
-    const postData = { message, image: images };
+
+    const postData = { message, image: imageInput };
     console.log("postData", postData);
     dispatch(createPost(postData));
+
+    setImageInput([]);
   };
 
   return (
