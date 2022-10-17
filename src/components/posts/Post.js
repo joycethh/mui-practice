@@ -11,7 +11,6 @@ import {
   Typography,
   CardActions,
   Checkbox,
-  sliderClasses,
 } from "@mui/material";
 import {
   MoreVert,
@@ -54,13 +53,19 @@ const Post = ({ post }) => {
         )}
       </div> */}
       <CardMedia height="194">
-        {imageArray.map((element) =>
+        {/* {imageArray.map((element) =>
           element.map((src, index) => (
             <div key={index}>
               <img src={src} alt="" width="194" />
             </div>
           ))
-        )}
+        )} */}
+
+        {imageArray.map((element, index) => (
+          <div key={index}>
+            <img src={element} alt="" width="194" />
+          </div>
+        ))}
       </CardMedia>
 
       <CardContent>

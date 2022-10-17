@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Box,
   TextField,
   styled,
   Button,
@@ -8,12 +7,17 @@ import {
   Stack,
   IconButton,
 } from "@mui/material";
-import { InsertPhoto, Tag, Clear } from "@mui/icons-material/";
+import { InsertPhoto, Clear } from "@mui/icons-material/";
 
 import { useDispatch } from "react-redux";
 import { createPost } from "../../actions/postsAction";
 import ImageUploading from "react-images-uploading";
 
+//1. handleClear function to remove user's input
+//2. photo uploader icon display hidden after click
+//3. image preview size
+//4. post card stylings
+//
 const Create = ({ id, setId }) => {
   const dispatch = useDispatch();
   const maxNumber = 3;
@@ -24,18 +28,17 @@ const Create = ({ id, setId }) => {
   const handleMssgChange = (e) => {
     const mssgInput = e.target.value;
     setMessage(mssgInput);
-    console.log("message", message);
   };
 
   const handleImgChange = (imageList) => {
-    console.log("handleImageChange");
     setImages(imageList);
     console.log("imageList", imageList);
 
-    const imageArray = imageList.map((element) => element.data_url);
-    imageInput.push(imageArray);
-    // imageInput.push(imageArray[imageArray.length - 1]);
+    const listArray = imageList.map((element) => element.data_url);
+    imageInput.push(listArray);
+    if (imageInput.length > 0) setImageInput(imageInput[imageInput.length - 1]);
 
+    // imageInput.push(imageArray[imageArray.length - 1]);
     // images.push(imageList[0]);
     // console.log("images", images);
   };
