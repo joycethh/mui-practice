@@ -6,11 +6,14 @@ import {
   CardHeader,
   Avatar,
   IconButton,
+  ImageList,
+  ImageListItem,
   CardMedia,
   CardContent,
   Typography,
   CardActions,
   Checkbox,
+  Grid,
 } from "@mui/material";
 import {
   MoreVert,
@@ -23,6 +26,8 @@ import {
 import { useDispatch } from "react-redux";
 import { deletePost } from "../../actions/postsAction";
 
+//TODO
+// 1. if user, update card header info
 const Post = ({ post }) => {
   const dispatch = useDispatch();
   const imageArray = post.image;
@@ -48,22 +53,27 @@ const Post = ({ post }) => {
           {post.message}
         </Typography>
       </CardContent>
+      <ImageList gap={5} cols={2}>
+        {imageArray.map((element, index) => (
+          <ImageListItem key={index}>
+            <img
+              src={element}
+              alt=""
+              loading="lazy"
+              style={{ maxHeight: 200, maxWidth: 300 }}
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
 
-      <CardMedia height="194">
-        {/* {imageArray.map((element) =>
+      {/* loop through nested image array
+         {imageArray.map((element) =>
           element.map((src, index) => (
             <div key={index}>
               <img src={src} alt="" width="194" />
             </div>
           ))
         )} */}
-
-        {imageArray.map((element, index) => (
-          <div key={index}>
-            <img src={element} alt="" width="194" />
-          </div>
-        ))}
-      </CardMedia>
 
       <CardActions disableSpacing>
         <Tooltip title="like" arrow>
