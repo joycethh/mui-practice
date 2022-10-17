@@ -27,7 +27,6 @@ const Post = ({ post }) => {
   const dispatch = useDispatch();
   const imageArray = post.image;
 
-  console.log("imageArray in Post", imageArray);
   const handleDelete = () => {
     dispatch(deletePost(post._id));
   };
@@ -43,15 +42,13 @@ const Post = ({ post }) => {
         title="Post"
         subheader={post.createdAt}
       />
-      {/* <div style={{ backgroundColor: "pink", display: "flex" }}>
-        {imageArray.map((element) =>
-          element.map((src, index) => (
-            <div key={index}>
-              <img src={src} alt="" width="100" />
-            </div>
-          ))
-        )}
-      </div> */}
+
+      <CardContent>
+        <Typography variant="body2" color="text.secondary">
+          {post.message}
+        </Typography>
+      </CardContent>
+
       <CardMedia height="194">
         {/* {imageArray.map((element) =>
           element.map((src, index) => (
@@ -68,11 +65,6 @@ const Post = ({ post }) => {
         ))}
       </CardMedia>
 
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {post.message}
-        </Typography>
-      </CardContent>
       <CardActions disableSpacing>
         <Tooltip title="like" arrow>
           <IconButton aria-label="add to favorites">
