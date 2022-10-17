@@ -19,7 +19,7 @@ import {
 
 const Create = ({ id, setId }) => {
   const dispatch = useDispatch();
-  const maxNumber = 3;
+  const maxNumber = 6;
   const [message, setMessage] = useState("");
   const [images, setImages] = useState([]);
   const [imageInput, setImageInput] = useState([]);
