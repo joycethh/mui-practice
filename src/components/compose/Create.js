@@ -89,15 +89,21 @@ const Create = ({ id, setId }) => {
                 </IconButton>
 
                 {/* image preview */}
-                <div className="card">
+                <div className="preview-container">
                   {imageList.map((image, index) => (
                     <div key={index} className="image-item">
-                      <img src={image.data_url} alt="" width="100" />
+                      <img
+                        src={image.data_url}
+                        alt=""
+                        width="100"
+                        className="image"
+                      />
 
                       <div className="overlay">
                         <IconButton
                           size="small"
                           onClick={() => onImageRemove(index)}
+                          sx={{ color: "white" }}
                         >
                           <Clear />
                         </IconButton>

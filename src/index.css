@@ -12,7 +12,7 @@ body {
   margin:0;
   background-color: pink;
 }
-.card {
+.preview-container {
   display: flex;
   flex-direction:row;
   position: relative;
@@ -23,9 +23,14 @@ body {
   margin: 10px 5px;
   position: relative;
 }
+
+.image {
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+}
 .overlay {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  background-color: red;
+  top: -1px;
+  right: -1px;
+  color: "white",
 }
