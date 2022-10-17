@@ -1,23 +1,22 @@
 import React, { useState } from "react";
-import {
-  TextField,
-  styled,
-  Button,
-  Card,
-  Stack,
-  IconButton,
-  CardMedia,
-} from "@mui/material";
+import { TextField, Card, IconButton, ImageListItem } from "@mui/material";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
 
 import { useDispatch } from "react-redux";
 import { createPost } from "../../actions/postsAction";
 import ImageUploading from "react-images-uploading";
 
-//2. photo uploader icon display hidden after click
-//3. image preview size
-//4. post card stylings
-//
+import {
+  InputBox,
+  StyledButton,
+  BtnWrapper,
+  UploaderWrapper,
+  ImagePreviewBox,
+  Overlay,
+} from "./styles";
+
+//TODO. photo uploader icon display hidden after click
+
 const Create = ({ id, setId }) => {
   const dispatch = useDispatch();
   const maxNumber = 3;
@@ -58,98 +57,93 @@ const Create = ({ id, setId }) => {
     <>
       <Card sx={{ marginLeft: 2, marginRight: 2 }} elevation={0}>
         <form autoComplete="off" noValidate onSubmit={handleSumbit}>
-          <ImageUploading
-            multiple
-            value={images}
-            onChange={handleImgChange}
-            maxNumber={maxNumber}
-            dataURLKey="data_url"
-            acceptType={["jpg", "png", "gif"]}
-            resolutionWidth="500"
-          >
-            {({ imageList, onImageUpload, onImageRemove }) => (
-              <div className="container">
-                <InputBox>
-                  <TextField
-                    name="message"
-                    label="what is your thought?"
-                    variant="filled"
-                    multiline
-                    fullWidth
-                    rows={2}
-                    InputProps={{
-                      disableUnderline: true,
-                    }}
-                    onChange={handleMssgChange}
-                  />
-                </InputBox>
+          <div>
+            <InputBox>
+              <TextField
+                name="message"
+                label="what is your thought?"
+                variant="filled"
+                multiline
+                fullWidth
+                rows={2}
+                InputProps={{
+                  disableUnderline: true,
+                }}
+                onChange={handleMssgChange}
+              />
+            </InputBox>
 
-                <IconButton onClick={onImageUpload}>
-                  <InsertPhoto />
-                </IconButton>
-
-                {/* image preview */}
-                <div className="preview-container">
-                  {imageList.map((image, index) => (
-                    <div key={index} className="image-item">
-                      <img
-                        src={image.data_url}
-                        alt=""
-                        width="100"
-                        className="image"
-                      />
-
-                      <div className="overlay">
-                        <IconButton
-                          size="small"
-                          onClick={() => onImageRemove(index)}
-                          sx={{ color: "white" }}
-                        >
-                          <Clear />
-                        </IconButton>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </ImageUploading>
-
-          <BtnWrapper>
-            <StyledButton
-              variant="contained"
-              color="secondary"
-              size="small"
-              onClick={handleSumbit}
+            <ImageUploading
+              multiple
+              value={images}
+              onChange={handleImgChange}
+              maxNumber={maxNumber}
+              dataURLKey="data_url"
+              acceptType={["jpg", "png", "gif"]}
+              resolutionWidth="500"
             >
-              Submit
-            </StyledButton>
-          </BtnWrapper>
+              {({ imageList, onImageUpload, onImageRemove }) => (
+                <div>
+                  {/* image preview */}
+                  <ImagePreviewBox>
+                    {imageList.map((image, index) => (
+                      <ImageListItem
+                        key={index}
+                        sx={{
+                          pr: 1,
+                          maxWidth: 120,
+                          maxHeight: 120,
+                          minWidth: 80,
+                          minHeight: 80,
+                        }}
+                      >
+                        <img
+                          src={image.data_url}
+                          alt=""
+                          width="100"
+                          sx={{
+                            backgroundColor: "rgba(0, 0, 0, 0.5)",
+                            backgroundBlendMode: "darken",
+                          }}
+                        />
+
+                        <Overlay>
+                          <IconButton
+                            size="small"
+                            onClick={() => onImageRemove(index)}
+                            sx={{ color: "#fff" }}
+                          >
+                            <Clear />
+                          </IconButton>
+                        </Overlay>
+                      </ImageListItem>
+                    ))}
+                  </ImagePreviewBox>
+
+                  <UploaderWrapper>
+                    <IconButton onClick={onImageUpload}>
+                      <InsertPhoto color="secondary" />
+                    </IconButton>
+                  </UploaderWrapper>
+                </div>
+              )}
+            </ImageUploading>
+
+            <BtnWrapper>
+              <StyledButton
+                variant="contained"
+                color="secondary"
+                size="small"
+                onClick={handleSumbit}
+              >
+                Submit
+              </StyledButton>
+            </BtnWrapper>
+          </div>
         </form>
       </Card>
     </>
   );
 };
 
-const InputBox = styled("div")(({ theme }) => ({
-  marginBottom: theme.spacing(1),
-  padding: theme.spacing(1, 2),
-}));
-
-const StyledStack = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(1, 2),
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  borderRadius: (theme.shape.borderRadius, 50),
-  textTransform: "capitalize",
-  color: "#fff",
-  justifyContent: "center",
-  fontSize: 12,
-  fontWeight: 600,
-}));
-
-const BtnWrapper = styled("div")(({ theme }) => ({
-  margin: theme.spacing(1, 2),
-}));
 export default Create;
