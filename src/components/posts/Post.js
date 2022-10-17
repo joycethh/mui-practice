@@ -8,12 +8,10 @@ import {
   IconButton,
   ImageList,
   ImageListItem,
-  CardMedia,
   CardContent,
   Typography,
   CardActions,
   Checkbox,
-  Grid,
 } from "@mui/material";
 import {
   MoreVert,
