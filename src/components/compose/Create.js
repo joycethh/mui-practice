@@ -32,28 +32,28 @@ const Create = ({ id, setId }) => {
 
   const handleImgChange = (imageList) => {
     setImages(imageList);
-    console.log("imageList", imageList);
 
     const listArray = imageList.map((element) => element.data_url);
     imageInput.push(listArray);
-    if (imageInput.length > 0) setImageInput(imageInput[imageInput.length - 1]);
-
-    // imageInput.push(imageArray[imageArray.length - 1]);
-    // images.push(imageList[0]);
-    // console.log("images", images);
+    if (imageInput.length > 0) {
+      setImageInput(imageInput[imageInput.length - 1]);
+    }
   };
-  console.log("imageInput", imageInput);
 
   const handleSumbit = (e) => {
     e.preventDefault();
 
     const postData = { message, image: imageInput };
-    console.log("postData", postData);
     dispatch(createPost(postData));
 
-    setImageInput([]);
+    handleClear();
   };
 
+  const handleClear = () => {
+    setMessage("");
+    setImages([]);
+    setImageInput([]);
+  };
   return (
     <>
       <Card sx={{ marginLeft: 2, marginRight: 2 }}>
