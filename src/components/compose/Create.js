@@ -58,21 +58,6 @@ const Create = ({ id, setId }) => {
     <>
       <Card sx={{ marginLeft: 2, marginRight: 2 }} elevation={0}>
         <form autoComplete="off" noValidate onSubmit={handleSumbit}>
-          <InputBox>
-            <TextField
-              name="message"
-              label="what is your thought?"
-              variant="filled"
-              multiline
-              fullWidth
-              rows={2}
-              InputProps={{
-                disableUnderline: true,
-              }}
-              onChange={handleMssgChange}
-            />
-          </InputBox>
-
           <ImageUploading
             multiple
             value={images}
@@ -84,6 +69,21 @@ const Create = ({ id, setId }) => {
           >
             {({ imageList, onImageUpload, onImageRemove }) => (
               <div className="container">
+                <InputBox>
+                  <TextField
+                    name="message"
+                    label="what is your thought?"
+                    variant="filled"
+                    multiline
+                    fullWidth
+                    rows={2}
+                    InputProps={{
+                      disableUnderline: true,
+                    }}
+                    onChange={handleMssgChange}
+                  />
+                </InputBox>
+
                 <IconButton onClick={onImageUpload}>
                   <InsertPhoto />
                 </IconButton>
@@ -125,23 +125,6 @@ const Create = ({ id, setId }) => {
               Submit
             </StyledButton>
           </BtnWrapper>
-
-          {/* <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <StyledStack direction="row" spacing={2}>
-              <InsertPhoto sx={{ color: "#ff7f31" }} />
-              <Tag sx={{ color: "#ff7f31" }} />
-            </StyledStack>
-            <BtnWrapper>
-              <StyledButton
-                variant="contained"
-                color="secondary"
-                size="small"
-                onClick={handleSumbit}
-              >
-                Submit
-              </StyledButton>
-            </BtnWrapper>
-          </Box> */}
         </form>
       </Card>
     </>
