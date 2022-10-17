@@ -6,6 +6,7 @@ import {
   Card,
   Stack,
   IconButton,
+  CardMedia,
 } from "@mui/material";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
 
@@ -13,7 +14,6 @@ import { useDispatch } from "react-redux";
 import { createPost } from "../../actions/postsAction";
 import ImageUploading from "react-images-uploading";
 
-//1. handleClear function to remove user's input
 //2. photo uploader icon display hidden after click
 //3. image preview size
 //4. post card stylings
@@ -56,7 +56,7 @@ const Create = ({ id, setId }) => {
   };
   return (
     <>
-      <Card sx={{ marginLeft: 2, marginRight: 2 }}>
+      <Card sx={{ marginLeft: 2, marginRight: 2 }} elevation={0}>
         <form autoComplete="off" noValidate onSubmit={handleSumbit}>
           <InputBox>
             <TextField
@@ -83,23 +83,28 @@ const Create = ({ id, setId }) => {
             resolutionWidth="500"
           >
             {({ imageList, onImageUpload, onImageRemove }) => (
-              <div>
+              <div className="container">
                 <IconButton onClick={onImageUpload}>
                   <InsertPhoto />
                 </IconButton>
 
                 {/* image preview */}
-                {imageList.map((image, index) => (
-                  <div key={index} className="image-item">
-                    <img src={image.data_url} alt="" width="100" />
+                <div className="card">
+                  {imageList.map((image, index) => (
+                    <div key={index} className="image-item">
+                      <img src={image.data_url} alt="" width="100" />
 
-                    <div className="image-overlay-btn">
-                      <IconButton onClick={() => onImageRemove(index)}>
-                        <Clear />
-                      </IconButton>
+                      <div className="overlay">
+                        <IconButton
+                          size="small"
+                          onClick={() => onImageRemove(index)}
+                        >
+                          <Clear />
+                        </IconButton>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             )}
           </ImageUploading>

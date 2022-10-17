@@ -8,20 +8,24 @@ body {
 }
 
 .container { 
-  position:relative;
   padding:0;
   margin:0;
+  background-color: pink;
 }
-
+.card {
+  display: flex;
+  flex-direction:row;
+  position: relative;
+}
 
 .image-item{
   display: flex;
-  margin: 10px 0;
-    position: "relative";
+  margin: 10px 5px;
+  position: relative;
 }
-.image-overlay-btn {
-  position: "absolute";
-  top: "20px";
-  right: "20px";
-  color: "red";
+.overlay {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: red;
 }
