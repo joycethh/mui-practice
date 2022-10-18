@@ -1,4 +1,10 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from "../constants/actionType";
+import {
+  FETCH_ALL,
+  GET_ONE,
+  CREATE,
+  UPDATE,
+  DELETE,
+} from "../constants/actionType";
 import * as api from "../api/index";
 
 export const fetchPosts = () => async (dispatch) => {
@@ -6,6 +12,16 @@ export const fetchPosts = () => async (dispatch) => {
   console.log("action fetchall-data", data);
   try {
     dispatch({ type: FETCH_ALL, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getPost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.getPost(id);
+    console.log("action get-one", data);
+    dispatch({ type: GET_ONE, payload: data });
   } catch (error) {
     console.log(error.message);
   }
