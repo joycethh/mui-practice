@@ -34,7 +34,7 @@ const Post = ({ post }) => {
     dispatch(deletePost(post._id));
   };
   return (
-    <Card sx={{ m: 2 }}>
+    <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: red[500] }}>J</Avatar>}
         action={
@@ -51,14 +51,14 @@ const Post = ({ post }) => {
           {post.message}
         </Typography>
       </CardContent>
-      <ImageList gap={5} cols={2}>
+      <ImageList cols={3} sx={{ maxWidth: 780 }}>
         {imageArray.map((element, index) => (
           <ImageListItem key={index}>
             <img
               src={element}
               alt=""
               loading="lazy"
-              style={{ maxHeight: 200, maxWidth: 300 }}
+              style={{ maxHeight: 250, maxWidth: 250 }}
             />
           </ImageListItem>
         ))}
