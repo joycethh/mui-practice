@@ -16,7 +16,7 @@ const NewsFeed = () => {
   }, [dispatch]);
 
   return (
-    <Box flex={4} p={2}>
+    <Box flex={4} pt={1} sx={{ display: { sm: "block" } }}>
       <Create id={id} setId={setId} />
       {posts &&
         posts.length > 0 &&

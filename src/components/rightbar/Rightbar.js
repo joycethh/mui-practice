@@ -15,7 +15,11 @@ import React from "react";
 
 const Rightbar = () => {
   return (
-    <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+    <Box
+      flex={2}
+      pt={1}
+      sx={{ display: { xs: "none", sm: "none", md: "none", lg: "block" } }}
+    >
       <Paper postion="fixed">
         <Typography variant="h6"> New Posts</Typography>
         <ImageList

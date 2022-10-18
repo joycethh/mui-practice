@@ -24,7 +24,11 @@ const lists = [
 
 const Sidebar = ({ isDarkMode, setIsDarkMode }) => {
   return (
-    <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+    <Box
+      flex={1}
+      pt={1}
+      sx={{ display: { xs: "none", sm: "none", md: "block", lg: "block" } }}
+    >
       <Paper elevation={0}>
         <List>
           {lists.map((element) => (
