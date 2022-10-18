@@ -15,8 +15,6 @@ import {
   Overlay,
 } from "./styles";
 
-//TODO. photo uploader icon display hidden after click
-
 const Create = ({ id, setId }) => {
   const dispatch = useDispatch();
   const maxNumber = 6;
