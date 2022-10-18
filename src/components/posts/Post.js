@@ -1,5 +1,5 @@
 import React from "react";
-import { red } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 import {
   Tooltip,
   Card,
@@ -36,13 +36,13 @@ const Post = ({ post }) => {
   return (
     <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
       <CardHeader
-        avatar={<Avatar sx={{ bgcolor: red[500] }}>J</Avatar>}
+        avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
         action={
           <IconButton aria-label="settings">
             <MoreVert />
           </IconButton>
         }
-        title="Post"
+        title="author's name"
         subheader={post.createdAt}
       />
 

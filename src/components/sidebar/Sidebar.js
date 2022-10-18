@@ -14,12 +14,14 @@ import {
   Favorite,
   Brightness4,
   Star,
+  Logout,
 } from "@mui/icons-material";
 
 const lists = [
   { text: "News Feed", icon: ListIcon, id: 1 },
   { text: "Favorite", icon: Favorite, id: 2 },
   { text: "Saved", icon: Star, id: 3 },
+  { text: "Logout", icon: Logout, id: 4 },
 ];
 
 const Sidebar = ({ isDarkMode, setIsDarkMode }) => {
