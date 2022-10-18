@@ -53,7 +53,7 @@ const Create = ({ id, setId }) => {
   };
   return (
     <>
-      <Card sx={{ mr: 2, ml: 2, maxWidth: 780 }} elevation={0}>
+      <Card sx={{ mr: 2, ml: 2, maxWidth: 690 }} elevation={0}>
         <form autoComplete="off" noValidate onSubmit={handleSumbit}>
           <div>
             <InputBox>
