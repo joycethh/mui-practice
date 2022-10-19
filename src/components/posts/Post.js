@@ -1,5 +1,6 @@
 import React from "react";
 import { grey } from "@mui/material/colors";
+import { ButtonBase } from "@mui/material";
 import {
   Tooltip,
   Card,
@@ -20,6 +21,7 @@ import {
   Delete,
   ThumbUp,
 } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { deletePost } from "../../actions/postsAction";
@@ -27,43 +29,50 @@ import { deletePost } from "../../actions/postsAction";
 //TODO
 // 1. if user, update card header info
 const Post = ({ post }) => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const imageArray = post.image;
+
+  const openPost = () => {
+    navigate(`posts/${post._id}`);
+  };
 
   const handleDelete = () => {
     dispatch(deletePost(post._id));
   };
   return (
     <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
-      <CardHeader
-        avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
-        action={
-          <IconButton aria-label="settings">
-            <MoreVert />
-          </IconButton>
-        }
-        title="author's name"
-        subheader={post.createdAt}
-      />
+      <ButtonBase onClick={openPost}>
+        <CardHeader
+          avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
+          action={
+            <IconButton aria-label="settings">
+              <MoreVert />
+            </IconButton>
+          }
+          title="author's name"
+          subheader={post.createdAt}
+        />
 
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {post.message}
-        </Typography>
-      </CardContent>
-      <ImageList cols={3} sx={{ maxWidth: 780 }}>
-        {imageArray.map((element, index) => (
-          <ImageListItem key={index}>
-            <img
-              src={element}
-              alt=""
-              loading="lazy"
-              style={{ maxHeight: 250, maxWidth: 250 }}
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
-
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {post.message}
+          </Typography>
+        </CardContent>
+        <ImageList cols={3} sx={{ maxWidth: 780 }}>
+          {imageArray.map((element, index) => (
+            <ImageListItem key={index}>
+              <img
+                src={element}
+                alt=""
+                loading="lazy"
+                style={{ maxHeight: 250, maxWidth: 250 }}
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </ButtonBase>
       {/* loop through nested image array
          {imageArray.map((element) =>
           element.map((src, index) => (
