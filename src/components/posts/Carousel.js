@@ -1,14 +1,17 @@
 import React from "react";
-import { IconButton } from "@mui/material";
+import { IconButton, useTheme, useMediaQuery } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
 const MyCarousel = ({ children }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const arrowStyles = {
     position: "absolute",
     zIndex: 3,
-    top: "calc(50% - 50px)",
+    top: "calc(50% - 40px)",
     width: 40,
     height: 40,
     cursor: "pointer",
@@ -25,9 +28,9 @@ const MyCarousel = ({ children }) => {
     borderRadius: "50%",
     cursor: "pointer",
   };
-
   return (
     <Carousel
+      dynamicHeight={true}
       showThumbs={false}
       renderArrowPrev={(onClickHandler, hasPrev, label) =>
         hasPrev && (
