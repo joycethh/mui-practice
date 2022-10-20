@@ -10,9 +10,8 @@ import {
   CardContent,
   Stack,
 } from "@mui/material";
-import { SlidesContainer } from "./styles";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
+import { SlidesWrapper } from "./styles";
+import MyCarousel from "./Carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { getPost } from "../../actions/postsAction";
 //1. background image
@@ -30,38 +29,47 @@ const PostDetails = () => {
     dispatch(getPost(id));
   }, [id, dispatch]);
 
+  if (post.length < 0) return null;
+
   return (
     <>
       <Box
         sx={{
-          paddingTop: 2,
-          // paddingLeft: { lg: 18, md: 10 },
-          // paddingRight: { lg: 18, md: 5 },
+          padding: 2,
+          paddingLeft: { lg: 18, md: 10 },
+          paddingRight: { lg: 18, md: 5 },
         }}
       >
         <Stack direction="row" justifyContent="center" spacing={3}>
           {/* gallery carousel */}
-          <SlidesContainer>
-            <Carousel thumbWidth="100px" thumbHeight="100px">
-              {post &&
-                post.image.map((element, index) => (
-                  <div key={index}>
-                    <img
-                      src={element}
-                      alt=""
-                      style={{ width: "auto", maxWidth: 600, height: "auto" }}
-                    />
-                  </div>
-                ))}
-            </Carousel>
-          </SlidesContainer>
+          <Box
+            flex={6}
+            sx={{
+              display: "block",
+            }}
+          >
+            <MyCarousel>
+              {post.image.map((element, index) => (
+                <SlidesWrapper key={index}>
+                  <img
+                    src={element}
+                    alt=""
+                    style={{ maxWidth: 600, height: "100%" }}
+                  />
+                </SlidesWrapper>
+              ))}
+            </MyCarousel>
+          </Box>
 
           {/* post message section + users details  section */}
           <Box
             flex={2}
-            sx={{ display: { sm: "none", md: "block" }, maxWdith: 400 }}
+            sx={{
+              display: { xs: "none", sm: "none", md: "block" },
+              maxWdith: 400,
+            }}
           >
-            <Card>
+            <Card elevation={0}>
               <CardHeader
                 avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
                 title={post.author}
