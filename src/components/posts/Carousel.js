@@ -1,12 +1,12 @@
 import React from "react";
-import { IconButton, useTheme, useMediaQuery } from "@mui/material";
+import { IconButton, useTheme } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
 const MyCarousel = ({ children }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  // const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const arrowStyles = {
     position: "absolute",

@@ -10,7 +10,6 @@ import {
   CardContent,
   Stack,
 } from "@mui/material";
-import { SlidesWrapper } from "./styles";
 import MyCarousel from "./Carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { getPost } from "../../actions/postsAction";
@@ -50,13 +49,13 @@ const PostDetails = () => {
           >
             <MyCarousel>
               {post.image.map((element, index) => (
-                <SlidesWrapper key={index}>
+                <div key={index} style={{ backgroundColor: "#304352" }}>
                   <img
                     src={element}
                     alt=""
                     style={{ maxWidth: 600, height: "100%" }}
                   />
-                </SlidesWrapper>
+                </div>
               ))}
             </MyCarousel>
           </Box>
