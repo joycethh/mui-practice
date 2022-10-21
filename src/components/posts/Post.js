@@ -43,23 +43,24 @@ const Post = ({ post }) => {
   };
   return (
     <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
-      <ButtonBase onClick={openPost}>
-        <CardHeader
-          avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
-          action={
-            <IconButton aria-label="settings">
-              <MoreVert />
-            </IconButton>
-          }
-          title="author's name"
-          subheader={post.createdAt}
-        />
+      <CardHeader
+        avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
+        action={
+          <IconButton aria-label="settings">
+            <MoreVert />
+          </IconButton>
+        }
+        title="author's name"
+        subheader={post.createdAt}
+      />
 
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {post.message}
-          </Typography>
-        </CardContent>
+      <CardContent>
+        <Typography variant="body2" color="text.secondary">
+          {post.message}
+        </Typography>
+      </CardContent>
+
+      <ButtonBase onClick={openPost}>
         <ImageList cols={3} sx={{ maxWidth: 780 }}>
           {imageArray.map((element, index) => (
             <ImageListItem key={index}>
