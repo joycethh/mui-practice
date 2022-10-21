@@ -26,8 +26,10 @@ const PostDetails = () => {
 
   useEffect(() => {
     dispatch(getPost(id));
-  }, [id, dispatch]);
+    // eslint-disable-next-line
+  }, [id]);
 
+  if (!post) return null;
   if (post.length < 0) return null;
 
   return (
@@ -48,7 +50,7 @@ const PostDetails = () => {
             }}
           >
             <MyCarousel>
-              {post.image.map((element, index) => (
+              {/* {post.image.map((element, index) => (
                 <div key={index} style={{ backgroundColor: "#304352" }}>
                   <img
                     src={element}
@@ -56,7 +58,7 @@ const PostDetails = () => {
                     style={{ maxWidth: 600, height: "100%" }}
                   />
                 </div>
-              ))}
+              ))} */}
             </MyCarousel>
           </Box>
 

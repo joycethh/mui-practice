@@ -30,12 +30,11 @@ import { deletePost } from "../../actions/postsAction";
 // 1. if user, update card header info
 const Post = ({ post }) => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const imageArray = post.image;
 
   const openPost = () => {
-    navigate(`posts/${post._id}`);
+    navigate(`/posts/${post._id}`);
   };
 
   const handleDelete = () => {
