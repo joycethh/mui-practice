@@ -53,14 +53,17 @@ const Post = ({ post }) => {
         title="author's name"
         subheader={post.createdAt}
       />
+      <ButtonBase
+        component="span"
+        onClick={openPost}
+        sx={{ display: "list-item" }}
+      >
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {post.message}
+          </Typography>
+        </CardContent>
 
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {post.message}
-        </Typography>
-      </CardContent>
-
-      <ButtonBase onClick={openPost}>
         <ImageList cols={3} sx={{ maxWidth: 780 }}>
           {imageArray.map((element, index) => (
             <ImageListItem key={index}>
