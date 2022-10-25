@@ -18,7 +18,7 @@ const LoadingWrapper = styled(Card)(({ theme }) => ({
   height: "25vh",
 }));
 const NewsFeed = () => {
-  const [id, setId] = useState(0);
+  const [currentId, setCurrentId] = useState(0);
   const dispatch = useDispatch();
   const { posts, isLoading } = useSelector((state) => state.posts);
 
@@ -30,7 +30,7 @@ const NewsFeed = () => {
   if (isLoading) {
     return (
       <Box flex={4} pt={1} sx={{ display: { sm: "block" } }}>
-        <Create id={id} setId={setId} />
+        <Create currentId={currentId} setCurrentId={setCurrentId} />
         <LoadingWrapper>
           <CircularProgress />
         </LoadingWrapper>
@@ -40,12 +40,12 @@ const NewsFeed = () => {
 
   return (
     <Box flex={4} pt={1} sx={{ display: { sm: "block" } }}>
-      <Create id={id} setId={setId} />
+      <Create currentId={currentId} setCurrentId={setCurrentId} />
       {posts &&
         posts.length > 0 &&
         posts.map((post) => (
           <div key={post._id}>
-            <Post setId={setId} post={post} />
+            <Post setCurrentId={setCurrentId} post={post} />
           </div>
         ))}
     </Box>
