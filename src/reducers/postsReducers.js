@@ -35,7 +35,7 @@ export const postsReducer = (
       console.log("get one state", state);
       return {
         ...state,
-        posts: action.payload,
+        post: action.payload,
       };
     }
     case CREATE:
