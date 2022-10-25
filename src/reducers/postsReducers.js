@@ -1,4 +1,6 @@
 import {
+  START_LOADING,
+  END_LOADING,
   FETCH_ALL,
   GET_ONE,
   CREATE,
@@ -6,49 +8,81 @@ import {
   DELETE,
 } from "../constants/actionType";
 
-// export const postsReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case FETCH_ALL:
-//       return {
-//         posts: action.payload,
-//       };
-//     case CREATE:
-//       return {
-//         posts: [...state.posts, action.payload],
-//       };
-//     case UPDATE:
-//       return {
-//         posts: [action.payload, ...state.posts],
-//       };
-//     case DELETE:
-//       return {
-//         posts: state.posts.filter(
-//           (restPosts) => restPosts._id !== action.payload
-//         ),
-//       };
-//     default:
-//       return state;
-//   }
-// };
-
-export const postsReducer = (posts = [], action) => {
+export const postsReducer = (
+  state = { posts: [], isLoading: true },
+  action
+) => {
   switch (action.type) {
+    case START_LOADING:
+      console.log("start-loading state", state);
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case END_LOADING: {
+      console.log("end-loading state", state);
+      return {
+        ...state,
+        isLoading: false,
+      };
+    }
     case FETCH_ALL:
-      return action.payload;
-    case GET_ONE:
-      return action.payload;
+      console.log("fetch all state", state);
+      return {
+        posts: action.payload,
+      };
+    case GET_ONE: {
+      console.log("get one state", state);
+      return {
+        ...state,
+        posts: action.payload,
+      };
+    }
     case CREATE:
-      return [action.payload, ...posts];
+      console.log("create state", state);
+      return {
+        ...state,
+        posts: [action.payload, ...state.posts],
+      };
     case UPDATE:
-      return posts.map((post) =>
-        post._id === action.payload._id ? action.payload : post
-      );
+      console.log("update state", state);
+      return {
+        ...state,
+        posts: state.posts.map((updatedPost) =>
+          state._id === action.payload._id ? action.payload : updatedPost
+        ),
+      };
     case DELETE:
-      return posts.filter((post) => post._id !== action.payload);
+      console.log("delete state", state);
+      return {
+        ...state,
+        posts: state.posts.filter(
+          (restPosts) => restPosts._id !== action.payload
+        ),
+      };
     default:
-      return posts;
+      return state;
   }
 };
+
+// export const postsReducer = (posts = [], action) => {
+//   switch (action.type) {
+//     case FETCH_ALL:
+//       return action.payload;
+//     case GET_ONE:
+//       return action.payload;
+//     case CREATE:
+//       return [action.payload, ...posts];
+//     case UPDATE:
+//       return posts.map((post) =>
+//         post._id === action.payload._id ? action.payload : post
+//       );
+//     case DELETE:
+//       return posts.filter((post) => post._id !== action.payload);
+//     default:
+//       return posts;
+//   }
+// };
 // FETCH_ALL_START
 // isPostsLoading: true
 
