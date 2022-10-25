@@ -9,6 +9,8 @@ import {
   CardHeader,
   CardContent,
   Stack,
+  CircularProgress,
+  Paper,
 } from "@mui/material";
 import MyCarousel from "./Carousel";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,18 +21,24 @@ import { getPost } from "../../actions/postsAction";
 
 const PostDetails = () => {
   const { id } = useParams();
-  console.log("id", id);
-  const dispatch = useDispatch();
-  const post = useSelector((state) => state.posts);
-  console.log("post", post);
 
+  const dispatch = useDispatch();
+  const { post, posts, isLoading } = useSelector((state) => state.posts);
+  console.log("postdetails-page", post);
+  console.log("postadetails-page-potsts", posts);
   useEffect(() => {
     dispatch(getPost(id));
     // eslint-disable-next-line
   }, [id]);
 
   if (!post) return null;
-  if (post.length < 0) return null;
+  if (isLoading) {
+    return (
+      <Paper>
+        <CircularProgress />
+      </Paper>
+    );
+  }
 
   return (
     <>
@@ -50,15 +58,16 @@ const PostDetails = () => {
             }}
           >
             <MyCarousel>
-              {/* {post.image.map((element, index) => (
-                <div key={index} style={{ backgroundColor: "#304352" }}>
-                  <img
-                    src={element}
-                    alt=""
-                    style={{ maxWidth: 600, height: "100%" }}
-                  />
-                </div>
-              ))} */}
+              {post &&
+                post.image.map((element, index) => (
+                  <div key={index} style={{ backgroundColor: "#304352" }}>
+                    <img
+                      src={element}
+                      alt=""
+                      style={{ maxWidth: 600, height: "100%" }}
+                    />
+                  </div>
+                ))}
             </MyCarousel>
           </Box>
 
