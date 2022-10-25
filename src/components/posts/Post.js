@@ -28,7 +28,11 @@ import { deletePost } from "../../actions/postsAction";
 
 //TODO
 // 1. if user, update card header info
-const Post = ({ post }) => {
+
+//update post
+
+//2. dispatch updatePost function
+const Post = ({ post, setCurrentId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const imageArray = post.image;
@@ -45,9 +49,17 @@ const Post = ({ post }) => {
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
         action={
-          <IconButton aria-label="settings">
-            <MoreVert />
-          </IconButton>
+          <Tooltip title="Edit">
+            <IconButton
+              aria-label="edit"
+              onClick={() => {
+                console.log("selected post id", post._id);
+                setCurrentId(post._id);
+              }}
+            >
+              <MoreVert />
+            </IconButton>
+          </Tooltip>
         }
         title="author's name"
         subheader={post.createdAt}
