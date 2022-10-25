@@ -1,4 +1,6 @@
 import {
+  START_LOADING,
+  END_LOADING,
   FETCH_ALL,
   GET_ONE,
   CREATE,
@@ -8,10 +10,13 @@ import {
 import * as api from "../api/index";
 
 export const fetchPosts = () => async (dispatch) => {
-  const { data } = await api.fetchPosts();
-  console.log("action fetchall-data", data);
   try {
+    dispatch({ type: START_LOADING });
+
+    const { data } = await api.fetchPosts();
     dispatch({ type: FETCH_ALL, payload: data });
+
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
   }
@@ -19,9 +24,13 @@ export const fetchPosts = () => async (dispatch) => {
 
 export const getPost = (id) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
+
     const { data } = await api.getPost(id);
     console.log("action get-one", data);
     dispatch({ type: GET_ONE, payload: data });
+
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
   }
