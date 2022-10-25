@@ -1,19 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+import { Box, Card, CircularProgress, styled } from "@mui/material";
 import Post from "./Post";
 import Create from "../compose/Create";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../../actions/postsAction";
 
+const LoadingWrapper = styled(Card)(({ theme }) => ({
+  elevation: 10,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  marginLeft: theme.spacing(2),
+  marginRight: theme.spacing(2),
+  marginTop: theme.spacing(2),
+  maxWidth: 690,
+  height: "25vh",
+}));
 const NewsFeed = () => {
   const [id, setId] = useState(0);
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts);
+  const { posts, isLoading } = useSelector((state) => state.posts);
 
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
+
+  if (!posts) return null;
+  if (isLoading) {
+    return (
+      <Box flex={4} pt={1} sx={{ display: { sm: "block" } }}>
+        <Create id={id} setId={setId} />
+        <LoadingWrapper>
+          <CircularProgress />
+        </LoadingWrapper>
+      </Box>
+    );
+  }
 
   return (
     <Box flex={4} pt={1} sx={{ display: { sm: "block" } }}>
