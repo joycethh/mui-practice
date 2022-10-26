@@ -11,23 +11,21 @@ import {
 } from "@mui/material";
 import {
   List as ListIcon,
-  Favorite,
+  FolderSpecial,
   Brightness4,
-  Star,
   Logout,
 } from "@mui/icons-material";
 
 const lists = [
   { text: "News Feed", icon: ListIcon, id: 1 },
-  { text: "Favorite", icon: Favorite, id: 2 },
-  { text: "Saved", icon: Star, id: 3 },
+  { text: "Saved Posts", icon: FolderSpecial, id: 3 },
   { text: "Logout", icon: Logout, id: 4 },
 ];
 
 const Sidebar = ({ isDarkMode, setIsDarkMode }) => {
   return (
     <Box
-      flex={1}
+      flex={1.5}
       pt={1}
       sx={{ display: { xs: "none", sm: "none", md: "block", lg: "block" } }}
     >

@@ -45,7 +45,11 @@ const NewsFeed = () => {
         posts.length > 0 &&
         posts.map((post) => (
           <div key={post._id}>
-            <Post setCurrentId={setCurrentId} post={post} />
+            <Post
+              currentId={currentId}
+              setCurrentId={setCurrentId}
+              post={post}
+            />
           </div>
         ))}
     </Box>

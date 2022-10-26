@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { TextField, Card, IconButton, ImageListItem } from "@mui/material";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
 
-import { useDispatch, useSelector } from "react-redux";
-import { createPost, updatePost } from "../../actions/postsAction";
+import { useDispatch } from "react-redux";
+import { createPost } from "../../actions/postsAction";
 import ImageUploading from "react-images-uploading";
 
 import {
@@ -15,37 +15,16 @@ import {
   Overlay,
 } from "./styles";
 
-const Create = ({ currentId, setCurrentId }) => {
+const Create = () => {
   const dispatch = useDispatch();
   const maxNumber = 6;
   const [message, setMessage] = useState("");
   const [images, setImages] = useState([]); //image uploader lists
   const [imageInput, setImageInput] = useState([]);
 
-  //TODO
-  //1. get the selected post id
-  const selectedToUpdate = useSelector((state) =>
-    currentId ? state.posts.posts.find((item) => item._id === currentId) : null
-  );
-  console.log("selectedToUpdate", selectedToUpdate);
-
-  //2. populate the form with the seleted post data
-  useEffect(() => {
-    if (selectedToUpdate) {
-      setMessage(selectedToUpdate.message);
-      console.log("update-message", message);
-      setImageInput(selectedToUpdate.image);
-      console.log("update-image", imageInput);
-    }
-  }, [imageInput, message, selectedToUpdate]);
-  const handleMssgChange = (e) => {
-    const mssgInput = e.target.value;
-    setMessage(mssgInput);
-  };
-
+  //image preview & handle image change
   const handleImgChange = (imageList) => {
     setImages(imageList);
-
     const listArray = imageList.map((element) => element.data_url);
     imageInput.push(listArray);
     if (imageInput.length > 0) {
@@ -53,26 +32,24 @@ const Create = ({ currentId, setCurrentId }) => {
     }
   };
 
-  const handleSumbit = (e) => {
-    e.preventDefault();
-
-    if (currentId === 0) {
-      const postData = { message, image: imageInput };
-      dispatch(createPost(postData));
-      handleClear();
-    } else {
-      const postData = { message, image: imageInput };
-      dispatch(updatePost(currentId, postData));
-
-      handleClear();
-    }
+  const handleMssgChange = (e) => {
+    const mssgInput = e.target.value;
+    setMessage(mssgInput);
   };
 
+  //clear form
   const handleClear = () => {
-    setCurrentId(0);
     setMessage("");
     setImages([]);
     setImageInput([]);
+  };
+
+  //submit the form
+  const handleSumbit = (e) => {
+    e.preventDefault();
+    const postData = { message, image: imageInput };
+    dispatch(createPost(postData));
+    handleClear();
   };
   return (
     <>

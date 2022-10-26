@@ -14,13 +14,7 @@ import {
   CardActions,
   Checkbox,
 } from "@mui/material";
-import {
-  MoreVert,
-  Favorite,
-  Share,
-  Delete,
-  ThumbUp,
-} from "@mui/icons-material";
+import { MoreVert, Star, Delete, ThumbUp } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
@@ -29,7 +23,7 @@ import { deletePost } from "../../actions/postsAction";
 //TODO
 // 1. if user, update card header info
 
-const Post = ({ post, setCurrentId }) => {
+const Post = ({ post, currentId, setCurrentId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const imageArray = post.image;
@@ -45,14 +39,8 @@ const Post = ({ post, setCurrentId }) => {
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
         action={
-          <Tooltip title="Edit">
-            <IconButton
-              aria-label="edit"
-              onClick={() => {
-                console.log("selected post id", post._id);
-                setCurrentId(post._id);
-              }}
-            >
+          <Tooltip title="Open">
+            <IconButton aria-label="open" onClick={openPost}>
               <MoreVert />
             </IconButton>
           </Tooltip>
@@ -107,10 +95,7 @@ const Post = ({ post, setCurrentId }) => {
 
         <Tooltip title="save" arrow>
           <IconButton aria-label="add to favorites">
-            <Checkbox
-              icon={<Favorite />}
-              checkedIcon={<Favorite color="red" />}
-            />
+            <Checkbox icon={<Star />} checkedIcon={<Star color="red" />} />
           </IconButton>
         </Tooltip>
 
@@ -122,10 +107,6 @@ const Post = ({ post, setCurrentId }) => {
             />
           </IconButton>
         </Tooltip>
-
-        <IconButton aria-label="share">
-          <Share />
-        </IconButton>
       </CardActions>
     </Card>
   );
