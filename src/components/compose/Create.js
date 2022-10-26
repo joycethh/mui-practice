@@ -22,6 +22,22 @@ const Create = ({ currentId, setCurrentId }) => {
   const [images, setImages] = useState([]); //image uploader lists
   const [imageInput, setImageInput] = useState([]);
 
+  //TODO
+  //1. get the selected post id
+  const selectedToUpdate = useSelector((state) =>
+    currentId ? state.posts.posts.find((item) => item._id === currentId) : null
+  );
+  console.log("selectedToUpdate", selectedToUpdate);
+
+  //2. populate the form with the seleted post data
+  useEffect(() => {
+    if (selectedToUpdate) {
+      setMessage(selectedToUpdate.message);
+      console.log("update-message", message);
+      setImageInput(selectedToUpdate.image);
+      console.log("update-image", imageInput);
+    }
+  }, [imageInput, message, selectedToUpdate]);
   const handleMssgChange = (e) => {
     const mssgInput = e.target.value;
     setMessage(mssgInput);
@@ -36,23 +52,6 @@ const Create = ({ currentId, setCurrentId }) => {
       setImageInput(imageInput[imageInput.length - 1]);
     }
   };
-
-  //TODO
-  //1. get the selected post id
-  //2. populate the form with the post content
-  const selectedToUpdate = useSelector((state) =>
-    currentId ? state.posts.posts.find((item) => item._id === currentId) : null
-  );
-  console.log("selectedToUpdate", selectedToUpdate);
-
-  useEffect(() => {
-    if (selectedToUpdate) {
-      setMessage(selectedToUpdate.message);
-      console.log("update-message", message);
-      setImageInput(selectedToUpdate.image);
-      console.log("update-image", imageInput);
-    }
-  }, [imageInput, message, selectedToUpdate]);
 
   const handleSumbit = (e) => {
     e.preventDefault();
