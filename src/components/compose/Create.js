@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Card, IconButton, ImageListItem } from "@mui/material";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
 
-import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/postsAction";
+import { useDispatch, useSelector } from "react-redux";
+import { createPost, updatePost } from "../../actions/postsAction";
 import ImageUploading from "react-images-uploading";
 
 import {
@@ -15,11 +15,11 @@ import {
   Overlay,
 } from "./styles";
 
-const Create = ({ id, setId }) => {
+const Create = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const maxNumber = 6;
   const [message, setMessage] = useState("");
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState([]); //image uploader lists
   const [imageInput, setImageInput] = useState([]);
 
   const handleMssgChange = (e) => {
@@ -37,16 +37,39 @@ const Create = ({ id, setId }) => {
     }
   };
 
+  //TODO
+  //1. get the selected post id
+  //2. populate the form with the post content
+  const selectedToUpdate = useSelector((state) =>
+    currentId ? state.posts.posts.find((item) => item._id === currentId) : null
+  );
+  console.log("selectedToUpdate", selectedToUpdate);
+
+  useEffect(() => {
+    if (selectedToUpdate) {
+      setMessage(selectedToUpdate.message);
+      console.log("update-message", message);
+      setImageInput(selectedToUpdate.image);
+      console.log("update-image", imageInput);
+    }
+  }, [imageInput, message, selectedToUpdate]);
+
   const handleSumbit = (e) => {
     e.preventDefault();
 
-    const postData = { message, image: imageInput };
-    dispatch(createPost(postData));
-
-    handleClear();
+    if (currentId === 0) {
+      const postData = { message, image: imageInput };
+      dispatch(createPost(postData));
+      handleClear();
+    } else {
+      const postData = { message, image: imageInput };
+      dispatch(updatePost(currentId, postData));
+      handleClear();
+    }
   };
 
   const handleClear = () => {
+    setCurrentId(0);
     setMessage("");
     setImages([]);
     setImageInput([]);

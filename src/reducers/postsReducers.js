@@ -14,20 +14,17 @@ export const postsReducer = (
 ) => {
   switch (action.type) {
     case START_LOADING:
-      console.log("start-loading state", state);
       return {
         ...state,
         isLoading: true,
       };
     case END_LOADING: {
-      console.log("end-loading state", state);
       return {
         ...state,
         isLoading: false,
       };
     }
     case FETCH_ALL:
-      console.log("fetch all state", state);
       return {
         posts: action.payload,
       };
@@ -48,8 +45,8 @@ export const postsReducer = (
       console.log("update state", state);
       return {
         ...state,
-        posts: state.posts.map((updatedPost) =>
-          state._id === action.payload._id ? action.payload : updatedPost
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
         ),
       };
     case DELETE:
