@@ -81,8 +81,6 @@ const Navbar = () => {
           <ListItem>
             <LocalFireDepartment />
           </ListItem>
-
-          <ListItem></ListItem>
         </Stack>
       </Toolbar>
     </AppBar>

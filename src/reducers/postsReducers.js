@@ -29,20 +29,17 @@ export const postsReducer = (
         posts: action.payload,
       };
     case GET_ONE: {
-      console.log("get one state", state);
       return {
         ...state,
         post: action.payload,
       };
     }
     case CREATE:
-      console.log("create state", state);
       return {
         ...state,
         posts: [action.payload, ...state.posts],
       };
     case UPDATE:
-      console.log("update state", state);
       return {
         ...state,
         posts: state.posts.map((post) =>
@@ -50,7 +47,6 @@ export const postsReducer = (
         ),
       };
     case DELETE:
-      console.log("delete state", state);
       return {
         ...state,
         posts: state.posts.filter(
