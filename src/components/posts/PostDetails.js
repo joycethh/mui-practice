@@ -23,9 +23,8 @@ const PostDetails = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
-  const { post, posts, isLoading } = useSelector((state) => state.posts);
-  console.log("postdetails-page", post);
-  console.log("postadetails-page-potsts", posts);
+  const { post, isLoading } = useSelector((state) => state.posts);
+
   useEffect(() => {
     dispatch(getPost(id));
     // eslint-disable-next-line
