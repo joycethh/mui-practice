@@ -64,6 +64,7 @@ const Create = ({ currentId, setCurrentId }) => {
     } else {
       const postData = { message, image: imageInput };
       dispatch(updatePost(currentId, postData));
+
       handleClear();
     }
   };

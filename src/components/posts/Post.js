@@ -29,14 +29,10 @@ import { deletePost } from "../../actions/postsAction";
 //TODO
 // 1. if user, update card header info
 
-//update post
-
-//2. dispatch updatePost function
 const Post = ({ post, setCurrentId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const imageArray = post.image;
-
   const openPost = () => {
     navigate(`/posts/${post._id}`);
   };
@@ -76,16 +72,18 @@ const Post = ({ post, setCurrentId }) => {
         </CardContent>
 
         <ImageList cols={3} sx={{ maxWidth: 780 }}>
-          {imageArray.map((element, index) => (
-            <ImageListItem key={index}>
-              <img
-                src={element}
-                alt=""
-                loading="lazy"
-                style={{ maxHeight: 250, maxWidth: 250 }}
-              />
-            </ImageListItem>
-          ))}
+          {imageArray &&
+            imageArray.length > 0 &&
+            imageArray.map((element, index) => (
+              <ImageListItem key={index}>
+                <img
+                  src={element}
+                  alt=""
+                  loading="lazy"
+                  style={{ maxHeight: 250, maxWidth: 250 }}
+                />
+              </ImageListItem>
+            ))}
         </ImageList>
       </ButtonBase>
       {/* loop through nested image array
