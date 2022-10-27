@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import { grey } from "@mui/material/colors";
 import {
   ButtonBase,
@@ -50,7 +51,7 @@ const Post = ({ post, currentId, setCurrentId }) => {
           </Tooltip>
         }
         title="author's name"
-        subheader={post.createdAt}
+        subheader={moment(post.createdAt).fromNow()}
       />
       <ButtonBase
         component="span"

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 import { grey } from "@mui/material/colors";
 import {
   Box,
@@ -82,7 +83,7 @@ const PostDetails = () => {
               <CardHeader
                 avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
                 title={post.author}
-                subheader={post.createdAt}
+                subheader={moment(post.createdAt).fromNow()}
               />
 
               <CardContent>
