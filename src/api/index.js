@@ -2,7 +2,7 @@ import axios from "axios";
 //localhost:   baseURL: "http://localhost:5000/"
 //heroku: baseURL: "https://funget-social.herokuapp.com/",
 const API = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "https://funget-social.herokuapp.com/",
 });
 
 export const fetchPosts = () => API.get("/posts");
