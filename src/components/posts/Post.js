@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import moment from "moment";
 import { grey } from "@mui/material/colors";
 import {
   ButtonBase,
@@ -13,26 +14,50 @@ import {
   Typography,
   CardActions,
   Checkbox,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  Button,
 } from "@mui/material";
-import { MoreVert, Star, Delete, ThumbUp } from "@mui/icons-material";
+import {
+  MoreVert,
+  Star,
+  Delete,
+  ThumbUp,
+  ThumbUpOutlined,
+} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { deletePost } from "../../actions/postsAction";
+import { likePost, deletePost } from "../../actions/postsAction";
 
 //TODO
 // 1. if user, update card header info
 
 const Post = ({ post, currentId, setCurrentId }) => {
+  const [openAlert, setOpenAlert] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const imageArray = post.image;
+
   const openPost = () => {
     navigate(`/posts/${post._id}`);
   };
 
+  const clickOpenAlert = () => {
+    setOpenAlert(true);
+  };
+  const closeAlert = () => {
+    setOpenAlert(false);
+  };
   const handleDelete = () => {
     dispatch(deletePost(post._id));
+  };
+
+  const handleLike = () => {
+    dispatch(likePost(post._id));
   };
   return (
     <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
@@ -45,8 +70,8 @@ const Post = ({ post, currentId, setCurrentId }) => {
             </IconButton>
           </Tooltip>
         }
-        title="author's name"
-        subheader={post.createdAt}
+        title="user's name"
+        subheader={moment(post.createdAt).fromNow()}
       />
       <ButtonBase
         component="span"
@@ -54,7 +79,7 @@ const Post = ({ post, currentId, setCurrentId }) => {
         sx={{ display: "list-item" }}
       >
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text">
             {post.message}
           </Typography>
         </CardContent>
@@ -74,25 +99,14 @@ const Post = ({ post, currentId, setCurrentId }) => {
             ))}
         </ImageList>
       </ButtonBase>
-      {/* loop through nested image array
-         {imageArray.map((element) =>
-          element.map((src, index) => (
-            <div key={index}>
-              <img src={src} alt="" width="194" />
-            </div>
-          ))
-        )} */}
 
       <CardActions disableSpacing>
         <Tooltip title="like" arrow>
-          <IconButton aria-label="add to favorites">
-            <Checkbox
-              icon={<ThumbUp />}
-              checkedIcon={<ThumbUp color="primary" />}
-            />
+          <IconButton aria-label="likes" onClick={handleLike}>
+            {post.likes > 0 ? <ThumbUp color="primary" /> : <ThumbUpOutlined />}
           </IconButton>
         </Tooltip>
-
+        <Typography>{post.likes}</Typography>
         <Tooltip title="save" arrow>
           <IconButton aria-label="add to favorites">
             <Checkbox icon={<Star />} checkedIcon={<Star color="red" />} />
@@ -100,13 +114,24 @@ const Post = ({ post, currentId, setCurrentId }) => {
         </Tooltip>
 
         <Tooltip title="delete" arrow>
-          <IconButton aria-label="add to favorites" onClick={handleDelete}>
-            <Checkbox
-              icon={<Delete />}
-              checkedIcon={<Delete color="warning" />}
-            />
+          <IconButton aria-label="add to favorites" onClick={clickOpenAlert}>
+            <Delete />
           </IconButton>
         </Tooltip>
+        <Dialog open={openAlert} onClose={closeAlert}>
+          <DialogTitle>Move to trash?</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              The action can not be reversed. Are you sure to delete the post?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={closeAlert}>Cancel</Button>
+            <Button onClick={handleDelete} color="secondary">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
       </CardActions>
     </Card>
   );

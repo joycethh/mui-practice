@@ -5,6 +5,7 @@ import {
   GET_ONE,
   CREATE,
   UPDATE,
+  LIKE,
   DELETE,
 } from "../constants/actionType";
 
@@ -42,6 +43,12 @@ export const postsReducer = (
     case UPDATE:
       return {
         ...state,
+        post: action.payload,
+      };
+    case LIKE:
+      console.log("like state", state);
+      return {
+        ...state,
         posts: state.posts.map((post) =>
           post._id === action.payload._id ? action.payload : post
         ),
@@ -57,27 +64,3 @@ export const postsReducer = (
       return state;
   }
 };
-
-// export const postsReducer = (posts = [], action) => {
-//   switch (action.type) {
-//     case FETCH_ALL:
-//       return action.payload;
-//     case GET_ONE:
-//       return action.payload;
-//     case CREATE:
-//       return [action.payload, ...posts];
-//     case UPDATE:
-//       return posts.map((post) =>
-//         post._id === action.payload._id ? action.payload : post
-//       );
-//     case DELETE:
-//       return posts.filter((post) => post._id !== action.payload);
-//     default:
-//       return posts;
-//   }
-// };
-// FETCH_ALL_START
-// isPostsLoading: true
-
-// FETCH_ALL_SUCCESS
-// isPostsLoading: false
