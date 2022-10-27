@@ -5,6 +5,7 @@ import {
   GET_ONE,
   CREATE,
   UPDATE,
+  LIKE,
   DELETE,
 } from "../constants/actionType";
 
@@ -43,6 +44,13 @@ export const postsReducer = (
       return {
         ...state,
         posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
+    case LIKE:
+      return {
+        ...state,
+        post: state.posts.map((post) =>
           post._id === action.payload._id ? action.payload : post
         ),
       };

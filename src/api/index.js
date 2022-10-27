@@ -1,7 +1,8 @@
 import axios from "axios";
 //localhost:   baseURL: "http://localhost:5000/"
+//heroku: baseURL: "https://funget-social.herokuapp.com/",
 const API = axios.create({
-  baseURL: "https://funget-social.herokuapp.com/",
+  baseURL: "http://localhost:5000/",
 });
 
 export const fetchPosts = () => API.get("/posts");
@@ -10,3 +11,5 @@ export const createPost = (newPost) => API.post("/posts", newPost);
 export const updatePost = (id, updatedPost) =>
   API.patch(`/posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
+export const likePost = (id, updatedPost) =>
+  API.patch(`/posts/${id}/likePost`, updatedPost);
