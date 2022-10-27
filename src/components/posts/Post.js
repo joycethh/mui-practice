@@ -70,7 +70,7 @@ const Post = ({ post, currentId, setCurrentId }) => {
             </IconButton>
           </Tooltip>
         }
-        title="author's name"
+        title="user's name"
         subheader={moment(post.createdAt).fromNow()}
       />
       <ButtonBase
@@ -79,7 +79,7 @@ const Post = ({ post, currentId, setCurrentId }) => {
         sx={{ display: "list-item" }}
       >
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text">
             {post.message}
           </Typography>
         </CardContent>
