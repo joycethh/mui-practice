@@ -28,7 +28,6 @@ export const getPost = (id) => async (dispatch) => {
     dispatch({ type: START_LOADING });
 
     const { data } = await api.getPost(id);
-    console.log("action get-one", data);
     dispatch({ type: GET_ONE, payload: data });
 
     dispatch({ type: END_LOADING });
@@ -39,9 +38,11 @@ export const getPost = (id) => async (dispatch) => {
 
 export const createPost = (newPost) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.createPost(newPost);
-    console.log("action create-data", data);
+
     dispatch({ type: CREATE, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
   }
@@ -57,9 +58,9 @@ export const updatePost = (id, post) => async (dispatch) => {
   }
 };
 
-export const likePost = (id, updatedPost) => async (dispatch) => {
+export const likePost = (id) => async (dispatch) => {
   try {
-    const { data } = await api.likePost(id, updatedPost);
+    const { data } = await api.likePost(id);
     console.log("action likePost-data", data);
     dispatch({ type: LIKE, payload: data });
   } catch (error) {
