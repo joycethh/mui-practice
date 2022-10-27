@@ -18,7 +18,7 @@ import { MoreVert, Star, Delete, ThumbUp } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { deletePost } from "../../actions/postsAction";
+import { likePost, deletePost } from "../../actions/postsAction";
 
 //TODO
 // 1. if user, update card header info
@@ -33,6 +33,10 @@ const Post = ({ post, currentId, setCurrentId }) => {
 
   const handleDelete = () => {
     dispatch(deletePost(post._id));
+  };
+
+  const handleLike = () => {
+    dispatch(likePost(post._id));
   };
   return (
     <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
@@ -85,11 +89,8 @@ const Post = ({ post, currentId, setCurrentId }) => {
 
       <CardActions disableSpacing>
         <Tooltip title="like" arrow>
-          <IconButton aria-label="add to favorites">
-            <Checkbox
-              icon={<ThumbUp />}
-              checkedIcon={<ThumbUp color="primary" />}
-            />
+          <IconButton aria-label="likes" onClick={handleLike}>
+            <ThumbUp /> {post.likes}
           </IconButton>
         </Tooltip>
 
