@@ -15,7 +15,13 @@ import {
   CardActions,
   Checkbox,
 } from "@mui/material";
-import { MoreVert, Star, Delete, ThumbUp } from "@mui/icons-material";
+import {
+  MoreVert,
+  Star,
+  Delete,
+  ThumbUp,
+  ThumbUpOutlined,
+} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
@@ -79,22 +85,14 @@ const Post = ({ post, currentId, setCurrentId }) => {
             ))}
         </ImageList>
       </ButtonBase>
-      {/* loop through nested image array
-         {imageArray.map((element) =>
-          element.map((src, index) => (
-            <div key={index}>
-              <img src={src} alt="" width="194" />
-            </div>
-          ))
-        )} */}
 
       <CardActions disableSpacing>
         <Tooltip title="like" arrow>
           <IconButton aria-label="likes" onClick={handleLike}>
-            <ThumbUp /> {post.likes}
+            {post.likes > 0 ? <ThumbUp color="primary" /> : <ThumbUpOutlined />}
           </IconButton>
         </Tooltip>
-
+        <Typography>{post.likes}</Typography>
         <Tooltip title="save" arrow>
           <IconButton aria-label="add to favorites">
             <Checkbox icon={<Star />} checkedIcon={<Star color="red" />} />
