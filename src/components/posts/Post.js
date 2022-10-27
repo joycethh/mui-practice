@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import { grey } from "@mui/material/colors";
 import {
@@ -14,6 +14,12 @@ import {
   Typography,
   CardActions,
   Checkbox,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  Button,
 } from "@mui/material";
 import {
   MoreVert,
@@ -31,13 +37,21 @@ import { likePost, deletePost } from "../../actions/postsAction";
 // 1. if user, update card header info
 
 const Post = ({ post, currentId, setCurrentId }) => {
+  const [openAlert, setOpenAlert] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const imageArray = post.image;
+
   const openPost = () => {
     navigate(`/posts/${post._id}`);
   };
 
+  const clickOpenAlert = () => {
+    setOpenAlert(true);
+  };
+  const closeAlert = () => {
+    setOpenAlert(false);
+  };
   const handleDelete = () => {
     dispatch(deletePost(post._id));
   };
@@ -100,13 +114,24 @@ const Post = ({ post, currentId, setCurrentId }) => {
         </Tooltip>
 
         <Tooltip title="delete" arrow>
-          <IconButton aria-label="add to favorites" onClick={handleDelete}>
-            <Checkbox
-              icon={<Delete />}
-              checkedIcon={<Delete color="warning" />}
-            />
+          <IconButton aria-label="add to favorites" onClick={clickOpenAlert}>
+            <Delete />
           </IconButton>
         </Tooltip>
+        <Dialog open={openAlert} onClose={closeAlert}>
+          <DialogTitle>Move to trash?</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              The action can not be reversed. Are you sure to delete the post?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={closeAlert}>Cancel</Button>
+            <Button onClick={handleDelete} color="secondary">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
       </CardActions>
     </Card>
   );
