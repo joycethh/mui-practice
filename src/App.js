@@ -6,6 +6,7 @@ import { DarkTheme, LightTheme } from "./theme";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import PostDetails from "./components/posts/PostDetails";
+import UpdatePost from "./components/posts/UpdatePost";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -23,6 +24,7 @@ function App() {
             }
           />
           <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/posts/:id/edit" element={<UpdatePost />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
