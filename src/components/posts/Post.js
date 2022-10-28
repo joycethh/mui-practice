@@ -45,6 +45,9 @@ const Post = ({ post, currentId, setCurrentId }) => {
   const openPost = () => {
     navigate(`/posts/${post._id}`);
   };
+  const editPost = () => {
+    navigate(`/posts/${post._id}/edit`);
+  };
 
   const clickOpenAlert = () => {
     setOpenAlert(true);
@@ -65,7 +68,7 @@ const Post = ({ post, currentId, setCurrentId }) => {
         avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
         action={
           <Tooltip title="Open">
-            <IconButton aria-label="open" onClick={openPost}>
+            <IconButton aria-label="open" onClick={editPost}>
               <MoreVert />
             </IconButton>
           </Tooltip>
