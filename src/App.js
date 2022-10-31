@@ -24,7 +24,7 @@ function App() {
             }
           />
           <Route path="/posts/:id" element={<PostDetails />} />
-          <Route path="/posts/:id/edit" element={<UpdatePost />} />
+          {/* <Route path="/posts/:id/edit" element={<UpdatePost />} /> */}
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
