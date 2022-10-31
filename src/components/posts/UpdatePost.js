@@ -21,24 +21,23 @@ const UpdatePost = ({ currentId, setCurrentId }) => {
   const post = useSelector((state) =>
     currentId ? state.posts.posts.find((item) => item._id === currentId) : null
   );
-  console.log("currentId", currentId);
-  console.log("edit post", post);
+  console.log("post", post);
+
   //2. populate the form with the value of seleted post
   useEffect(() => {
     if (post) {
       setMessage(post.message);
-      setImages(post.image);
-    }
-  }, [post]);
 
-  const handleSubmit = () => {
+      setImages(post.image);
+      console.log("update-post.image", images);
+    }
+  }, [post, images]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("submit button clicked");
 
     dispatch(updatePost({ message: message, image: images }));
-  };
-
-  const handleMssgChange = (e) => {
-    setMessage(e.target.value);
   };
 
   //image preview & handle image change
@@ -47,7 +46,16 @@ const UpdatePost = ({ currentId, setCurrentId }) => {
   };
   return (
     <>
-      <Card sx={{ mr: 2, ml: 2, maxWidth: 690 }} elevation={0}>
+      <Card
+        sx={{
+          mr: 2,
+          ml: 2,
+          maxWidth: 690,
+          backgroundColor: "pink",
+          marginTop: 2,
+        }}
+        elevation={0}
+      >
         <form autoComplete="off" noValidate onSubmit={handleSubmit}>
           <div>
             <div>
@@ -57,7 +65,11 @@ const UpdatePost = ({ currentId, setCurrentId }) => {
                 multiline
                 fullWidth
                 rows={2}
-                onChange={handleMssgChange}
+                // value={post.message}
+                onChange={(e) => {
+                  setMessage({ ...post, message: e.target.value });
+                  console.log("message-input", message);
+                }}
               />
             </div>
 

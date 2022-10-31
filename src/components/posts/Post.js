@@ -45,9 +45,6 @@ const Post = ({ post, currentId, setCurrentId }) => {
   const openPost = () => {
     navigate(`/posts/${post._id}`);
   };
-  useEffect(() => {
-    setCurrentId(post._id);
-  }, [post._id]);
 
   const clickOpenAlert = () => {
     setOpenAlert(true);
@@ -73,7 +70,6 @@ const Post = ({ post, currentId, setCurrentId }) => {
               onClick={() => {
                 setCurrentId(post._id);
                 console.log("currentId in post", currentId);
-                navigate(`/posts/${post._id}/edit`);
               }}
             >
               <MoreVert />
