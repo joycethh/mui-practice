@@ -41,7 +41,7 @@ const NewsFeed = () => {
   return (
     <Box flex={4} pt={1} sx={{ display: { sm: "block" } }}>
       <Create currentId={currentId} setCurrentId={setCurrentId} />
-      <UpdatePost currentId={currentId} setCurrentId={setCurrentId} />
+      {/* <UpdatePost currentId={currentId} setCurrentId={setCurrentId} /> */}
       {posts &&
         posts.length > 0 &&
         posts.map((post) => (
