@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { grey } from "@mui/material/colors";
 import {
@@ -45,9 +45,9 @@ const Post = ({ post, currentId, setCurrentId }) => {
   const openPost = () => {
     navigate(`/posts/${post._id}`);
   };
-  const editPost = () => {
-    navigate(`/posts/${post._id}/edit`);
-  };
+  useEffect(() => {
+    setCurrentId(post._id);
+  }, [post._id]);
 
   const clickOpenAlert = () => {
     setOpenAlert(true);
@@ -68,7 +68,14 @@ const Post = ({ post, currentId, setCurrentId }) => {
         avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
         action={
           <Tooltip title="Open">
-            <IconButton aria-label="open" onClick={editPost}>
+            <IconButton
+              aria-label="open"
+              onClick={() => {
+                setCurrentId(post._id);
+                console.log("currentId in post", currentId);
+                navigate(`/posts/${post._id}/edit`);
+              }}
+            >
               <MoreVert />
             </IconButton>
           </Tooltip>

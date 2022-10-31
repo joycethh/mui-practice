@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Card,
@@ -8,18 +8,33 @@ import {
 } from "@mui/material";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
 import ImageUploading from "react-images-uploading";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updatePost } from "../../actions/postsAction";
 
-const UpdatePost = () => {
-  const dispatch = useDispatch();
-  const maxNumber = 6;
+const UpdatePost = ({ currentId, setCurrentId }) => {
   const [message, setMessage] = useState("");
   const [images, setImages] = useState([]); //image uploader lists
+  const dispatch = useDispatch();
+  const maxNumber = 6;
+
+  //1. find the seleted post with the id given
+  const post = useSelector((state) =>
+    currentId ? state.posts.posts.find((item) => item._id === currentId) : null
+  );
+  console.log("currentId", currentId);
+  console.log("edit post", post);
+  //2. populate the form with the value of seleted post
+  useEffect(() => {
+    if (post) {
+      setMessage(post.message);
+      setImages(post.image);
+    }
+  }, [post]);
 
   const handleSubmit = () => {
     console.log("submit button clicked");
-    dispatch(updatePost());
+
+    dispatch(updatePost({ message: message, image: images }));
   };
 
   const handleMssgChange = (e) => {
@@ -38,13 +53,10 @@ const UpdatePost = () => {
             <div>
               <TextField
                 name="message"
-                variant="filled"
+                variant="outlined"
                 multiline
                 fullWidth
                 rows={2}
-                InputProps={{
-                  disableUnderline: true,
-                }}
                 onChange={handleMssgChange}
               />
             </div>
