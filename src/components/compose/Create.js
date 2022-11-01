@@ -39,15 +39,23 @@ const Create = ({ currentId, setCurrentId }) => {
     }
   }, [post, images]);
 
-  const [imageInput, setImageInput] = useState([]);
-
   //image preview & handle image change
   const handleImgChange = (imageList) => {
-    setImages(imageList);
-    const listArray = imageList.map((element) => element.data_url);
-    imageInput.push(listArray);
-    if (imageInput.length > 0) {
-      setImageInput(imageInput[imageInput.length - 1]);
+    if (currentId) {
+      // to update post
+      //1. set the image input value equals to the post image
+      setImages(post.image);
+    } else {
+      //to create post
+      setImages(imageList);
+      const listArray = imageList.map((element) => element.data_url);
+      postData.image.push(listArray);
+      if (postData.image.length > 0) {
+        setPostData({
+          ...postData,
+          image: postData.image[postData.image.length - 1],
+        });
+      }
     }
   };
 
@@ -59,7 +67,6 @@ const Create = ({ currentId, setCurrentId }) => {
       image: [],
     });
     setImages([]);
-    setImageInput([]);
   };
 
   //submit the form
@@ -69,7 +76,7 @@ const Create = ({ currentId, setCurrentId }) => {
       dispatch(updatePost(postData));
       handleClear();
     } else {
-      dispatch(createPost(currentId, postData));
+      dispatch(createPost(postData));
       handleClear();
     }
   };
