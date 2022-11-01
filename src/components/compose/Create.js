@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { TextField, Card, IconButton, ImageListItem } from "@mui/material";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
 
-import { useDispatch, useSelector } from "react-redux";
-import { createPost, updatePost } from "../../actions/postsAction";
+import { useDispatch } from "react-redux";
+import { createPost } from "../../actions/postsAction";
 import ImageUploading from "react-images-uploading";
 
 import {
@@ -15,70 +15,41 @@ import {
   Overlay,
 } from "./styles";
 
-const Create = ({ currentId, setCurrentId }) => {
+const Create = () => {
   const dispatch = useDispatch();
   const maxNumber = 6;
-  const [postData, setPostData] = useState({
-    message: "",
-    image: [],
-  });
+  const [message, setMessage] = useState("");
   const [images, setImages] = useState([]); //image uploader lists
-
-  //1. find the seleted post with the id given
-  const post = useSelector((state) =>
-    currentId ? state.posts.posts.find((item) => item._id === currentId) : null
-  );
-  console.log("post", post);
-
-  //2. populate the form with the value of seleted post
-  useEffect(() => {
-    if (post) {
-      setPostData(post);
-      setImages(post.image);
-      console.log("update-post.image", images);
-    }
-  }, [post, images]);
+  const [imageInput, setImageInput] = useState([]);
 
   //image preview & handle image change
   const handleImgChange = (imageList) => {
-    if (currentId) {
-      // to update post
-      //1. set the image input value equals to the post image
-      setImages(post.image);
-    } else {
-      //to create post
-      setImages(imageList);
-      const listArray = imageList.map((element) => element.data_url);
-      postData.image.push(listArray);
-      if (postData.image.length > 0) {
-        setPostData({
-          ...postData,
-          image: postData.image[postData.image.length - 1],
-        });
-      }
+    setImages(imageList);
+    const listArray = imageList.map((element) => element.data_url);
+    imageInput.push(listArray);
+    if (imageInput.length > 0) {
+      setImageInput(imageInput[imageInput.length - 1]);
     }
+  };
+
+  const handleMssgChange = (e) => {
+    const mssgInput = e.target.value;
+    setMessage(mssgInput);
   };
 
   //clear form
   const handleClear = () => {
-    setCurrentId(null);
-    setPostData({
-      message: "",
-      image: [],
-    });
+    setMessage("");
     setImages([]);
+    setImageInput([]);
   };
 
   //submit the form
   const handleSumbit = (e) => {
     e.preventDefault();
-    if (currentId) {
-      dispatch(updatePost(postData));
-      handleClear();
-    } else {
-      dispatch(createPost(postData));
-      handleClear();
-    }
+    const postData = { message, image: imageInput };
+    dispatch(createPost(postData));
+    handleClear();
   };
   return (
     <>
@@ -93,13 +64,11 @@ const Create = ({ currentId, setCurrentId }) => {
                 multiline
                 fullWidth
                 rows={2}
-                value={postData.message}
+                value={message}
                 InputProps={{
                   disableUnderline: true,
                 }}
-                onChange={(e) => {
-                  setPostData({ ...postData, message: e.target.value });
-                }}
+                onChange={handleMssgChange}
               />
             </InputBox>
 
