@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import { grey } from "@mui/material/colors";
 import {
@@ -65,13 +65,7 @@ const Post = ({ post, currentId, setCurrentId }) => {
         avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
         action={
           <Tooltip title="Open">
-            <IconButton
-              aria-label="open"
-              onClick={() => {
-                setCurrentId(post._id);
-                console.log("currentId in post", currentId);
-              }}
-            >
+            <IconButton aria-label="open" onClick={openPost}>
               <MoreVert />
             </IconButton>
           </Tooltip>
