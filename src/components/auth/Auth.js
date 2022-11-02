@@ -50,7 +50,7 @@ const Auth = () => {
             paddingLeft={2}
             paddingRight={2}
             mt={1}
-            mb={1}
+            mb={1.5}
             sx={{ alignItems: "center" }}
           >
             <Grid item xs={6}>
@@ -65,7 +65,7 @@ const Auth = () => {
                     vairant="body1"
                     style={{ display: "inline-block" }}
                   >
-                    Have an account ?{" "}
+                    Have an account?
                   </Typography>
                   <Button size="small" onClick={toggleMode}>
                     Login
