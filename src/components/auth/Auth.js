@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Container, Grid, Typography, Button } from "@mui/material";
-import { LogoContainer, AuthContainer, BtnWrapper } from "./styles";
+import { Link } from "react-router-dom";
+import { Container, Grid, Typography, Button, Stack, Box } from "@mui/material";
+import { LogoContainer, AuthContainer, TitleWrapper } from "./styles";
 import Input from "./Input";
 
 const Auth = () => {
@@ -27,10 +28,32 @@ const Auth = () => {
           <Typography variant="h2">Funget</Typography>
         </LogoContainer>
         <AuthContainer elevation={0}>
-          <Typography variant="h5">
-            {isSignup ? "Register" : "Log in"}
-          </Typography>
-          <Grid container spacing={2} paddingLeft={2} paddingRight={2}>
+          <Grid
+            container
+            spacing={2}
+            paddingLeft={2}
+            paddingRight={2}
+            marginBottom={1}
+            sx={{ backgroundColor: "pink", alignItems: "center" }}
+          >
+            <Grid item xs={6}>
+              <Typography variant="h5">
+                {isSignup ? "Register" : "Log in"}
+              </Typography>
+            </Grid>
+            <Grid item xs={6} sx={{ alignItems: "center" }}>
+              <Typography vairant="body1" sx={{ float: "right" }}>
+                or <Link to="/auth/register">Create an account</Link>
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            spacing={2}
+            paddingLeft={2}
+            paddingRight={2}
+            sx={{ backgroundColor: "skyblue" }}
+          >
             {isSignup && (
               <Input
                 name="username"
@@ -40,7 +63,6 @@ const Auth = () => {
                 onChange={handleChange}
               />
             )}
-
             <Input
               name="email"
               type="email"

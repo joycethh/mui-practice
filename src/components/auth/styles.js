@@ -16,8 +16,7 @@ export const AuthContainer = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
 }));
 
-export const BtnWrapper = styled("div")(({ theme }) => ({
-  marginTop: theme.spacing(3),
-  paddingLeft: theme.spacing(2),
-  paddingRight: theme.spacing(2),
+export const TitleWrapper = styled("div")(({ theme }) => ({
+  margin: theme.spacing(1),
+  backgroundColor: "skyblue",
 }));

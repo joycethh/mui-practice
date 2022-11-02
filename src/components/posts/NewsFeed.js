@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Box, Card, CircularProgress, styled } from "@mui/material";
 import Post from "./Post";
 import Create from "../compose/Create";
-import UpdatePost from "../posts/UpdatePost";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../../actions/postsAction";
 
