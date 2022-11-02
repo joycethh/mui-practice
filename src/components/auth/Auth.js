@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import {
-  Container,
-  Grid,
-  Typography,
-  Button,
-  Link,
-  Divider,
-} from "@mui/material";
+import { useDispatch } from "react-redux";
+import { Container, Grid, Typography, Button, Divider } from "@mui/material";
 import { LogoContainer, AuthContainer } from "./styles";
 import Input from "./Input";
+import { register, login } from "../../actions/authAction";
 
 const Auth = () => {
+  const dispatch = useDispatch();
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -20,7 +16,9 @@ const Auth = () => {
     password: "",
     confirmedPassword: "",
   });
-
+  const toggleMode = () => {
+    setIsSignup(!isSignup);
+  };
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -29,8 +27,14 @@ const Auth = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = () => {
-    console.log("submited");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (isSignup) {
+      dispatch(register(formData));
+    } else {
+      dispatch(login(formData));
+    }
   };
   return (
     <>
@@ -56,17 +60,33 @@ const Auth = () => {
             </Grid>
             <Grid item xs={6} sx={{ alignItems: "center" }}>
               {isSignup ? (
-                <>
-                  <Typography vairant="body1" sx={{ float: "right" }}>
-                    Have an account ? <Link underline="none">Login</Link>
+                <div style={{ float: "right" }}>
+                  <Typography
+                    vairant="body1"
+                    style={{ display: "inline-block" }}
+                  >
+                    Have an account ?{" "}
                   </Typography>
-                </>
+                  <Button size="small" onClick={toggleMode}>
+                    Login
+                  </Button>
+                </div>
               ) : (
-                <>
-                  <Typography vairant="body1" sx={{ float: "right" }}>
-                    or <Link underline="none">Create an account</Link>
+                <div style={{ float: "right" }}>
+                  <Typography
+                    vairant="body1"
+                    style={{ display: "inline-block" }}
+                  >
+                    or
                   </Typography>
-                </>
+                  <Button
+                    disableRipple={true}
+                    size="small"
+                    onClick={toggleMode}
+                  >
+                    Create an account
+                  </Button>
+                </div>
               )}
             </Grid>
           </Grid>
