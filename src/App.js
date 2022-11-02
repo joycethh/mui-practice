@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { useState } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ThemeProvider, CssBaseline } from "@mui/material";
@@ -8,6 +7,8 @@ import { DarkTheme, LightTheme } from "./theme";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import PostDetails from "./components/posts/PostDetails";
+import Auth from "./components/auth/Auth";
+
 const ID = process.env.REACT_APP_GOOGLE_ID;
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
               }
             />
             <Route path="/posts/:id" element={<PostDetails />} />
+            <Route path="/auth" element={<Auth />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
