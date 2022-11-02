@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Container, Grid, Typography, Button, Stack, Box } from "@mui/material";
-import { LogoContainer, AuthContainer, TitleWrapper } from "./styles";
+
+import { Container, Grid, Typography, Button, Link } from "@mui/material";
+import { LogoContainer, AuthContainer } from "./styles";
 import Input from "./Input";
 
 const Auth = () => {
@@ -34,7 +34,7 @@ const Auth = () => {
             paddingLeft={2}
             paddingRight={2}
             marginBottom={1}
-            sx={{ backgroundColor: "pink", alignItems: "center" }}
+            sx={{ alignItems: "center" }}
           >
             <Grid item xs={6}>
               <Typography variant="h5">
@@ -42,18 +42,22 @@ const Auth = () => {
               </Typography>
             </Grid>
             <Grid item xs={6} sx={{ alignItems: "center" }}>
-              <Typography vairant="body1" sx={{ float: "right" }}>
-                or <Link to="/auth/register">Create an account</Link>
-              </Typography>
+              {isSignup ? (
+                <>
+                  <Typography vairant="body1" sx={{ float: "right" }}>
+                    or <Link underline="none">Create an account</Link>
+                  </Typography>
+                </>
+              ) : (
+                <>
+                  <Typography vairant="body1" sx={{ float: "right" }}>
+                    Have an account ? <Link underline="none">Login</Link>
+                  </Typography>
+                </>
+              )}
             </Grid>
           </Grid>
-          <Grid
-            container
-            spacing={2}
-            paddingLeft={2}
-            paddingRight={2}
-            sx={{ backgroundColor: "skyblue" }}
-          >
+          <Grid container spacing={2} paddingLeft={2} paddingRight={2}>
             {isSignup && (
               <Input
                 name="username"

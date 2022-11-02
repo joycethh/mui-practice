@@ -1,5 +1,5 @@
 import { Box, Paper, styled } from "@mui/material";
-
+import { Link } from "react-router-dom";
 export const LogoContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(4),
   display: "flex",
@@ -16,7 +16,6 @@ export const AuthContainer = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
 }));
 
-export const TitleWrapper = styled("div")(({ theme }) => ({
-  margin: theme.spacing(1),
-  backgroundColor: "skyblue",
+export const StyledLink = styled(Link)(({ theme }) => ({
+  textDecoration: "none",
 }));
