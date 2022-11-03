@@ -28,7 +28,7 @@ function App() {
               }
             />
             <Route path="/posts/:id" element={<PostDetails />} />
-            <Route path="/auth" element={<Auth />} />
+            <Route path="/users" element={<Auth />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

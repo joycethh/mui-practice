@@ -5,6 +5,7 @@ import { Container, Grid, Typography, Button, Divider } from "@mui/material";
 import { LogoContainer, AuthContainer } from "./styles";
 import Input from "./Input";
 import { register, login } from "../../actions/authAction";
+import axios from "axios";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -21,12 +22,24 @@ const Auth = () => {
   };
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log("formData at change", formData);
   };
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   console.log("formData", formData);
+  //   const newUser = formData;
+  //   const response = await axios.post(
+  //     "http://localhost:5000/users/register",
+  //     newUser
+  //   );
+  // console.log("response", response);
+  // };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -99,20 +112,20 @@ const Auth = () => {
                   type="text"
                   label="Name"
                   autoFucus
-                  onChange={handleChange}
+                  handleChange={handleChange}
                 />
               )}
               <Input
                 name="email"
                 type="email"
                 label="Email Address"
-                onChange={handleChange}
+                handleChange={handleChange}
               />
               <Input
                 name="password"
                 type={showPassword ? "text" : "password"}
                 label="Password"
-                onChange={handleChange}
+                handleChange={handleChange}
                 handleShowPassword={handleShowPassword}
               />
               {isSignup && (
@@ -120,7 +133,7 @@ const Auth = () => {
                   name="confirmedPassword"
                   type={showPassword ? "text" : "password"}
                   label="Confirm Password"
-                  onChange={handleChange}
+                  handleChange={handleChange}
                   handleShowPassword={handleShowPassword}
                 />
               )}
