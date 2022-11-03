@@ -4,9 +4,7 @@ import { useDispatch } from "react-redux";
 import { Container, Grid, Typography, Button, Divider } from "@mui/material";
 import { LogoContainer, AuthContainer } from "./styles";
 import Input from "./Input";
-import { register, login } from "../../actions/authAction";
-import axios from "axios";
-import { RepeatOneSharp } from "@mui/icons-material";
+import { registerAction, loginAction } from "../../actions/authAction";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -29,29 +27,31 @@ const Auth = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const response = await axios.post(
-      "http://localhost:5000/users/login",
-      formData
-    );
-    console.log("response", response);
-    if (response.status === 200) {
-      console.log("response is okay");
-      localStorage.setItem("profile", JSON.stringify(response));
-    }
-  };
-
-  // const handleSubmit = (e) => {
+  // const handleSubmit = async (e) => {
   //   e.preventDefault();
 
-  //   if (isSignup) {
-  //     dispatch(register(formData));
-  //   } else {
-  //     dispatch(login(formData));
+  //   const response = await axios.post(
+  //     "http://localhost:5000/users/login",
+  //     formData
+  //   );
+  //   console.log("response", response);
+  //   if (response.status === 200) {
+  //     console.log("response is okay");
+  //     localStorage.setItem("profile", JSON.stringify(response));
   //   }
   // };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (isSignup) {
+      dispatch(registerAction(formData));
+      console.log("formata in dispatch", formData);
+    } else {
+      dispatch(loginAction(formData));
+      console.log("formata in dispatch", formData);
+    }
+  };
   return (
     <>
       <Container maxWidth="sm">

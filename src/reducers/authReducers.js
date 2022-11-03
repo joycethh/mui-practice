@@ -9,9 +9,10 @@ export const authReducer = (state = { authData: null }, action) => {
       //2. receive the email, token from server
       //3. save the info to local
       //4. update global state
-      localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
-      console.log("auth action data", action.data);
-      return { ...state, authData: action?.data };
+      localStorage.setItem("profile", JSON.stringify(action.payload));
+      console.log("reducer fired");
+      console.log("reducer data", action.payload);
+      return { ...state, authData: action.payload };
     case LOGOUT:
       //log out logic
       //1. clear local storage
