@@ -1,22 +1,15 @@
 import { AUTH, LOGOUT } from "../constants/actionType";
 
 export const authReducer = (state = { authData: null }, action) => {
-  switch (action.stype) {
+  console.log("action", action);
+  switch (action.type) {
     case AUTH:
-      //auth logic
-      //1. send formData to server, which indudes either register data or login data
-      //--done in api calls and action
-      //2. receive the email, token from server
-      //3. save the info to local
-      //4. update global state
-      localStorage.setItem("profile", JSON.stringify(action.payload));
-      console.log("reducer fired");
-      console.log("reducer data", action.payload);
-      return { ...state, authData: action.payload };
+      console.log("action stype", action);
+
+      localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
+      return { ...state, authData: action?.data };
     case LOGOUT:
-      //log out logic
-      //1. clear local storage
-      //2. update global state
+      console.log("action stype", action.stype);
       localStorage.clear();
       return { ...state, authData: null };
     default:
