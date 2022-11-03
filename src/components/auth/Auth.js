@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Container, Grid, Typography, Button, Divider } from "@mui/material";
 import { LogoContainer, AuthContainer } from "./styles";
 import Input from "./Input";
-import { registerAction, loginAction } from "../../actions/authAction";
+import { register, login } from "../../actions/authAction";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -45,11 +45,9 @@ const Auth = () => {
     e.preventDefault();
 
     if (isSignup) {
-      dispatch(registerAction(formData));
-      console.log("formata in dispatch", formData);
+      dispatch(register(formData));
     } else {
-      dispatch(loginAction(formData));
-      console.log("formata in dispatch", formData);
+      dispatch(login(formData));
     }
   };
   return (
