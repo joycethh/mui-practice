@@ -5,8 +5,9 @@ import {
   Typography,
   styled,
   InputBase,
-  Stack,
-  ListItem,
+  Box,
+  Avatar,
+  IconButton,
 } from "@mui/material";
 
 import {
@@ -73,15 +74,18 @@ const Navbar = () => {
         </Search>
 
         {/* nav icons  */}
-        <Stack direction="row">
-          <ListItem>
-            <Home />
-          </ListItem>
 
-          <ListItem>
+        <Box flex={5} sx={{ display: "block" }}>
+          <IconButton color="inherit">
+            <Home />
+          </IconButton>
+          <IconButton color="inherit">
             <LocalFireDepartment />
-          </ListItem>
-        </Stack>
+          </IconButton>
+        </Box>
+        <Box flex={1} sx={{ display: "block" }}>
+          <Avatar alt="" src="" sx={{ width: 30, height: 30 }} />
+        </Box>
       </Toolbar>
     </AppBar>
   );
