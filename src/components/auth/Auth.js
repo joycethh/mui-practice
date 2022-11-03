@@ -5,7 +5,6 @@ import { Container, Grid, Typography, Button, Divider } from "@mui/material";
 import { LogoContainer, AuthContainer } from "./styles";
 import Input from "./Input";
 import { register, login } from "../../actions/authAction";
-import axios from "axios";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -29,17 +28,6 @@ const Auth = () => {
     setShowPassword(!showPassword);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   console.log("formData", formData);
-  //   const newUser = formData;
-  //   const response = await axios.post(
-  //     "http://localhost:5000/users/register",
-  //     newUser
-  //   );
-  // console.log("response", response);
-  // };
   const handleSubmit = (e) => {
     e.preventDefault();
 
