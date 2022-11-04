@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
 import { Container, Grid, Typography, Button, Divider } from "@mui/material";
@@ -7,6 +8,7 @@ import Input from "./Input";
 import { register, login } from "../../actions/authAction";
 
 const Auth = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -45,9 +47,9 @@ const Auth = () => {
     e.preventDefault();
 
     if (isSignup) {
-      dispatch(register(formData));
+      dispatch(register(formData, navigate));
     } else {
-      dispatch(login(formData));
+      dispatch(login(formData, navigate));
     }
   };
   return (
