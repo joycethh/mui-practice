@@ -14,18 +14,25 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-
+import { useDispatch } from "react-redux";
 import {
   Search as SearchIcon,
   Home,
   LocalFireDepartment,
   Logout,
 } from "@mui/icons-material";
-import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
+import {
+  Search,
+  SearchIconWrapper,
+  StyledInputBase,
+  paperProps,
+} from "./styles";
 import { amber } from "@mui/material/colors";
-const Navbar = () => {
-  const initialUser = JSON.parse(localStorage.getItem("profile"));
+import { logout } from "../../actions/authAction";
 
+const Navbar = () => {
+  const dispatch = useDispatch();
+  const initialUser = JSON.parse(localStorage.getItem("profile"));
   const [user, setUser] = useState(initialUser);
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -40,13 +47,14 @@ const Navbar = () => {
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         console.log("expired");
       }
-
       setUser(initialUser);
     }
   }, [setUser]);
 
   const handleLogout = () => {
     console.log("log out clicked");
+    dispatch(logout());
+    setUser(null);
   };
   return (
     <AppBar position="sticky">
@@ -102,32 +110,7 @@ const Navbar = () => {
                 setOpen(false);
                 setAnchorElUser(null);
               }}
-              PaperProps={{
-                elevation: 0,
-                sx: {
-                  overflow: "visible",
-                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                  mt: 1.5,
-                  "& .MuiAvatar-root": {
-                    width: 32,
-                    height: 32,
-                    ml: -0.5,
-                    mr: 1,
-                  },
-                  "&:before": {
-                    content: '""',
-                    display: "block",
-                    position: "absolute",
-                    top: 0,
-                    right: 14,
-                    width: 10,
-                    height: 10,
-                    bgcolor: "background.paper",
-                    transform: "translateY(-50%) rotate(45deg)",
-                    zIndex: 0,
-                  },
-                },
-              }}
+              PaperProps={paperProps}
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
