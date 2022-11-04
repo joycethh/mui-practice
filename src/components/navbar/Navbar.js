@@ -1,61 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import decode from "jwt-decode";
 import {
   AppBar,
   Toolbar,
   Typography,
-  styled,
-  InputBase,
   Box,
   Avatar,
   IconButton,
+  Button,
 } from "@mui/material";
-
 import {
   Search as SearchIcon,
   Home,
   LocalFireDepartment,
 } from "@mui/icons-material";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: (theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: (theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 
 const Navbar = () => {
+  const initialUser = JSON.parse(localStorage.getItem("profile"));
+  console.log("initialUser", initialUser);
+  const [user, setUser] = useState(initialUser);
+  console.log("user", user);
+  //1. check if there is token, if token expired
+  //2. not, setUser
+  //3. expired, log out user
+  useEffect(() => {
+    const token = user?.token;
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        console.log("expired");
+      }
+
+      setUser(initialUser);
+    }
+  }, [setUser, initialUser, user?.token]);
+
   return (
     <AppBar position="sticky">
       <Toolbar>
@@ -83,9 +63,19 @@ const Navbar = () => {
             <LocalFireDepartment />
           </IconButton>
         </Box>
-        <Box flex={1} sx={{ display: "block" }}>
-          <Avatar alt="" src="" sx={{ width: 30, height: 30 }} />
-        </Box>
+        {user?.result ? (
+          <Box flex={1} sx={{ display: "block" }}>
+            <Avatar
+              alt={user.result.username}
+              src={user.result.picture}
+              sx={{ width: 30, height: 30 }}
+            >
+              {user?.result.username.charAt(0)}
+            </Avatar>
+          </Box>
+        ) : (
+          <Button>Log in</Button>
+        )}
       </Toolbar>
     </AppBar>
   );
