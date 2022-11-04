@@ -8,19 +8,29 @@ import {
   Avatar,
   IconButton,
   Button,
+  Tooltip,
+  Menu,
+  MenuItem,
+  Popover,
+  List,
+  ListItem,
 } from "@mui/material";
+
 import {
   Search as SearchIcon,
   Home,
   LocalFireDepartment,
+  Logout,
 } from "@mui/icons-material";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
-
+import { amber } from "@mui/material/colors";
 const Navbar = () => {
   const initialUser = JSON.parse(localStorage.getItem("profile"));
   console.log("initialUser", initialUser);
   const [user, setUser] = useState(initialUser);
-  console.log("user", user);
+  const [open, setOpen] = useState(false);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
   //1. check if there is token, if token expired
   //2. not, setUser
   //3. expired, log out user
@@ -34,7 +44,7 @@ const Navbar = () => {
 
       setUser(initialUser);
     }
-  }, [setUser, initialUser, user?.token]);
+  }, [setUser]);
 
   return (
     <AppBar position="sticky">
@@ -65,13 +75,36 @@ const Navbar = () => {
         </Box>
         {user?.result ? (
           <Box flex={1} sx={{ display: "block" }}>
-            <Avatar
-              alt={user.result.username}
-              src={user.result.picture}
-              sx={{ width: 30, height: 30 }}
+            <Tooltip title="Account Setting">
+              <IconButton onClick={() => setOpen(true)} sx={{ p: 0 }}>
+                <Avatar
+                  alt={user.result.username}
+                  src={user.result.picture}
+                  sx={{ width: 30, height: 30, bgcolor: amber[700] }}
+                >
+                  {user?.result.username.charAt(0)}
+                </Avatar>
+              </IconButton>
+            </Tooltip>
+
+            <Menu
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={open}
+              onClose={() => setOpen(false)}
             >
-              {user?.result.username.charAt(0)}
-            </Avatar>
+              <MenuItem>
+                <Logout /> Log out
+              </MenuItem>
+            </Menu>
           </Box>
         ) : (
           <Button>Log in</Button>
