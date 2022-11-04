@@ -10,10 +10,9 @@ import {
   Button,
   Tooltip,
   Menu,
-  MenuItem,
-  Popover,
-  List,
-  ListItem,
+  ListItemIcon,
+  ListItemButton,
+  ListItemText,
 } from "@mui/material";
 
 import {
@@ -26,7 +25,7 @@ import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 import { amber } from "@mui/material/colors";
 const Navbar = () => {
   const initialUser = JSON.parse(localStorage.getItem("profile"));
-  console.log("initialUser", initialUser);
+
   const [user, setUser] = useState(initialUser);
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -46,6 +45,9 @@ const Navbar = () => {
     }
   }, [setUser]);
 
+  const handleLogout = () => {
+    console.log("log out clicked");
+  };
   return (
     <AppBar position="sticky">
       <Toolbar>
@@ -76,7 +78,13 @@ const Navbar = () => {
         {user?.result ? (
           <Box flex={1} sx={{ display: "block" }}>
             <Tooltip title="Account Setting">
-              <IconButton onClick={() => setOpen(true)} sx={{ p: 0 }}>
+              <IconButton
+                onClick={(e) => {
+                  setOpen(true);
+                  setAnchorElUser(e.currentTarget);
+                }}
+                sx={{ p: 0 }}
+              >
                 <Avatar
                   alt={user.result.username}
                   src={user.result.picture}
@@ -89,21 +97,46 @@ const Navbar = () => {
 
             <Menu
               anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
               open={open}
-              onClose={() => setOpen(false)}
+              onClose={() => {
+                setOpen(false);
+                setAnchorElUser(null);
+              }}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: "visible",
+                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                  mt: 1.5,
+                  "& .MuiAvatar-root": {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  "&:before": {
+                    content: '""',
+                    display: "block",
+                    position: "absolute",
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: "background.paper",
+                    transform: "translateY(-50%) rotate(45deg)",
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-              <MenuItem>
-                <Logout /> Log out
-              </MenuItem>
+              <ListItemButton onClick={handleLogout} dense={true}>
+                <ListItemIcon>
+                  <Logout />
+                </ListItemIcon>
+                <ListItemText primary="Log out" />
+              </ListItemButton>
             </Menu>
           </Box>
         ) : (
