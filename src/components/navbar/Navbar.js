@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import decode from "jwt-decode";
 import {
   AppBar,
@@ -32,8 +33,9 @@ import { logout } from "../../actions/authAction";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const initialUser = JSON.parse(localStorage.getItem("profile"));
-  const [user, setUser] = useState(initialUser);
+  const [user, setUser] = useState(null);
+  console.log("user initial value", user);
+
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -47,7 +49,7 @@ const Navbar = () => {
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         console.log("expired");
       }
-      setUser(initialUser);
+      setUser(JSON.parse(localStorage.getItem("profile")));
     }
   }, [setUser]);
 
@@ -83,6 +85,7 @@ const Navbar = () => {
             <LocalFireDepartment />
           </IconButton>
         </Box>
+
         {user?.result ? (
           <Box flex={1} sx={{ display: "block" }}>
             <Tooltip title="Account Setting">
@@ -123,7 +126,16 @@ const Navbar = () => {
             </Menu>
           </Box>
         ) : (
-          <Button>Log in</Button>
+          <Box flex={1} sx={{ display: "block" }}>
+            <Button
+              color="inherit"
+              variant="outlined"
+              component={Link}
+              to="/users"
+            >
+              Log in
+            </Button>
+          </Box>
         )}
       </Toolbar>
     </AppBar>
