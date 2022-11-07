@@ -15,7 +15,7 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Search as SearchIcon,
   Home,
@@ -33,8 +33,12 @@ import { logout } from "../../actions/authAction";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const [user, setUser] = useState(null);
-  console.log("user initial value", user);
+  const navigate = useNavigate();
+  const initialUser = useSelector((state) => state.authData);
+  console.log("initialUser", initialUser);
+
+  const [user, setUser] = useState(initialUser);
+  console.log("user", user);
 
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -56,8 +60,11 @@ const Navbar = () => {
   const handleLogout = () => {
     console.log("log out clicked");
     dispatch(logout());
+    navigate("/");
     setUser(null);
   };
+
+  console.log("user", user);
   return (
     <AppBar position="sticky">
       <Toolbar>
