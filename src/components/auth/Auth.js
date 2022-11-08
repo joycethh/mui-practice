@@ -29,20 +29,6 @@ const Auth = () => {
     setShowPassword(!showPassword);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const response = await axios.post(
-  //     "http://localhost:5000/users/login",
-  //     formData
-  //   );
-  //   console.log("response", response);
-  //   if (response.status === 200) {
-  //     console.log("response is okay");
-  //     localStorage.setItem("profile", JSON.stringify(response));
-  //   }
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 

@@ -10,7 +10,7 @@ import {
 } from "../constants/actionType";
 
 const postsReducers = (state = { isLoading: true, posts: [] }, action) => {
-  console.log("state and action", state, action);
+  console.log("posts-state and action", state, action);
   switch (action.type) {
     case START_LOADING:
       return {
