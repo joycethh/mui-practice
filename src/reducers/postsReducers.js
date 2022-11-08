@@ -9,7 +9,7 @@ import {
   DELETE,
 } from "../constants/actionType";
 
-export const postsReducer = (
+export const postsReducers = (
   state = { posts: [], isLoading: true },
   action
 ) => {
