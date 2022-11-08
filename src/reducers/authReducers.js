@@ -1,6 +1,6 @@
 import { AUTH, LOGOUT } from "../constants/actionType";
 
-export const authReducers = (state = { authData: null }, action) => {
+const authReducers = (state = { authData: null }, action) => {
   console.log("reducer state", state);
   console.log("state.authData", state.authData);
   console.log("action", action);
@@ -15,3 +15,5 @@ export const authReducers = (state = { authData: null }, action) => {
       return state;
   }
 };
+
+export default authReducers;

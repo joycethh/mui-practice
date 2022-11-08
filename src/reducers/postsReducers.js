@@ -9,10 +9,8 @@ import {
   DELETE,
 } from "../constants/actionType";
 
-export const postsReducers = (
-  state = { posts: [], isLoading: true },
-  action
-) => {
+const postsReducers = (state = { isLoading: true, posts: [] }, action) => {
+  console.log("state and action", state, action);
   switch (action.type) {
     case START_LOADING:
       return {
@@ -27,6 +25,7 @@ export const postsReducers = (
     }
     case FETCH_ALL:
       return {
+        ...state,
         posts: action.payload,
       };
     case GET_ONE: {
@@ -63,3 +62,5 @@ export const postsReducers = (
       return state;
   }
 };
+
+export default postsReducers;
