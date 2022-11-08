@@ -46,7 +46,6 @@ export const postsReducer = (
         post: action.payload,
       };
     case LIKE:
-      console.log("like state", state);
       return {
         ...state,
         posts: state.posts.map((post) =>
