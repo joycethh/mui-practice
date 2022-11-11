@@ -2,10 +2,64 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
-import { Container, Grid, Typography, Button, Divider } from "@mui/material";
+import {
+  Grid,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Container,
+  Typography,
+  Button,
+  Divider,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 import { LogoContainer, AuthContainer } from "./styles";
-import Input from "./Input";
-import { register, login } from "../../actions/authAction";
+
+const Input = ({
+  name,
+  handleChange,
+  label,
+  //   error,
+  //   helperText,
+  autoFucus,
+  type,
+  handleShowPassword,
+}) => {
+  return (
+    <Grid item xs={12}>
+      <TextField
+        name={name}
+        type={type}
+        onChange={handleChange}
+        label={label}
+        // error={error}
+        // helperText={helperText}
+        autoFocus={autoFucus}
+        required
+        fullWidth
+        size="small"
+        InputProps={
+          name === "password" || name === "confirmedPassword"
+            ? {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleShowPassword} size="small">
+                      {type === "password" ? (
+                        <Visibility fontSize="small" />
+                      ) : (
+                        <VisibilityOff fontSize="small" />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }
+            : null
+        }
+      />
+    </Grid>
+  );
+};
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -47,9 +101,11 @@ const Auth = () => {
     e.preventDefault();
 
     if (isSignup) {
-      dispatch(register(formData, navigate));
+      //dispatch
+      console.log("dispatch reigister");
     } else {
-      dispatch(login(formData, navigate));
+      //dispatch
+      console.log("dispatch login");
     }
   };
   return (
