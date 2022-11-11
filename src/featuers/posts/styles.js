@@ -46,7 +46,7 @@ export const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 //newsFeed
-const LoadingWrapper = styled(Card)(({ theme }) => ({
+export const LoadingWrapper = styled(Card)(({ theme }) => ({
   elevation: 10,
   display: "flex",
   justifyContent: "center",

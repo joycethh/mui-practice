@@ -5,8 +5,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { DarkTheme, LightTheme } from "./theme";
 import Navbar from "./components/navbar/Navbar";
-import Home from "./components/home/Home";
-import PostDetails from "./components/posts/PostDetails";
+import Home from "./components/Home";
+import PostDetail from "./featuers/posts/PostDetail";
 import Auth from "./components/auth/Auth";
 
 const ID = process.env.REACT_APP_GOOGLE_ID;
@@ -27,7 +27,7 @@ function App() {
                 <Home isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
               }
             />
-            <Route path="/posts/:id" element={<PostDetails />} />
+            <Route path="/posts/:id" element={<PostDetail />} />
             <Route path="/users" element={<Auth />} />
           </Routes>
         </ThemeProvider>

@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Stack } from "@mui/material";
 
-import Rightbar from "../rightbar/Rightbar";
-import NewsFeed from "../posts/NewsFeed";
-import Sidebar from "../sidebar/Sidebar";
+import Rightbar from "./rightbar/Rightbar";
+import NewsFeed from "./newsFeed/NewsFeed";
+import Sidebar from "./sidebar/Sidebar";
 const Home = ({ isDarkMode, setIsDarkMode }) => {
   return (
     <>
