@@ -35,10 +35,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const initialUser = useSelector((state) => state.authData);
-  console.log("initialUser", initialUser);
 
   const [user, setUser] = useState(initialUser);
-  console.log("user", user);
 
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -64,7 +62,6 @@ const Navbar = () => {
     setUser(null);
   };
 
-  console.log("user", user);
   return (
     <AppBar position="sticky">
       <Toolbar>

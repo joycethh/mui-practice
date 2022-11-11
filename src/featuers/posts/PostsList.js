@@ -1,18 +1,33 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { CircularProgress } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { CircularProgress, Typography } from "@mui/material";
 import PostExcerpt from "./PostExcerpt";
 import { LoadingWrapper } from "./styles";
 
-import { getPostsError, getPostsStatus, selectAllPosts } from "./postsSlice";
+import {
+  fetchPosts,
+  getPostsError,
+  getPostsStatus,
+  selectAllPosts,
+} from "./postsSlice";
 
 const PostsList = () => {
+  const dispatch = useDispatch();
   const [currentId, setCurrentId] = useState(0);
-  const posts = useSelector(selectAllPosts);
+  const { posts } = useSelector(selectAllPosts);
   const postsStatus = useSelector(getPostsStatus);
   const postsError = useSelector(getPostsError);
 
-  if (!posts) return null;
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+  if (!posts) {
+    return (
+      <section>
+        <Typography variant="h4">No posts Found!</Typography>
+      </section>
+    );
+  }
   if (postsStatus === "loading") {
     return (
       <section>

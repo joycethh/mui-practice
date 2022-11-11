@@ -3,7 +3,9 @@ import {
   createAsyncThunk,
   createSelector,
 } from "@reduxjs/toolkit";
-import { fetchPosts, createPost } from "../../action/postsActions";
+import axios from "axios";
+
+const POSTS_URL = "http://localhost:5000/";
 
 const initialState = {
   posts: [],
@@ -11,6 +13,27 @@ const initialState = {
   error: null,
 };
 
+export const fetchPosts = createAsyncThunk("/posts/fetchPosts", async () => {
+  try {
+    const response = await axios.get("http://localhost:5000/posts");
+    return [...response.data];
+  } catch (error) {
+    return error.message;
+  }
+});
+
+export const createPost = createAsyncThunk(
+  "/posts/createPost",
+  async (newPost) => {
+    try {
+      const response = await axios.post(POSTS_URL, newPost);
+      console.log("create response", response);
+      return response.data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
 const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -23,7 +46,6 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.posts = action.payload;
-        console.log("fetchPosts action.payload", action.payload);
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
@@ -36,10 +58,16 @@ const postsSlice = createSlice({
 });
 
 //selectors
-export const getPostsStatus = (state) => state.posts.status;
-export const getPostsError = (state) => state.posts.error;
-export const selectAllPosts = (state) => state.posts.posts;
+export const selectAllPosts = createSelector(
+  (state) => ({
+    posts: state.posts.posts,
+  }),
+  (state) => state
+);
+
 export const selectPostById = (state, postId) =>
   state.posts.posts.find((post) => post._id === postId);
+export const getPostsStatus = (state) => state.posts.status;
+export const getPostsError = (state) => state.posts.error;
 
 export default postsSlice.reducer;
