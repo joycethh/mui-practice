@@ -103,7 +103,9 @@ const ImageCarousel = ({ children }) => {
 
 const PostDetails = () => {
   const { postId } = useParams();
-  const post = useSelector((state) => selectPostById(state, Number(postId)));
+
+  const post = useSelector((state) => selectPostById(state, postId));
+
   const postsStatus = useSelector(getPostsStatus);
 
   if (!post) {

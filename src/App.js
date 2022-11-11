@@ -27,7 +27,7 @@ function App() {
                 <Home isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
               }
             />
-            <Route path="/posts/:id" element={<PostDetail />} />
+            <Route path="/posts/:postId" element={<PostDetail />} />
             <Route path="/users" element={<AuthForm />} />
           </Routes>
         </ThemeProvider>

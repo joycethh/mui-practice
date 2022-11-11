@@ -36,7 +36,7 @@ import { useDispatch } from "react-redux";
 //TODO
 // 1. if user, update card header info
 
-const Post = ({ post }) => {
+const PostExcerpt = ({ post, setCurrentId }) => {
   const [openAlert, setOpenAlert] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -67,7 +67,10 @@ const Post = ({ post }) => {
         avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
         action={
           <Tooltip title="Open">
-            <IconButton aria-label="open" onClick={openPost}>
+            <IconButton
+              aria-label="open"
+              onClick={() => setCurrentId(post._id)}
+            >
               <MoreVert />
             </IconButton>
           </Tooltip>
@@ -139,4 +142,4 @@ const Post = ({ post }) => {
   );
 };
 
-export default Post;
+export default PostExcerpt;
