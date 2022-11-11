@@ -1,10 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ImageUploading from "react-images-uploading";
 import { TextField, Card, IconButton, ImageListItem } from "@mui/material";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
-
-import { useDispatch } from "react-redux";
-
-import ImageUploading from "react-images-uploading";
 
 import {
   InputBox,
@@ -14,6 +12,8 @@ import {
   ImagePreviewBox,
   Overlay,
 } from "./styles";
+
+import { createPost } from "./postsSlice";
 
 const Create = () => {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const Create = () => {
   const handleSumbit = (e) => {
     e.preventDefault();
     const postData = { message, image: imageInput };
-    console.log("postData needed to be dispatch");
+    dispatch(createPost(postData));
     handleClear();
   };
   return (
