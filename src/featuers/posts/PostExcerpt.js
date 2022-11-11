@@ -36,7 +36,7 @@ import { likePost, deletePost } from "../../actions/postsAction";
 //TODO
 // 1. if user, update card header info
 
-const Post = ({ post, currentId, setCurrentId }) => {
+const Post = ({ post }) => {
   const [openAlert, setOpenAlert] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();

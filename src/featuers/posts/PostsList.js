@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
-import Post from "./Post";
+import PostExcerpt from "./PostExcerpt";
 import { LoadingWrapper } from "./styles";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,7 @@ const NewsFeed = () => {
         posts.length > 0 &&
         posts.map((post) => (
           <div key={post._id}>
-            <Post
+            <PostExcerpt
               currentId={currentId}
               setCurrentId={setCurrentId}
               post={post}
