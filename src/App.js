@@ -7,7 +7,7 @@ import { DarkTheme, LightTheme } from "./theme";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/Home";
 import PostDetail from "./featuers/posts/PostDetail";
-import Auth from "./components/auth/Auth";
+import AuthForm from "./featuers/users/AuthForm";
 
 const ID = process.env.REACT_APP_GOOGLE_ID;
 
@@ -28,7 +28,7 @@ function App() {
               }
             />
             <Route path="/posts/:id" element={<PostDetail />} />
-            <Route path="/users" element={<Auth />} />
+            <Route path="/users" element={<AuthForm />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

@@ -29,7 +29,7 @@ import {
   paperProps,
 } from "./styles";
 import { amber } from "@mui/material/colors";
-import { logout } from "../../actions/authAction";
+// import { logout } from "../../actions/authAction";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -58,8 +58,8 @@ const Navbar = () => {
   }, [setUser]);
 
   const handleLogout = () => {
-    console.log("log out clicked");
-    dispatch(logout());
+    console.log("dispatch logout");
+    // dispatch(logout());
     navigate("/");
     setUser(null);
   };

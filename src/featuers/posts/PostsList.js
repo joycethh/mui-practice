@@ -1,27 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { CircularProgress } from "@mui/material";
 import PostExcerpt from "./PostExcerpt";
 import { LoadingWrapper } from "./styles";
 
-import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "../../actions/postsAction";
+import { getPostsError, getPostsStatus, selectAllPosts } from "./postsSlice";
 
-const NewsFeed = () => {
+const PostsList = () => {
   const [currentId, setCurrentId] = useState(0);
-  const dispatch = useDispatch();
-  const { posts, isLoading } = useSelector((state) => state.posts);
-
-  useEffect(() => {
-    dispatch(fetchPosts());
-  }, [dispatch]);
+  const posts = useSelector(selectAllPosts);
+  const postsStatus = useSelector(getPostsStatus);
+  const postsError = useSelector(getPostsError);
 
   if (!posts) return null;
-  if (isLoading) {
+  if (postsStatus === "loading") {
     return (
       <section>
         <LoadingWrapper>
           <CircularProgress />
         </LoadingWrapper>
+      </section>
+    );
+  }
+  if (postsError === "failed") {
+    return (
+      <section>
+        <p>{postsError}</p>
       </section>
     );
   }
@@ -43,4 +47,4 @@ const NewsFeed = () => {
   );
 };
 
-export default NewsFeed;
+export default PostsList;

@@ -31,7 +31,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { likePost, deletePost } from "../../actions/postsAction";
+// import { likePost, deletePost } from "../../actions/postsAction";
 
 //TODO
 // 1. if user, update card header info
@@ -53,11 +53,13 @@ const Post = ({ post }) => {
     setOpenAlert(false);
   };
   const handleDelete = () => {
-    dispatch(deletePost(post._id));
+    // dispatch(deletePost(post._id));
+    console.log("dispatch delete");
   };
 
   const handleLike = () => {
-    dispatch(likePost(post._id));
+    // dispatch(likePost(post._id));
+    console.log("dispatch like");
   };
   return (
     <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>

@@ -3,7 +3,7 @@ import { TextField, Card, IconButton, ImageListItem } from "@mui/material";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
 
 import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/postsAction";
+
 import ImageUploading from "react-images-uploading";
 
 import {
@@ -48,7 +48,7 @@ const Create = () => {
   const handleSumbit = (e) => {
     e.preventDefault();
     const postData = { message, image: imageInput };
-    dispatch(createPost(postData));
+    console.log("postData needed to be dispatch");
     handleClear();
   };
   return (

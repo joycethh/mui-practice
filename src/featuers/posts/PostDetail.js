@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { grey } from "@mui/material/colors";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
@@ -19,8 +20,7 @@ import {
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
-import { useDispatch, useSelector } from "react-redux";
-import { getPost } from "../../actions/postsAction";
+import { selectPostById, getPostsStatus } from "./postsSlice";
 
 const ImageCarousel = ({ children }) => {
   const arrowStyles = {
@@ -102,17 +102,19 @@ const ImageCarousel = ({ children }) => {
 };
 
 const PostDetails = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const { post, isLoading } = useSelector((state) => state.posts);
+  const { postId } = useParams();
+  const post = useSelector((state) => selectPostById(state, Number(postId)));
+  const postsStatus = useSelector(getPostsStatus);
 
-  useEffect(() => {
-    dispatch(getPost(id));
-    // eslint-disable-next-line
-  }, [id]);
+  if (!post) {
+    return (
+      <section>
+        <Typography variant="h4">Post not found!</Typography>
+      </section>
+    );
+  }
 
-  if (!post) return null;
-  if (isLoading) {
+  if (postsStatus === "loading") {
     return (
       <Paper>
         <CircularProgress />
