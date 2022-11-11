@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const POSTS_URL = "http://localhost:5000/";
+const baseUrl = "http://localhost:5000";
 
 const initialState = {
   posts: [],
@@ -15,7 +15,7 @@ const initialState = {
 
 export const fetchPosts = createAsyncThunk("/posts/fetchPosts", async () => {
   try {
-    const response = await axios.get("http://localhost:5000/posts");
+    const response = await axios.get(`${baseUrl}/posts`);
     return [...response.data];
   } catch (error) {
     return error.message;
@@ -26,7 +26,7 @@ export const createPost = createAsyncThunk(
   "/posts/createPost",
   async (newPost) => {
     try {
-      const response = await axios.post(POSTS_URL, newPost);
+      const response = await axios.post(baseUrl, newPost);
       console.log("create response", response);
       return response.data;
     } catch (error) {
