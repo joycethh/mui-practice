@@ -12,13 +12,13 @@ import {
   ImageListItem,
   CardContent,
   Typography,
-  CardActions,
-  Checkbox,
 } from "@mui/material";
-import { MoreVert, Star, ThumbUp, ThumbUpOutlined } from "@mui/icons-material";
+import { MoreVert } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
+
+import Reactions from "./Reactions";
 // import { likePost, deletePost } from "../../actions/postsAction";
 
 //TODO
@@ -78,19 +78,7 @@ const PostExcerpt = ({ post, setCurrentId }) => {
         </ImageList>
       </ButtonBase>
 
-      <CardActions disableSpacing>
-        <Tooltip title="like" arrow>
-          <IconButton aria-label="likes" onClick={handleLike}>
-            {post.likes > 0 ? <ThumbUp color="primary" /> : <ThumbUpOutlined />}
-          </IconButton>
-        </Tooltip>
-        <Typography>{post.likes}</Typography>
-        <Tooltip title="save" arrow>
-          <IconButton aria-label="add to favorites">
-            <Checkbox icon={<Star />} checkedIcon={<Star color="red" />} />
-          </IconButton>
-        </Tooltip>
-      </CardActions>
+      <Reactions post={post} />
     </Card>
   );
 };
