@@ -27,13 +27,28 @@ export const createPost = createAsyncThunk(
   async (newPost) => {
     try {
       const response = await axios.post(`${baseUrl}/posts`, newPost);
-      console.log("create response", response);
       return response.data;
     } catch (error) {
       return error.message;
     }
   }
 );
+
+export const deletePost = createAsyncThunk(
+  "/posts/deletePost",
+  async (post) => {
+    try {
+      const { postId } = post._id;
+      const response = await axios.delete(`${baseUrl}/posts/${postId}`);
+      console.log("delete response", response);
+      if (response?.status === 200) return post;
+      return `${response?.status}`;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,

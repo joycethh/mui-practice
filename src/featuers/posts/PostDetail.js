@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -11,12 +11,18 @@ import {
   Avatar,
   CardHeader,
   CardContent,
-  Stack,
+  Tooltip,
   CircularProgress,
   Paper,
   IconButton,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  Button,
 } from "@mui/material";
-
+import { Delete } from "@mui/icons-material";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
@@ -107,7 +113,17 @@ const PostDetails = () => {
   const post = useSelector((state) => selectPostById(state, postId));
 
   const postsStatus = useSelector(getPostsStatus);
-
+  const [openAlert, setOpenAlert] = useState(false);
+  const closeAlert = () => {
+    setOpenAlert(false);
+  };
+  const handleDelete = () => {
+    // dispatch(deletePost(post._id));
+    console.log("dispatch delete");
+  };
+  const clickOpenAlert = () => {
+    setOpenAlert(true);
+  };
   if (!post) {
     return (
       <section>
@@ -133,51 +149,73 @@ const PostDetails = () => {
           paddingRight: { lg: 18, md: 5 },
         }}
       >
-        <Stack direction="row" justifyContent="center" spacing={3}>
-          {/* gallery carousel */}
-          <Box
-            flex={6}
-            sx={{
-              display: "block",
-            }}
-          >
-            <ImageCarousel>
-              {post &&
-                post.image.map((element, index) => (
-                  <div key={index} style={{ backgroundColor: "#304352" }}>
-                    <img
-                      src={element}
-                      alt=""
-                      style={{ maxWidth: 600, height: "100%" }}
-                    />
-                  </div>
-                ))}
-            </ImageCarousel>
-          </Box>
-
-          {/* post message section + users details  section */}
-          <Box
-            flex={2}
-            sx={{
-              display: { xs: "none", sm: "none", md: "block" },
-              maxWdith: 400,
-            }}
-          >
-            <Card elevation={0}>
-              <CardHeader
-                avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
-                title={post.author}
-                subheader={moment(post.createdAt).fromNow()}
-              />
-
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  {post.message}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Box>
-        </Stack>
+        {/* post message section + users details  section */}
+        <Box
+          flex={2}
+          sx={{
+            display: { xs: "none", sm: "none", md: "block" },
+            maxWdith: 400,
+          }}
+        >
+          <Card elevation={0}>
+            <CardHeader
+              avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
+              title={post.author}
+              subheader={moment(post.createdAt).fromNow()}
+              action={
+                <Tooltip title="delete" arrow>
+                  <IconButton aria-label="delete post" onClick={clickOpenAlert}>
+                    <Delete />
+                  </IconButton>
+                </Tooltip>
+              }
+            />
+            <Dialog open={openAlert} onClose={closeAlert}>
+              <DialogTitle>Move to trash?</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  The action can not be reversed. Are you sure to delete the
+                  post?
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={closeAlert}>Cancel</Button>
+                <Button onClick={handleDelete} color="secondary">
+                  Delete
+                </Button>
+              </DialogActions>
+            </Dialog>
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {post.message}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Box>
+        {/* gallery carousel */}
+        <Box
+          flex={6}
+          sx={{
+            display: "block",
+          }}
+        >
+          <ImageCarousel>
+            {post &&
+              post.image.map((element, index) => (
+                <div key={index} style={{ backgroundColor: "#304352" }}>
+                  <img
+                    src={element}
+                    alt=""
+                    style={{ maxWidth: 600, height: "100%" }}
+                  />
+                </div>
+              ))}
+          </ImageCarousel>
+        </Box>
+        {/* comments section */}
+        <Box sx={{ backgroundColor: "skyblue" }}>
+          <p> comments</p>
+        </Box>
       </Box>
     </>
   );
