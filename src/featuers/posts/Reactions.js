@@ -1,35 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Tooltip,
   Typography,
   IconButton,
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  Button,
-  CardActions,
   Checkbox,
+  CardActions,
 } from "@mui/material";
-import { Delete, ThumbUp, Star, ThumbUpOutlined } from "@mui/icons-material";
+import { ThumbUp, Star, ThumbUpOutlined } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
 
 const Reactions = ({ post }) => {
-  const [openAlert, setOpenAlert] = useState(false);
-  const closeAlert = () => {
-    setOpenAlert(false);
-  };
-  const handleDelete = () => {
-    // dispatch(deletePost(post._id));
-    console.log("dispatch delete");
-  };
-  const clickOpenAlert = () => {
-    setOpenAlert(true);
+  const handleLike = () => {
+    // dispatch(likePost(post._id));
+    console.log("dispatch like");
   };
   return (
     <CardActions disableSpacing>
       <Tooltip title="like" arrow>
-        <IconButton aria-label="likes" onClick={() => {}}>
+        <IconButton aria-label="likes" onClick={handleLike}>
           {post.likes > 0 ? <ThumbUp color="primary" /> : <ThumbUpOutlined />}
         </IconButton>
       </Tooltip>
@@ -39,26 +27,6 @@ const Reactions = ({ post }) => {
           <Checkbox icon={<Star />} checkedIcon={<Star color="red" />} />
         </IconButton>
       </Tooltip>
-      {/* if user */}
-      <Tooltip title="Delete">
-        <IconButton aria-label="delete post" onClick={clickOpenAlert}>
-          <Delete />
-        </IconButton>
-      </Tooltip>
-      <Dialog open={openAlert} onClose={closeAlert}>
-        <DialogTitle>Move to trash?</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            The action can not be reversed. Are you sure to delete the post?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeAlert}>Cancel</Button>
-          <Button onClick={handleDelete} color="secondary">
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
     </CardActions>
   );
 };
