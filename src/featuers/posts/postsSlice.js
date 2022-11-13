@@ -45,10 +45,20 @@ export const deletePost = createAsyncThunk(
     }
   }
 );
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    likesAdded(state, action) {
+      const { postId } = action.payload;
+
+      const post = state.posts.find((post) => post._id === postId);
+      if (post) {
+        post.likes++;
+      }
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchPosts.pending, (state, action) => {
@@ -88,4 +98,6 @@ export const selectPostById = (state, postId) =>
 export const getPostsStatus = (state) => state.posts.status;
 export const getPostsError = (state) => state.posts.error;
 
+//actions
+export const { likesAdded } = postsSlice.actions;
 export default postsSlice.reducer;

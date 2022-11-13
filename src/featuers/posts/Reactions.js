@@ -7,12 +7,13 @@ import {
   CardActions,
 } from "@mui/material";
 import { ThumbUp, Star, ThumbUpOutlined } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { likesAdded } from "./postsSlice";
 
 const Reactions = ({ post }) => {
+  const dispatch = useDispatch();
   const handleLike = () => {
-    // dispatch(likePost(post._id));
-    console.log("dispatch like");
+    dispatch(likesAdded({ postId: post._id }));
   };
   return (
     <CardActions disableSpacing>
