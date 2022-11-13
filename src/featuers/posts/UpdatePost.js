@@ -39,7 +39,7 @@ const UpdatePost = () => {
 
   const handleDelete = () => {
     try {
-      dispatch(deletePost(post));
+      dispatch(deletePost(post._id));
       console.log("dispatch delete");
       navigate("/");
     } catch (err) {

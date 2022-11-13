@@ -33,23 +33,18 @@ export const createPost = createAsyncThunk(
     }
   }
 );
-
 export const deletePost = createAsyncThunk(
   "/posts/deletePost",
-  async (post) => {
-    const postId = post._id;
-    console.log("postId in slice", postId);
+  async (postId) => {
     try {
       const response = await axios.delete(`${baseUrl}/posts/edit/${postId}`);
       console.log("delete response", response);
-      if (response?.status === 200) return post;
-      return `${response?.status}`;
+      if (response.status === 200) return postId;
     } catch (error) {
       return error.message;
     }
   }
 );
-
 const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -72,12 +67,10 @@ const postsSlice = createSlice({
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         if (!action.payload) {
-          console.log("Delete post is not complete");
+          console.log("delete post is not complete");
           return;
         }
-        state.posts = state.posts.filter(
-          (post) => post._id !== action.payload?._id
-        );
+        state.posts = state.posts.filter((post) => post._id !== action.payload);
       });
   },
 });
