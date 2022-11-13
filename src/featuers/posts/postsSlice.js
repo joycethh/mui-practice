@@ -37,12 +37,12 @@ export const createPost = createAsyncThunk(
 export const deletePost = createAsyncThunk(
   "/posts/deletePost",
   async (post) => {
+    const postId = post._id;
+    console.log("postId in slice", postId);
     try {
-      const postId = post._id;
-      console.log("postId in slice", postId);
       const response = await axios.delete(`${baseUrl}/posts/edit/${postId}`);
       console.log("delete response", response);
-      if (response?.status === 200) return postId;
+      if (response?.status === 200) return post;
       return `${response?.status}`;
     } catch (error) {
       return error.message;
@@ -75,7 +75,9 @@ const postsSlice = createSlice({
           console.log("Delete post is not complete");
           return;
         }
-        state.posts = state.posts.filter((post) => post._id !== action.payload);
+        state.posts = state.posts.filter(
+          (post) => post._id !== action.payload?._id
+        );
       });
   },
 });
