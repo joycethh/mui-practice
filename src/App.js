@@ -8,6 +8,7 @@ import Navbar from "./components/navbar/Navbar";
 import Home from "./components/Home";
 import PostDetail from "./featuers/posts/PostDetail";
 import AuthForm from "./featuers/users/AuthForm";
+import UpdatePost from "./featuers/posts/UpdatePost";
 
 const ID = process.env.REACT_APP_GOOGLE_ID;
 
@@ -28,6 +29,7 @@ function App() {
               }
             />
             <Route path="/posts/:postId" element={<PostDetail />} />
+            <Route path="/posts/edit/:postId" element={<UpdatePost />} />
             <Route path="/users" element={<AuthForm />} />
           </Routes>
         </ThemeProvider>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { grey } from "@mui/material/colors";
@@ -16,13 +16,12 @@ import {
   Paper,
   IconButton,
 } from "@mui/material";
-import { PersonAddAlt } from "@mui/icons-material";
+import { MoreVert } from "@mui/icons-material";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
-import UpdatePost from "./UpdatePost";
-
 import { selectPostById, getPostsStatus } from "./postsSlice";
+import Reactions from "./Reactions";
 
 const ImageCarousel = ({ children }) => {
   const arrowStyles = {
@@ -104,6 +103,7 @@ const ImageCarousel = ({ children }) => {
 };
 
 const PostDetails = () => {
+  const navigate = useNavigate();
   const { postId } = useParams();
 
   const post = useSelector((state) => selectPostById(state, postId));
@@ -148,9 +148,11 @@ const PostDetails = () => {
               title={post.author}
               subheader={moment(post.createdAt).fromNow()}
               action={
-                <Tooltip title="Follow User">
-                  <IconButton aria-label="follow user" onClick={() => {}}>
-                    <PersonAddAlt />
+                <Tooltip title="Edit">
+                  <IconButton
+                    onClick={() => navigate(`/posts/edit/${post._id}`)}
+                  >
+                    <MoreVert />
                   </IconButton>
                 </Tooltip>
               }
@@ -178,7 +180,7 @@ const PostDetails = () => {
             </ImageCarousel>
 
             {/* actions section */}
-            <UpdatePost post={post} />
+            <Reactions post={post} />
           </Card>
         </Box>
       </Box>

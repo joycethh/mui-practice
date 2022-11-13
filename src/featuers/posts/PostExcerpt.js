@@ -16,34 +16,28 @@ import {
 import { MoreVert } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
-
 import Reactions from "./Reactions";
 // import { likePost, deletePost } from "../../actions/postsAction";
 
 //TODO
 // 1. if user, update card header info
 
-const PostExcerpt = ({ post, setCurrentId }) => {
+const PostExcerpt = ({ post }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const imageArray = post.image;
 
   const openPost = () => {
     navigate(`/posts/${post._id}`);
   };
 
-  const handleLike = () => {
-    // dispatch(likePost(post._id));
-    console.log("dispatch like");
-  };
   return (
     <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
         action={
-          <Tooltip title="More">
-            <IconButton onClick={() => setCurrentId(post._id)}>
+          <Tooltip title="Edit">
+            <IconButton onClick={() => navigate(`/posts/edit/${post._id}`)}>
               <MoreVert />
             </IconButton>
           </Tooltip>
