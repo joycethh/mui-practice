@@ -16,6 +16,8 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { LogoContainer, AuthContainer } from "./styles";
 
+import { login, register, logout, selectUserById } from "./usersSlice.js";
+
 const Input = ({
   name,
   handleChange,
@@ -101,11 +103,12 @@ const Auth = () => {
     e.preventDefault();
 
     if (isSignup) {
-      //dispatch
+      dispatch(register(formData));
       console.log("dispatch reigister");
     } else {
-      //dispatch
-      console.log("dispatch login");
+      dispatch(login(formData));
+
+      navigate("/");
     }
   };
   return (
