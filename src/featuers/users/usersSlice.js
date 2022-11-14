@@ -24,8 +24,6 @@ export const register = createAsyncThunk(
   "/users/register",
   async (formData) => {
     try {
-      const response = await axios.post(`${baseUrl}/users/register`, formData);
-      console.log("register reponse", response);
       const { data } = await axios.post(`${baseUrl}/users/register`, formData);
       return data;
     } catch (error) {
@@ -45,7 +43,6 @@ const usersSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        console.log("login action.payload", action.payload);
         state.authData = action.payload;
       })
       .addCase(register.fulfilled, (state, action) => {

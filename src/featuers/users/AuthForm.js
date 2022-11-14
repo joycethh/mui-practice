@@ -105,6 +105,7 @@ const Auth = () => {
     if (isSignup) {
       dispatch(register(formData));
       console.log("dispatch reigister");
+      navigate("/");
     } else {
       dispatch(login(formData));
 

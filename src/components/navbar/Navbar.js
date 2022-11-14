@@ -35,7 +35,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.users.authData);
-
+  console.log("user", user);
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
