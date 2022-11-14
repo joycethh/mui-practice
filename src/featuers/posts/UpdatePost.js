@@ -50,8 +50,9 @@ const Update = () => {
 
     try {
       const updatedPostInput = { ...post, message: message };
-
       dispatch(updatePost({ postId: post._id, updatedPost: updatedPostInput }));
+      navigate(`/posts/${postId}`);
+      setMessage("");
     } catch (err) {
       console.log("Failed to edit the post", err);
     }
