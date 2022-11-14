@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  createSelector,
-} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const baseUrl = "http://localhost:5000";
@@ -39,6 +35,9 @@ const usersSlice = createSlice({
     logout(state, action) {
       state.authData = null;
     },
+    googleAuth(state, action) {
+      state.authData = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -56,5 +55,6 @@ const usersSlice = createSlice({
 export const selectUserById = (state, userId) =>
   state.find((user) => user._id === userId);
 //actions
-export const { logout } = usersSlice.actions;
+export const { logout, googleAuth } = usersSlice.actions;
+
 export default usersSlice.reducer;

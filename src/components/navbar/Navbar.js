@@ -82,12 +82,10 @@ const Navbar = () => {
                 sx={{ p: 0 }}
               >
                 <Avatar
-                  alt={user.result.username}
-                  src={user.result.picture}
+                  alt={user.result.username || user.result.name}
+                  src={user.result.picture || user.result.username.charAt(0)}
                   sx={{ width: 30, height: 30, bgcolor: amber[700] }}
-                >
-                  {user?.result.username.charAt(0)}
-                </Avatar>
+                ></Avatar>
               </IconButton>
             </Tooltip>
 

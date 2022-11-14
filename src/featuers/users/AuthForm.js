@@ -16,14 +16,13 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { LogoContainer, AuthContainer } from "./styles";
 
-import { login, register } from "./usersSlice.js";
+import { login, register, googleAuth } from "./usersSlice.js";
+import jwtDecode from "jwt-decode";
 
 const Input = ({
   name,
   handleChange,
   label,
-  //   error,
-  //   helperText,
   autoFucus,
   type,
   handleShowPassword,
@@ -95,6 +94,22 @@ const Auth = () => {
       dispatch(login(formData));
       navigate("/");
     }
+  };
+
+  const googleSuccess = async (credentialResponse) => {
+    const result = jwtDecode(credentialResponse.credential);
+    const token = credentialResponse.credential;
+    try {
+      dispatch(googleAuth({ result, token }));
+      navigate("/");
+    } catch (error) {
+      console.log("google error" + error);
+    }
+  };
+
+  const googleFailure = (error) => {
+    console.log(error);
+    console.log("Auth-googleFailure: Google login failed");
   };
   return (
     <>
@@ -218,14 +233,7 @@ const Auth = () => {
                 justifyContent: "center",
               }}
             >
-              <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
-              />
+              <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} />
             </Grid>
           </Grid>
         </AuthContainer>
