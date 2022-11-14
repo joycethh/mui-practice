@@ -33,6 +33,21 @@ export const createPost = createAsyncThunk(
     }
   }
 );
+export const updatePost = createAsyncThunk(
+  "/posts/updatePost",
+  async ({ postId, updatedPost }) => {
+    try {
+      const response = await axios.patch(
+        `${baseUrl}/posts/edit/${postId}`,
+        updatedPost
+      );
+
+      return response.data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
 export const deletePost = createAsyncThunk(
   "/posts/deletePost",
   async (postId) => {
@@ -81,6 +96,16 @@ const postsSlice = createSlice({
           return;
         }
         state.posts = state.posts.filter((post) => post._id !== action.payload);
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        if (!action.payload) {
+          console.log("update post is not complete");
+          return;
+        }
+        const restPosts = state.posts.filter(
+          (post) => post._id !== action.payload._id
+        );
+        state.posts = [...restPosts, action.payload];
       });
   },
 });

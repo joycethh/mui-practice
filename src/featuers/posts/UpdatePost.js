@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { grey } from "@mui/material/colors";
 import {
-  Tooltip,
-  Typography,
-  IconButton,
+  CardActions,
   Dialog,
   DialogTitle,
   DialogActions,
@@ -19,31 +17,43 @@ import {
   CardHeader,
   Avatar,
   CardContent,
+  TextField,
 } from "@mui/material";
-import { Delete } from "@mui/icons-material";
 
-import Reactions from "./Reactions";
+import { deletePost, updatePost, selectPostById } from "./postsSlice";
 
-import { deletePost, selectPostById } from "./postsSlice";
-
-const UpdatePost = () => {
-  const [openAlert, setOpenAlert] = useState(false);
+const Update = () => {
   const { postId } = useParams();
-  console.log("postId", postId);
 
   const post = useSelector((state) => selectPostById(state, postId));
-  console.log("post", post);
+
+  const [message, setMessage] = useState(post?.message);
+  const [openAlert, setOpenAlert] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const onMssgChange = (e) => {
+    setMessage(e.target.value);
+  };
   const handleDelete = () => {
     try {
       dispatch(deletePost(post._id));
-      console.log("dispatch delete");
       navigate("/");
     } catch (err) {
       console.log("Failed to delete post", err);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    try {
+      const updatedPostInput = { ...post, message: message };
+
+      dispatch(updatePost({ postId: post._id, updatedPost: updatedPostInput }));
+    } catch (err) {
+      console.log("Failed to edit the post", err);
     }
   };
 
@@ -62,50 +72,68 @@ const UpdatePost = () => {
           title="user's name"
           subheader={moment(post.createdAt).fromNow()}
         />
-        <CardContent>
-          <Typography variant="body2" color="text">
-            {post.message}
-          </Typography>
-        </CardContent>
-        <ImageList cols={3} sx={{ maxWidth: 780 }}>
-          {post?.image &&
-            post?.image.length > 0 &&
-            post?.image.map((element, index) => (
-              <ImageListItem key={index}>
-                <img
-                  src={element}
-                  alt=""
-                  loading="lazy"
-                  style={{ maxHeight: 250, maxWidth: 250 }}
-                />
-              </ImageListItem>
-            ))}
-        </ImageList>
-        <Tooltip title="Delete">
-          <IconButton
-            aria-label="delete post"
-            onClick={() => setOpenAlert(true)}
-          >
-            <Delete />
-          </IconButton>
-        </Tooltip>
-        <Dialog open={openAlert} onClose={() => setOpenAlert(false)}>
-          <DialogTitle>Move to trash?</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              The action can not be reversed. Are you sure to delete the post?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpenAlert(false)}>Cancel</Button>
-            <Button onClick={handleDelete} color="secondary">
+
+        <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+          <CardContent>
+            <TextField
+              variant="outlined"
+              name="message"
+              multiline
+              fullWidth
+              value={message}
+              rows={2}
+              onChange={onMssgChange}
+            />
+
+            {/* rendered images */}
+            <ImageList cols={3} sx={{ maxWidth: 780 }}>
+              {post?.image &&
+                post?.image.length > 0 &&
+                post?.image.map((element, index) => (
+                  <ImageListItem key={index}>
+                    <img
+                      src={element}
+                      alt=""
+                      loading="lazy"
+                      style={{ maxHeight: 250, maxWidth: 250 }}
+                    />
+                  </ImageListItem>
+                ))}
+            </ImageList>
+          </CardContent>
+
+          {/* action area */}
+          <CardActions>
+            <Button variant="outlined" onClick={() => setOpenAlert(true)}>
               Delete
             </Button>
-          </DialogActions>
-        </Dialog>
+            <Dialog open={openAlert} onClose={() => setOpenAlert(false)}>
+              <DialogTitle>Move to trash?</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  The action can not be reversed. Are you sure to delete the
+                  post?
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setOpenAlert(false)}>Cancel</Button>
+                <Button onClick={handleDelete} color="secondary">
+                  Delete
+                </Button>
+              </DialogActions>
+            </Dialog>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+          </CardActions>
+        </form>
       </Card>
     </>
   );
 };
 
-export default UpdatePost;
+export default Update;
