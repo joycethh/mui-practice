@@ -16,7 +16,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { LogoContainer, AuthContainer } from "./styles";
 
-import { login, register, logout, selectUserById } from "./usersSlice.js";
+import { login, register } from "./usersSlice.js";
 
 const Input = ({
   name,
@@ -85,30 +85,14 @@ const Auth = () => {
     setShowPassword(!showPassword);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const response = await axios.post(
-  //     "http://localhost:5000/users/login",
-  //     formData
-  //   );
-  //   console.log("response", response);
-  //   if (response.status === 200) {
-  //     console.log("response is okay");
-  //     localStorage.setItem("profile", JSON.stringify(response));
-  //   }
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (isSignup) {
       dispatch(register(formData));
-      console.log("dispatch reigister");
       navigate("/");
     } else {
       dispatch(login(formData));
-
       navigate("/");
     }
   };
