@@ -82,7 +82,7 @@ const Navbar = () => {
         {/* nav icons  */}
 
         <Box flex={5} sx={{ display: "block" }}>
-          <IconButton color="inherit">
+          <IconButton color="inherit" component={Link} to="/">
             <Home />
           </IconButton>
           <IconButton color="inherit">
