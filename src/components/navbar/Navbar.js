@@ -15,6 +15,7 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
+import { amber } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Search as SearchIcon,
@@ -28,38 +29,19 @@ import {
   StyledInputBase,
   paperProps,
 } from "./styles";
-import { amber } from "@mui/material/colors";
-// import { logout } from "../../actions/authAction";
+import { logout } from "../../featuers/users/usersSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const initialUser = useSelector((state) => state.authData);
-
-  const [user, setUser] = useState(initialUser);
+  const user = useSelector((state) => state.users.authData);
 
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  //1. check if there is token, if token expired
-  //2. not, setUser
-  //3. expired, log out user
-  useEffect(() => {
-    const token = user?.token;
-    if (token) {
-      const decodedToken = decode(token);
-      if (decodedToken.exp * 1000 < new Date().getTime()) {
-        console.log("expired");
-      }
-      setUser(JSON.parse(localStorage.getItem("profile")));
-    }
-  }, [setUser]);
-
   const handleLogout = () => {
-    console.log("dispatch logout");
-    // dispatch(logout());
+    dispatch(logout());
     navigate("/");
-    setUser(null);
   };
 
   return (
@@ -80,7 +62,6 @@ const Navbar = () => {
         </Search>
 
         {/* nav icons  */}
-
         <Box flex={5} sx={{ display: "block" }}>
           <IconButton color="inherit" component={Link} to="/">
             <Home />
