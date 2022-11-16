@@ -48,13 +48,13 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const token = user?.token;
+    const token = initialUser?.token;
     if (token) {
       const decodedToken = decode(token);
       if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
     }
     setUser(initialUser);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
   console.log("user", user);
   return (
     <AppBar position="sticky">
