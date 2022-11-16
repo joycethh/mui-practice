@@ -1,34 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import authService from "./auth.service";
 
-//localhost:   baseURL: "http://localhost:5000/"
-//heroku: baseURL: "https://funget-social.herokuapp.com/",
-const baseUrl = "http://localhost:5000";
-
-const initialState = {
-  authData: {},
-};
-
-export const login = createAsyncThunk("/users/login", async (formData) => {
-  try {
-    const { data } = await axios.post(`${baseUrl}/users/login`, formData);
-    return data;
-  } catch (error) {
-    return error.message;
-  }
-});
-
+const user = JSON.parse(localStorage.getItem("profile"));
+console.log("user in slice", user);
 export const register = createAsyncThunk(
   "/users/register",
   async (formData) => {
     try {
-      const { data } = await axios.post(`${baseUrl}/users/register`, formData);
+      const { data } = await authService.register(formData);
       return data;
     } catch (error) {
       return error.message;
     }
   }
 );
+
+export const login = createAsyncThunk("/users/login", async (formData) => {
+  try {
+    const { data } = await authService.login(formData);
+    console.log("data", data);
+    return data;
+  } catch (error) {
+    return error.message;
+  }
+});
+
+const initialState = user;
 
 const usersSlice = createSlice({
   name: "users",
@@ -37,26 +34,22 @@ const usersSlice = createSlice({
     auth(state, action) {
       localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
       state.authData = action.payload;
-      console.log("auth action.payload");
     },
 
     logout(state, action) {
-      localStorage.clear();
+      localStorage.removeItem("profile");
       state.authData = null;
     },
   },
-  extraReducers(builder) {
-    builder
-      .addCase(login.fulfilled, (state, action) => {
-        console.log("login action.payload", action.payload);
-        localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
-        state.authData = action.payload;
-      })
-      .addCase(register.fulfilled, (state, action) => {
-        console.log("register action.payload", action.payload);
-        localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
-        state.authData = action.payload;
-      });
+  extraReducers: {
+    [register.fulfilled]: (state, action) => {
+      state.users = action.payload.user;
+    },
+
+    [login.fulfilled]: (state, action) => {
+      state.isLoggedIn = true;
+      state.user = action.payload.user;
+    },
   },
 });
 

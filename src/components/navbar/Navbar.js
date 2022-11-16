@@ -32,10 +32,11 @@ import {
 import { logout } from "../../featuers/users/usersSlice";
 
 const Navbar = () => {
-  const initialUser = JSON.parse(localStorage.getItem("profile"));
-  console.log("initialUser", initialUser);
+  // const initialUser = JSON.parse(localStorage.getItem("profile"));
+  // console.log("initialUser", initialUser);
 
-  const [user, setUser] = useState(initialUser);
+  // const [user, setUser] = useState(initialUser);
+  const user = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const dispatch = useDispatch();
@@ -47,14 +48,14 @@ const Navbar = () => {
     navigate("/");
   };
 
-  useEffect(() => {
-    const token = initialUser?.token;
-    if (token) {
-      const decodedToken = decode(token);
-      if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
-    }
-    setUser(initialUser);
-  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
+  // useEffect(() => {
+  //   const token = initialUser?.token;
+  //   if (token) {
+  //     const decodedToken = decode(token);
+  //     if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
+  //   }
+  //   setUser(initialUser);
+  // }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
   console.log("user", user);
   return (
     <AppBar position="sticky">

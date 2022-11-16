@@ -88,11 +88,13 @@ const Auth = () => {
     e.preventDefault();
 
     if (isSignup) {
-      dispatch(register(formData));
-      navigate("/");
+      dispatch(register(formData))
+        .unwrap()
+        .then(() => navigate("/"));
     } else {
-      dispatch(login(formData));
-      navigate("/");
+      dispatch(login(formData))
+        .unwrap()
+        .then(() => navigate("/"));
     }
   };
 
