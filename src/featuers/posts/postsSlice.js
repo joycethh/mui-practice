@@ -5,6 +5,8 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
+//localhost:   baseURL: "http://localhost:5000/"
+//heroku: baseURL: "https://funget-social.herokuapp.com/",
 const baseUrl = "http://localhost:5000";
 
 const initialState = {

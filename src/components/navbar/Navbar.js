@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import decode from "jwt-decode";
 import {
   AppBar,
@@ -32,18 +32,30 @@ import {
 import { logout } from "../../featuers/users/usersSlice";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.users.authData);
+  const initialUser = JSON.parse(localStorage.getItem("profile"));
+  console.log("initialUser", initialUser);
 
+  const [user, setUser] = useState(initialUser);
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
 
+  useEffect(() => {
+    const token = user?.token;
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
+    }
+    setUser(initialUser);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  console.log("user", user);
   return (
     <AppBar position="sticky">
       <Toolbar>

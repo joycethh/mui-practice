@@ -20,7 +20,7 @@ import Reactions from "./Reactions";
 // import { likePost, deletePost } from "../../actions/postsAction";
 
 //TODO
-// 1. if user, update card header info
+// 1. how to set post.author with the user's info
 
 const PostExcerpt = ({ post }) => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const PostExcerpt = ({ post }) => {
   return (
     <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
       <CardHeader
-        avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
+        avatar={<Avatar sx={{ bgcolor: grey[500] }}>{post.author}</Avatar>}
         action={
           <Tooltip title="Edit">
             <IconButton onClick={() => navigate(`/posts/edit/${post._id}`)}>
