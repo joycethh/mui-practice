@@ -32,11 +32,12 @@ import {
 import { logout } from "../../featuers/users/usersSlice";
 
 const Navbar = () => {
-  // const initialUser = JSON.parse(localStorage.getItem("profile"));
-  // console.log("initialUser", initialUser);
+  const initialUser = JSON.parse(localStorage.getItem("profile"));
+  const token = initialUser?.token;
+  const isLocalAuth = token?.length < 500;
 
-  // const [user, setUser] = useState(initialUser);
-  const user = useSelector((state) => state.user);
+  const [user, setUser] = useState(initialUser);
+
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const dispatch = useDispatch();
@@ -48,15 +49,15 @@ const Navbar = () => {
     navigate("/");
   };
 
-  // useEffect(() => {
-  //   const token = initialUser?.token;
-  //   if (token) {
-  //     const decodedToken = decode(token);
-  //     if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
-  //   }
-  //   setUser(initialUser);
-  // }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log("user", user);
+  useEffect(() => {
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
+    }
+    setUser(initialUser);
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  console.log("user in nav", user);
   return (
     <AppBar position="sticky">
       <Toolbar>
@@ -96,7 +97,7 @@ const Navbar = () => {
               >
                 <Avatar
                   alt={user.result.username || user.result.name}
-                  src={user.result.picture || user.result.username.charAt(0)}
+                  src={user.result.picture}
                   sx={{ width: 30, height: 30, bgcolor: amber[700] }}
                 ></Avatar>
               </IconButton>

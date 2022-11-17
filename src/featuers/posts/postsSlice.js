@@ -78,6 +78,7 @@ const postsSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
+        console.log("fecth all action.payload", action.payload);
         state.posts = action.payload;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
@@ -85,7 +86,7 @@ const postsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(createPost.fulfilled, (state, action) => {
-        state.posts.push(action.payload);
+        state.posts.unshift(action.payload);
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         if (!action.payload) {

@@ -20,9 +20,9 @@ import Reactions from "./Reactions";
 
 const PostExcerpt = ({ post }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
-  console.log("user", user);
+
   const isAuthor =
-    user?.result.sub === post.author || user?.result._id === post.author;
+    user?.result.sub === post.userId || user?.result._id === post.userId;
 
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const PostExcerpt = ({ post }) => {
   return (
     <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
       <CardHeader
-        avatar={<Avatar sx={{ bgcolor: grey[500] }}>{post.author}</Avatar>}
+        avatar={<Avatar alt={post.userName} src={post.userAvatar}></Avatar>}
         action={
           isAuthor && (
             <Tooltip title="Edit">
@@ -45,7 +45,7 @@ const PostExcerpt = ({ post }) => {
             </Tooltip>
           )
         }
-        title="user's name"
+        title={post.userName}
         subheader={moment(post.createdAt).fromNow()}
       />
       <ButtonBase
