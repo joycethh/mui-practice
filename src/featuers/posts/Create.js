@@ -1,10 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import ImageUploading from "react-images-uploading";
 import { TextField, Card, IconButton, ImageListItem } from "@mui/material";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
-
-import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/postsAction";
-import ImageUploading from "react-images-uploading";
 
 import {
   InputBox,
@@ -15,7 +13,10 @@ import {
   Overlay,
 } from "./styles";
 
+import { createPost } from "./postsSlice";
+
 const Create = () => {
+  const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
   const maxNumber = 6;
   const [message, setMessage] = useState("");
@@ -64,6 +65,7 @@ const Create = () => {
                 multiline
                 fullWidth
                 rows={2}
+                value={message}
                 InputProps={{
                   disableUnderline: true,
                 }}

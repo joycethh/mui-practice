@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Box,
   List,
@@ -16,12 +17,6 @@ import {
   Logout,
 } from "@mui/icons-material";
 
-const lists = [
-  { text: "News Feed", icon: ListIcon, id: 1 },
-  { text: "Saved Posts", icon: FolderSpecial, id: 3 },
-  { text: "Logout", icon: Logout, id: 4 },
-];
-
 const Sidebar = ({ isDarkMode, setIsDarkMode }) => {
   return (
     <Box
@@ -31,26 +26,46 @@ const Sidebar = ({ isDarkMode, setIsDarkMode }) => {
     >
       <Paper elevation={0}>
         <List>
-          {lists.map((element) => (
-            <ListItem disablePadding key={element.id}>
-              <ListItemButton component="a" href={element.text}>
-                <ListItemIcon>{<element.icon />}</ListItemIcon>
-                <ListItemText primary={element.text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/posts">
+              <ListItemIcon>
+                <ListIcon />
+              </ListItemIcon>
+              <ListItemText primary="Newsfeed" />
+            </ListItemButton>
+          </ListItem>
 
-          <ListItemButton>
-            <ListItemIcon>
-              <Brightness4 />
-            </ListItemIcon>
-            <Switch
-              checked={isDarkMode}
-              onChange={() => {
-                setIsDarkMode(!isDarkMode);
-              }}
-            />
-          </ListItemButton>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/savedPosts">
+              <ListItemIcon>
+                <FolderSpecial />
+              </ListItemIcon>
+              <ListItemText primary="Saved" />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/logout">
+              <ListItemIcon>
+                <Logout />
+              </ListItemIcon>
+              <ListItemText primary="Log out" />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Brightness4 />
+              </ListItemIcon>
+              <Switch
+                checked={isDarkMode}
+                onChange={() => {
+                  setIsDarkMode(!isDarkMode);
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Paper>
     </Box>
