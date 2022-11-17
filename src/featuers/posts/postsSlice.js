@@ -36,10 +36,9 @@ export const createPost = createAsyncThunk(
 );
 export const updatePost = createAsyncThunk(
   "/posts/updatePost",
-  async (postId, updatedPost) => {
+  async ({ postId, updatedPost }) => {
     try {
-      const response = await postService.updatePost(postId, updatedPost);
-
+      const response = await postService.updatePost({ postId, updatedPost });
       return response.data;
     } catch (error) {
       return error.message;

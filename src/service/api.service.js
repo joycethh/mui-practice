@@ -34,8 +34,8 @@ const createPost = (newPost) => {
   return API.post("/posts", newPost);
 };
 
-const updatePost = (postId, updatedPost) => {
-  return API.patch(`/posts/${postId}`, updatedPost);
+const updatePost = ({ postId, updatedPost }) => {
+  return API.patch(`/posts/edit/${postId}`, updatedPost);
 };
 
 const deletePost = (postId) => {
