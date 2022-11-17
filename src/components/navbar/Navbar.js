@@ -34,7 +34,6 @@ import { logout } from "../../featuers/users/usersSlice";
 const Navbar = () => {
   const initialUser = JSON.parse(localStorage.getItem("profile"));
   const token = initialUser?.token;
-  const isLocalAuth = token?.length < 500;
 
   const [user, setUser] = useState(initialUser);
 
@@ -58,6 +57,9 @@ const Navbar = () => {
   }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   console.log("user in nav", user);
+  console.log("result.picture ", user?.result.picture);
+  console.log("result.username", user?.result.username);
+
   return (
     <AppBar position="sticky">
       <Toolbar>
@@ -96,11 +98,13 @@ const Navbar = () => {
                 sx={{ p: 0 }}
               >
                 <Avatar
-                  alt={user.result.name || user.result.username}
-                  src={user.result.picture}
+                  alt={user?.result?.name || user?.result?.username}
+                  src={
+                    user?.result?.picture || user?.result?.username.charAt(0)
+                  }
                   sx={{ width: 30, height: 30, bgcolor: amber[700] }}
                 >
-                  {user?.result.username.charAt(0)}
+                  {}
                 </Avatar>
               </IconButton>
             </Tooltip>
