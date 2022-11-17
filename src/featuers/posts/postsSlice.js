@@ -50,7 +50,6 @@ export const deletePost = createAsyncThunk(
   async (postId) => {
     try {
       const response = await postService.deletePost(postId);
-      console.log("delete response", response);
       if (response.status === 200) return postId;
     } catch (error) {
       return error.message;
@@ -78,7 +77,6 @@ const postsSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        console.log("fecth all action.payload", action.payload);
         state.posts = action.payload;
       })
       .addCase(fetchPosts.rejected, (state, action) => {

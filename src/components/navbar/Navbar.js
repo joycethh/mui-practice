@@ -98,7 +98,7 @@ const Navbar = () => {
                   src={
                     user?.result?.picture || user?.result?.username.charAt(0)
                   }
-                  sx={{ width: 30, height: 30, bgcolor: amber[700] }}
+                  sx={{ width: 35, height: 35, bgcolor: amber[700] }}
                 >
                   {}
                 </Avatar>

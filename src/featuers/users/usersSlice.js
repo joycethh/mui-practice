@@ -16,7 +16,6 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk("/users/login", async (formData) => {
   try {
     const { data } = await authService.login(formData);
-    console.log("data", data);
     return data;
   } catch (error) {
     return error.message;
