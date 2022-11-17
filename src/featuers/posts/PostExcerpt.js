@@ -17,12 +17,13 @@ import { MoreVert } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 import Reactions from "./Reactions";
-// import { likePost, deletePost } from "../../actions/postsAction";
-
-//TODO
-// 1. how to set post.author with the user's info
 
 const PostExcerpt = ({ post }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+  console.log("user", user);
+  const isAuthor =
+    user?.result.sub === post.author || user?.result._id === post.author;
+
   const navigate = useNavigate();
 
   const imageArray = post.image;
@@ -36,11 +37,13 @@ const PostExcerpt = ({ post }) => {
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: grey[500] }}>{post.author}</Avatar>}
         action={
-          <Tooltip title="Edit">
-            <IconButton onClick={() => navigate(`/posts/edit/${post._id}`)}>
-              <MoreVert />
-            </IconButton>
-          </Tooltip>
+          isAuthor && (
+            <Tooltip title="Edit">
+              <IconButton onClick={() => navigate(`/posts/edit/${post._id}`)}>
+                <MoreVert />
+              </IconButton>
+            </Tooltip>
+          )
         }
         title="user's name"
         subheader={moment(post.createdAt).fromNow()}
