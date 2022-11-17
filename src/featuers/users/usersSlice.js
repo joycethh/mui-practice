@@ -1,26 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const baseUrl = "http://localhost:5000";
-
-const initialState = {
-  authData: {},
-};
-
-export const login = createAsyncThunk("/users/login", async (formData) => {
-  try {
-    const { data } = await axios.post(`${baseUrl}/users/login`, formData);
-    return data;
-  } catch (error) {
-    return error.message;
-  }
-});
+import { authService } from "../../service/api.service";
 
 export const register = createAsyncThunk(
   "/users/register",
   async (formData) => {
     try {
-      const { data } = await axios.post(`${baseUrl}/users/register`, formData);
+      const { data } = await authService.register(formData);
       return data;
     } catch (error) {
       return error.message;
@@ -28,25 +13,43 @@ export const register = createAsyncThunk(
   }
 );
 
+export const login = createAsyncThunk("/users/login", async (formData) => {
+  try {
+    const { data } = await authService.login(formData);
+    return data;
+  } catch (error) {
+    return error.message;
+  }
+});
+
+const initialState = {
+  authData: null,
+};
+
 const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    logout(state, action) {
-      state.authData = null;
-    },
-    googleAuth(state, action) {
+    auth(state, action) {
+      localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
       state.authData = action.payload;
     },
+
+    logout(state, action) {
+      localStorage.removeItem("profile");
+      state.authData = null;
+    },
   },
-  extraReducers(builder) {
-    builder
-      .addCase(login.fulfilled, (state, action) => {
-        state.authData = action.payload;
-      })
-      .addCase(register.fulfilled, (state, action) => {
-        state.authData = action.payload;
-      });
+  extraReducers: {
+    [register.fulfilled]: (state, action) => {
+      localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
+      state.authData = action.payload;
+    },
+
+    [login.fulfilled]: (state, action) => {
+      localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
+      state.authData = action.payload;
+    },
   },
 });
 
@@ -55,6 +58,6 @@ const usersSlice = createSlice({
 export const selectUserById = (state, userId) =>
   state.find((user) => user._id === userId);
 //actions
-export const { logout, googleAuth } = usersSlice.actions;
+export const { logout, auth } = usersSlice.actions;
 
 export default usersSlice.reducer;

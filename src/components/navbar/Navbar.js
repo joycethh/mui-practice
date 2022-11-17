@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import decode from "jwt-decode";
 import {
   AppBar,
@@ -16,7 +16,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { amber } from "@mui/material/colors";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Search as SearchIcon,
   Home,
@@ -32,17 +32,29 @@ import {
 import { logout } from "../../featuers/users/usersSlice";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.users.authData);
+  const initialUser = JSON.parse(localStorage.getItem("profile"));
+  const token = initialUser?.token;
+
+  const [user, setUser] = useState(initialUser);
 
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
+    }
+    setUser(initialUser);
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <AppBar position="sticky">
@@ -82,10 +94,14 @@ const Navbar = () => {
                 sx={{ p: 0 }}
               >
                 <Avatar
-                  alt={user.result.username || user.result.name}
-                  src={user.result.picture || user.result.username.charAt(0)}
-                  sx={{ width: 30, height: 30, bgcolor: amber[700] }}
-                ></Avatar>
+                  alt={user?.result?.name || user?.result?.username}
+                  src={
+                    user?.result?.picture || user?.result?.username.charAt(0)
+                  }
+                  sx={{ width: 35, height: 35, bgcolor: amber[700] }}
+                >
+                  {}
+                </Avatar>
               </IconButton>
             </Tooltip>
 

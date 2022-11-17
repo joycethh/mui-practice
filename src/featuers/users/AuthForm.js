@@ -16,7 +16,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { LogoContainer, AuthContainer } from "./styles";
 
-import { login, register, googleAuth } from "./usersSlice.js";
+import { login, register, auth } from "./usersSlice.js";
 import jwtDecode from "jwt-decode";
 
 const Input = ({
@@ -88,11 +88,13 @@ const Auth = () => {
     e.preventDefault();
 
     if (isSignup) {
-      dispatch(register(formData));
-      navigate("/");
+      dispatch(register(formData))
+        .unwrap()
+        .then(() => navigate("/"));
     } else {
-      dispatch(login(formData));
-      navigate("/");
+      dispatch(login(formData))
+        .unwrap()
+        .then(() => navigate("/"));
     }
   };
 
@@ -100,7 +102,7 @@ const Auth = () => {
     const result = jwtDecode(credentialResponse.credential);
     const token = credentialResponse.credential;
     try {
-      dispatch(googleAuth({ result, token }));
+      dispatch(auth({ result, token }));
       navigate("/");
     } catch (error) {
       console.log("google error" + error);

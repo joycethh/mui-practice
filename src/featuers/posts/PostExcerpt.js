@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { grey } from "@mui/material/colors";
+
 import {
   ButtonBase,
   Tooltip,
@@ -17,12 +17,13 @@ import { MoreVert } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 import Reactions from "./Reactions";
-// import { likePost, deletePost } from "../../actions/postsAction";
-
-//TODO
-// 1. if user, update card header info
 
 const PostExcerpt = ({ post }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+
+  const isAuthor =
+    user?.result.sub === post.userId || user?.result._id === post.userId;
+
   const navigate = useNavigate();
 
   const imageArray = post.image;
@@ -34,15 +35,17 @@ const PostExcerpt = ({ post }) => {
   return (
     <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
       <CardHeader
-        avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
+        avatar={<Avatar alt={post.userName} src={post.userAvatar}></Avatar>}
         action={
-          <Tooltip title="Edit">
-            <IconButton onClick={() => navigate(`/posts/edit/${post._id}`)}>
-              <MoreVert />
-            </IconButton>
-          </Tooltip>
+          isAuthor && (
+            <Tooltip title="Edit">
+              <IconButton onClick={() => navigate(`/posts/edit/${post._id}`)}>
+                <MoreVert />
+              </IconButton>
+            </Tooltip>
+          )
         }
-        title="user's name"
+        title={post.userName}
         subheader={moment(post.createdAt).fromNow()}
       />
       <ButtonBase
