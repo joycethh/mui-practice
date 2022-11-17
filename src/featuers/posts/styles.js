@@ -1,5 +1,6 @@
-import { styled, Button } from "@mui/material";
+import { styled, Button, Card } from "@mui/material";
 
+//AddForm
 // text input area
 export const InputBox = styled("div")(({ theme }) => ({
   marginBottom: theme.spacing(1),
@@ -42,4 +43,17 @@ export const StyledButton = styled(Button)(({ theme }) => ({
   position: "absolute",
   bottom: "15px",
   right: "35px",
+}));
+
+//newsFeed
+export const LoadingWrapper = styled(Card)(({ theme }) => ({
+  elevation: 10,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  marginLeft: theme.spacing(2),
+  marginRight: theme.spacing(2),
+  marginTop: theme.spacing(2),
+  maxWidth: 690,
+  height: "25vh",
 }));
