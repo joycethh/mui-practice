@@ -16,7 +16,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { amber } from "@mui/material/colors";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Search as SearchIcon,
   Home,
@@ -55,10 +55,6 @@ const Navbar = () => {
     }
     setUser(initialUser);
   }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  console.log("user in nav", user);
-  console.log("result.picture ", user?.result.picture);
-  console.log("result.username", user?.result.username);
 
   return (
     <AppBar position="sticky">
