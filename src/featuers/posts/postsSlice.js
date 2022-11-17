@@ -3,11 +3,10 @@ import {
   createAsyncThunk,
   createSelector,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+import { postService } from "../../service/api.service";
 
 //localhost:   baseURL: "http://localhost:5000/"
 //heroku: baseURL: "https://funget-social.herokuapp.com/",
-const baseUrl = "http://localhost:5000";
 
 const initialState = {
   posts: [],
@@ -17,7 +16,7 @@ const initialState = {
 
 export const fetchPosts = createAsyncThunk("/posts/fetchPosts", async () => {
   try {
-    const response = await axios.get(`${baseUrl}/posts`);
+    const response = await postService.fetchPosts();
     return [...response.data];
   } catch (error) {
     return error.message;
@@ -28,7 +27,7 @@ export const createPost = createAsyncThunk(
   "/posts/createPost",
   async (newPost) => {
     try {
-      const response = await axios.post(`${baseUrl}/posts`, newPost);
+      const response = await postService.createPost(newPost);
       return response.data;
     } catch (error) {
       return error.message;
@@ -37,12 +36,9 @@ export const createPost = createAsyncThunk(
 );
 export const updatePost = createAsyncThunk(
   "/posts/updatePost",
-  async ({ postId, updatedPost }) => {
+  async (postId, updatedPost) => {
     try {
-      const response = await axios.patch(
-        `${baseUrl}/posts/edit/${postId}`,
-        updatedPost
-      );
+      const response = await postService.updatePost(postId, updatedPost);
 
       return response.data;
     } catch (error) {
@@ -54,7 +50,7 @@ export const deletePost = createAsyncThunk(
   "/posts/deletePost",
   async (postId) => {
     try {
-      const response = await axios.delete(`${baseUrl}/posts/edit/${postId}`);
+      const response = await postService.deletePost(postId);
       console.log("delete response", response);
       if (response.status === 200) return postId;
     } catch (error) {

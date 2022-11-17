@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import authService from "./auth.service";
+import { authService } from "../../service/api.service";
 
 const user = JSON.parse(localStorage.getItem("profile"));
 console.log("user in slice", user);
+
 export const register = createAsyncThunk(
   "/users/register",
   async (formData) => {
@@ -25,7 +26,9 @@ export const login = createAsyncThunk("/users/login", async (formData) => {
   }
 });
 
-const initialState = user;
+const initialState = {
+  authData: null,
+};
 
 const usersSlice = createSlice({
   name: "users",
@@ -43,12 +46,13 @@ const usersSlice = createSlice({
   },
   extraReducers: {
     [register.fulfilled]: (state, action) => {
-      state.users = action.payload.user;
+      localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
+      state.authData = action.payload;
     },
 
     [login.fulfilled]: (state, action) => {
-      state.isLoggedIn = true;
-      state.user = action.payload.user;
+      localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
+      state.authData = action.payload;
     },
   },
 });
