@@ -3,28 +3,30 @@ import { createTheme } from "@mui/material";
 const LightTheme = createTheme({
   palette: {
     mode: "light",
-    common: {
-      black: "#000",
-      white: "#fff",
-    },
     primary: {
-      main: "#2196f3", //blue
+      main: "#007FFF", //blue
     },
     secondary: {
       main: "#FF731D", //orange
       light: "#ff7f31",
     },
+    common: {
+      black: "#1D1D1D",
+      white: "#fff",
+    },
     background: {
-      default: "#eeeeee",
+      paper: "#fff",
+      default: "#fff",
+      defaultChannel: "255 255 255",
     },
   },
   components: {
     MuiToolbar: {
       styleOverrides: {
-        dense: {
-          height: 28,
-          minHeight: 28,
-        },
+        // dense: {
+        //   height: 28,
+        //   minHeight: 28,
+        // },
       },
     },
     MuiFab: {
@@ -41,13 +43,19 @@ const DarkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#222831",
+      main: "#007FFF",
     },
     secondary: {
-      main: "#f50057",
+      main: "#ce93d8",
+    },
+    common: {
+      black: "#1D1D1D",
+      white: "#fff",
     },
     background: {
-      default: "#304352",
+      default: "#001E3C",
+      paper: "#0A1929",
+      defaultChannel: "18 18 18",
     },
   },
 });

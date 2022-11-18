@@ -22,6 +22,8 @@ import {
   Home,
   LocalFireDepartment,
   Logout,
+  AccountCircle,
+  Brightness4,
 } from "@mui/icons-material";
 import {
   Search,
@@ -31,7 +33,7 @@ import {
 } from "./styles";
 import { logout } from "../../featuers/users/usersSlice";
 
-const Navbar = () => {
+const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const initialUser = JSON.parse(localStorage.getItem("profile"));
   const token = initialUser?.token;
 
@@ -57,87 +59,93 @@ const Navbar = () => {
   }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <AppBar position="sticky">
-      <Toolbar>
-        {/* logo section */}
-        <Typography variant="h6">Funget</Typography>
+    <header>
+      <AppBar position="sticky">
+        <Toolbar>
+          {/* logo section */}
+          <Typography variant="h6">Funget</Typography>
 
-        {/*  search bar */}
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
+          {/*  search bar */}
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
 
-        {/* nav icons  */}
-        <Box flex={5} sx={{ display: "block" }}>
-          <IconButton color="inherit" component={Link} to="/">
-            <Home />
-          </IconButton>
-          <IconButton color="inherit">
-            <LocalFireDepartment />
-          </IconButton>
-        </Box>
+          {/* nav icons  */}
+          <Box flex={5} sx={{ display: "block" }}>
+            <IconButton color="inherit" component={Link} to="/">
+              <Home />
+            </IconButton>
+            <IconButton color="inherit">
+              <LocalFireDepartment />
+            </IconButton>
 
-        {user?.result ? (
-          <Box flex={1} sx={{ display: "block" }}>
-            <Tooltip title="Account Setting">
-              <IconButton
-                onClick={(e) => {
-                  setOpen(true);
-                  setAnchorElUser(e.currentTarget);
-                }}
-                sx={{ p: 0 }}
-              >
-                <Avatar
-                  alt={user?.result?.name || user?.result?.username}
-                  src={
-                    user?.result?.picture || user?.result?.username.charAt(0)
-                  }
-                  sx={{ width: 35, height: 35, bgcolor: amber[700] }}
+            <IconButton
+              color="inherit"
+              onClick={() => {
+                setIsDarkMode(!isDarkMode);
+              }}
+            >
+              <Brightness4 />
+            </IconButton>
+          </Box>
+
+          {user?.result ? (
+            <Box flex={1}>
+              <Tooltip title="Account Setting">
+                <IconButton
+                  onClick={(e) => {
+                    setOpen(true);
+                    setAnchorElUser(e.currentTarget);
+                  }}
+                  sx={{ p: 0 }}
                 >
-                  {}
-                </Avatar>
+                  <Avatar
+                    alt={user?.result?.name || user?.result?.username}
+                    src={
+                      user?.result?.picture || user?.result?.username.charAt(0)
+                    }
+                    sx={{ width: 35, height: 35, bgcolor: amber[700] }}
+                  >
+                    {}
+                  </Avatar>
+                </IconButton>
+              </Tooltip>
+
+              <Menu
+                anchorEl={anchorElUser}
+                open={open}
+                onClose={() => {
+                  setOpen(false);
+                  setAnchorElUser(null);
+                }}
+                PaperProps={paperProps}
+                transformOrigin={{ horizontal: "right", vertical: "top" }}
+                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+              >
+                <ListItemButton onClick={handleLogout} dense={true}>
+                  <ListItemIcon>
+                    <Logout />
+                  </ListItemIcon>
+                  <ListItemText primary="Log out" />
+                </ListItemButton>
+              </Menu>
+            </Box>
+          ) : (
+            <Tooltip title="Sign in">
+              <IconButton component={Link} to="/users" color="inherit">
+                <AccountCircle />
               </IconButton>
             </Tooltip>
-
-            <Menu
-              anchorEl={anchorElUser}
-              open={open}
-              onClose={() => {
-                setOpen(false);
-                setAnchorElUser(null);
-              }}
-              PaperProps={paperProps}
-              transformOrigin={{ horizontal: "right", vertical: "top" }}
-              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-            >
-              <ListItemButton onClick={handleLogout} dense={true}>
-                <ListItemIcon>
-                  <Logout />
-                </ListItemIcon>
-                <ListItemText primary="Log out" />
-              </ListItemButton>
-            </Menu>
-          </Box>
-        ) : (
-          <Box flex={1} sx={{ display: "block" }}>
-            <Button
-              color="inherit"
-              variant="outlined"
-              component={Link}
-              to="/users"
-            >
-              Log in
-            </Button>
-          </Box>
-        )}
-      </Toolbar>
-    </AppBar>
+          )}
+        </Toolbar>
+      </AppBar>
+    </header>
   );
 };
 

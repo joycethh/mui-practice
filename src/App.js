@@ -19,15 +19,10 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={isDarkMode ? DarkTheme : LightTheme}>
           <CssBaseline />
-          <Navbar />
+          <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
           <Routes>
             <Route path="/" element={<Navigate replace to="/posts" />} />
-            <Route
-              path="/posts"
-              element={
-                <Home isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-              }
-            />
+            <Route path="/posts" element={<Home />} />
             <Route path="/posts/:postId" element={<PostDetail />} />
             <Route path="/posts/edit/:postId" element={<UpdatePost />} />
             <Route path="/users" element={<AuthForm />} />
