@@ -16,7 +16,6 @@ import {
 import { createPost } from "./postsSlice";
 
 const Create = () => {
-  const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
   const maxNumber = 6;
   const [message, setMessage] = useState("");

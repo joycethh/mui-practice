@@ -6,7 +6,7 @@ import NewsFeed from "./newsFeed/NewsFeed";
 import Sidebar from "./sidebar/Sidebar";
 const Home = ({ isDarkMode, setIsDarkMode }) => {
   return (
-    <>
+    <main>
       <Box
         sx={{
           paddingLeft: { lg: 18, md: 10 },
@@ -19,7 +19,7 @@ const Home = ({ isDarkMode, setIsDarkMode }) => {
           <Rightbar />
         </Stack>
       </Box>
-    </>
+    </main>
   );
 };
 
