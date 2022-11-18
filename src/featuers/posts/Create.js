@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import ImageUploading from "react-images-uploading";
-import { TextField, Card, IconButton, ImageListItem } from "@mui/material";
+import { Box, TextField, Card, IconButton, ImageListItem } from "@mui/material";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
 
 import {
@@ -52,8 +52,8 @@ const Create = () => {
     handleClear();
   };
   return (
-    <>
-      <Card sx={{ mr: 2, ml: 2, maxWidth: 690 }}>
+    <section>
+      <Card sx={{ mr: 2, ml: 2, maxWidth: 690 }} elevation={0}>
         <form autoComplete="off" noValidate onSubmit={handleSumbit}>
           <div>
             <InputBox>
@@ -141,7 +141,7 @@ const Create = () => {
           </div>
         </form>
       </Card>
-    </>
+    </section>
   );
 };
 

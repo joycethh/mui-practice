@@ -33,7 +33,7 @@ const PostExcerpt = ({ post }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }}>
+    <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
       <CardHeader
         avatar={<Avatar alt={post.userName} src={post.userAvatar}></Avatar>}
         action={

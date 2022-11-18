@@ -16,7 +16,7 @@ const LightTheme = createTheme({
     },
     background: {
       paper: "#fff",
-      default: "#fff",
+      default: "#eeeeee",
       defaultChannel: "255 255 255",
     },
   },

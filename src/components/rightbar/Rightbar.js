@@ -9,7 +9,7 @@ const Rightbar = () => {
         pt={1}
         sx={{ display: { xs: "none", sm: "none", md: "none", lg: "block" } }}
       >
-        <Paper sx={{ height: "100vh" }}>
+        <Paper sx={{ height: "100vh" }} elevation={0}>
           <List>
             <ListItem>Recommended Posts</ListItem>
           </List>

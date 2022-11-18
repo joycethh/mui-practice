@@ -17,7 +17,9 @@ const Sidebar = () => {
       <Box
         flex={1.5}
         pt={1}
-        sx={{ display: { xs: "none", sm: "none", md: "block", lg: "block" } }}
+        sx={{
+          display: { xs: "none", sm: "none", md: "block", lg: "block" },
+        }}
       >
         <Paper elevation={0}>
           <List>
