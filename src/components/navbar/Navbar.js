@@ -39,8 +39,6 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const token = initialUser?.token;
 
   const [user, setUser] = useState(initialUser);
-
-  const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -107,7 +105,6 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
                     <AvatarIconWrapper>
                       <IconButton
                         onClick={(e) => {
-                          setOpen(true);
                           setAnchorElUser(e.currentTarget);
                         }}
                         sx={{ p: 0 }}
@@ -128,9 +125,8 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
 
                   <Menu
                     anchorEl={anchorElUser}
-                    open={open}
+                    open={Boolean(anchorElUser)}
                     onClose={() => {
-                      setOpen(false);
                       setAnchorElUser(null);
                     }}
                     PaperProps={paperProps}
