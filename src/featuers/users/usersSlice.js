@@ -24,6 +24,8 @@ export const login = createAsyncThunk("/users/login", async (formData) => {
 
 const initialState = {
   authData: null,
+  status: "idle" | "loading" | "succeeded" | "failed",
+  error: null,
 };
 
 const usersSlice = createSlice({
@@ -41,20 +43,33 @@ const usersSlice = createSlice({
     },
   },
   extraReducers: {
+    [register.pending]: (state, action) => {
+      state.status = "loading";
+    },
     [register.fulfilled]: (state, action) => {
       localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
       state.authData = action.payload;
     },
-
+    [register.rejected]: (state, action) => {
+      state.error = action.error.message;
+    },
+    [login.pending]: (state, action) => {
+      state.status = "loading";
+    },
     [login.fulfilled]: (state, action) => {
       localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
       state.authData = action.payload;
+    },
+    [login.rejected]: (state, action) => {
+      state.status = "failed";
+      state.error = action.error.message;
     },
   },
 });
 
 //seletor
-
+export const getUsersStatus = (state) => state.users.status;
+export const getUsersError = (state) => state.users.error;
 export const selectUserById = (state, userId) =>
   state.find((user) => user._id === userId);
 //actions
