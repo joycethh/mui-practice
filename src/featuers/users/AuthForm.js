@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Grid,
   IconButton,
@@ -11,12 +11,19 @@ import {
   Typography,
   Button,
   Divider,
+  CircularProgress,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-import { LogoContainer, AuthContainer } from "./styles";
+import { LogoContainer, AuthContainer, LoadingWrapper } from "./styles";
 
-import { login, register, auth } from "./usersSlice.js";
+import {
+  login,
+  register,
+  auth,
+  getUsersError,
+  getUsersStatus,
+} from "./usersSlice.js";
 import jwtDecode from "jwt-decode";
 
 const Input = ({
@@ -73,6 +80,9 @@ const Auth = () => {
     password: "",
     confirmedPassword: "",
   });
+  const userStatus = useSelector(getUsersStatus);
+  const userError = useSelector(getUsersError);
+
   const toggleMode = () => {
     setIsSignup(!isSignup);
   };
@@ -113,6 +123,30 @@ const Auth = () => {
     console.log(error);
     console.log("Auth-googleFailure: Google login failed");
   };
+
+  if (userStatus === "loading") {
+    return (
+      <section>
+        <Container maxWidth="sm">
+          <LoadingWrapper>
+            <CircularProgress />
+          </LoadingWrapper>
+        </Container>
+      </section>
+    );
+  }
+
+  if (userStatus === "failed") {
+    return (
+      <section>
+        <Container maxWidth="sm">
+          <LoadingWrapper>
+            <Typography vairant="body1">{userError}</Typography>
+          </LoadingWrapper>
+        </Container>
+      </section>
+    );
+  }
   return (
     <>
       <Container maxWidth="sm">
@@ -130,14 +164,14 @@ const Auth = () => {
             mb={1.5}
             sx={{ alignItems: "center" }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="h6">
                 {isSignup ? "Register" : "Log in"}
               </Typography>
             </Grid>
-            <Grid item xs={6} sx={{ alignItems: "center" }}>
+            <Grid item xs={12} sm={6} sx={{ alignItems: "center" }}>
               {isSignup ? (
-                <div style={{ float: "right" }}>
+                <div>
                   <Typography
                     vairant="body1"
                     style={{ display: "inline-block" }}
@@ -149,7 +183,7 @@ const Auth = () => {
                   </Button>
                 </div>
               ) : (
-                <div style={{ float: "right" }}>
+                <div>
                   <Typography
                     vairant="body1"
                     style={{ display: "inline-block" }}

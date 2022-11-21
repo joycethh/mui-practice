@@ -52,7 +52,7 @@ const Create = () => {
     handleClear();
   };
   return (
-    <>
+    <section>
       <Card sx={{ mr: 2, ml: 2, maxWidth: 690 }} elevation={0}>
         <form autoComplete="off" noValidate onSubmit={handleSumbit}>
           <div>
@@ -141,7 +141,7 @@ const Create = () => {
           </div>
         </form>
       </Card>
-    </>
+    </section>
   );
 };
 

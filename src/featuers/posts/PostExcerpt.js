@@ -46,6 +46,7 @@ const PostExcerpt = ({ post }) => {
           )
         }
         title={post.userName}
+        titleTypographyProps={{ textTransform: "capitalize" }}
         subheader={moment(post.createdAt).fromNow()}
       />
       <ButtonBase

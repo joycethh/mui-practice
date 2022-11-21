@@ -6,10 +6,12 @@ import PostsLists from "../../featuers/posts/PostsList";
 const NewsFeed = () => {
   const [currentId, setCurrentId] = useState(0);
   return (
-    <Box flex={4} pt={1} sx={{ display: { sm: "block" } }}>
-      <Create currentId={currentId} setCurrentId={setCurrentId} />
-      <PostsLists />
-    </Box>
+    <section>
+      <Box flex={4} pt={1} sx={{ display: { sm: "block" } }}>
+        <Create currentId={currentId} setCurrentId={setCurrentId} />
+        <PostsLists />
+      </Box>
+    </section>
   );
 };
 

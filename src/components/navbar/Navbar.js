@@ -8,7 +8,6 @@ import {
   Box,
   Avatar,
   IconButton,
-  Button,
   Tooltip,
   Menu,
   ListItemIcon,
@@ -20,24 +19,25 @@ import { useDispatch } from "react-redux";
 import {
   Search as SearchIcon,
   Home,
-  LocalFireDepartment,
   Logout,
+  AccountCircle,
+  Brightness4,
 } from "@mui/icons-material";
 import {
   Search,
   SearchIconWrapper,
   StyledInputBase,
   paperProps,
+  IconWrapper,
+  AvatarIconWrapper,
 } from "./styles";
 import { logout } from "../../featuers/users/usersSlice";
 
-const Navbar = () => {
+const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const initialUser = JSON.parse(localStorage.getItem("profile"));
   const token = initialUser?.token;
 
   const [user, setUser] = useState(initialUser);
-
-  const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -57,87 +57,103 @@ const Navbar = () => {
   }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <AppBar position="sticky">
-      <Toolbar>
-        {/* logo section */}
-        <Typography variant="h6">Funget</Typography>
+    <header>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="sticky">
+          <Toolbar>
+            {/* logo section */}
+            <Typography
+              variant="h6"
+              sx={{ display: { xs: "none", sm: "block" } }}
+            >
+              Funget
+            </Typography>
+            {/*  search bar */}
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+            {/* nav icons  */}
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: "flex" }}>
+              <IconWrapper>
+                <IconButton color="inherit" component={Link} to="/">
+                  <Home />
+                </IconButton>
+              </IconWrapper>
 
-        {/*  search bar */}
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
-
-        {/* nav icons  */}
-        <Box flex={5} sx={{ display: "block" }}>
-          <IconButton color="inherit" component={Link} to="/">
-            <Home />
-          </IconButton>
-          <IconButton color="inherit">
-            <LocalFireDepartment />
-          </IconButton>
-        </Box>
-
-        {user?.result ? (
-          <Box flex={1} sx={{ display: "block" }}>
-            <Tooltip title="Account Setting">
-              <IconButton
-                onClick={(e) => {
-                  setOpen(true);
-                  setAnchorElUser(e.currentTarget);
-                }}
-                sx={{ p: 0 }}
-              >
-                <Avatar
-                  alt={user?.result?.name || user?.result?.username}
-                  src={
-                    user?.result?.picture || user?.result?.username.charAt(0)
-                  }
-                  sx={{ width: 35, height: 35, bgcolor: amber[700] }}
+              <IconWrapper>
+                <IconButton
+                  color="inherit"
+                  onClick={() => {
+                    setIsDarkMode(!isDarkMode);
+                  }}
                 >
-                  {}
-                </Avatar>
-              </IconButton>
-            </Tooltip>
+                  <Brightness4 />
+                </IconButton>
+              </IconWrapper>
 
-            <Menu
-              anchorEl={anchorElUser}
-              open={open}
-              onClose={() => {
-                setOpen(false);
-                setAnchorElUser(null);
-              }}
-              PaperProps={paperProps}
-              transformOrigin={{ horizontal: "right", vertical: "top" }}
-              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-            >
-              <ListItemButton onClick={handleLogout} dense={true}>
-                <ListItemIcon>
-                  <Logout />
-                </ListItemIcon>
-                <ListItemText primary="Log out" />
-              </ListItemButton>
-            </Menu>
-          </Box>
-        ) : (
-          <Box flex={1} sx={{ display: "block" }}>
-            <Button
-              color="inherit"
-              variant="outlined"
-              component={Link}
-              to="/users"
-            >
-              Log in
-            </Button>
-          </Box>
-        )}
-      </Toolbar>
-    </AppBar>
+              {user?.result ? (
+                <>
+                  <Tooltip title="Account Setting">
+                    <AvatarIconWrapper>
+                      <IconButton
+                        onClick={(e) => {
+                          setAnchorElUser(e.currentTarget);
+                        }}
+                        sx={{ p: 0 }}
+                      >
+                        <Avatar
+                          alt={user?.result?.name || user?.result?.username}
+                          src={
+                            user?.result?.picture ||
+                            user?.result?.username.charAt(0)
+                          }
+                          sx={{ bgcolor: amber[700] }}
+                        >
+                          {}
+                        </Avatar>
+                      </IconButton>
+                    </AvatarIconWrapper>
+                  </Tooltip>
+
+                  <Menu
+                    anchorEl={anchorElUser}
+                    open={Boolean(anchorElUser)}
+                    onClose={() => {
+                      setAnchorElUser(null);
+                    }}
+                    PaperProps={paperProps}
+                    transformOrigin={{ horizontal: "right", vertical: "top" }}
+                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                  >
+                    <ListItemButton onClick={handleLogout} dense={true}>
+                      <ListItemIcon>
+                        <Logout />
+                      </ListItemIcon>
+                      <ListItemText primary="Log out" />
+                    </ListItemButton>
+                  </Menu>
+                </>
+              ) : (
+                <Tooltip title="Sign in">
+                  <IconWrapper>
+                    <IconButton component={Link} to="/users" color="inherit">
+                      <AccountCircle />
+                    </IconButton>
+                  </IconWrapper>
+                </Tooltip>
+              )}
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </header>
   );
 };
 

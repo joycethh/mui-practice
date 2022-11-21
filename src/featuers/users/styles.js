@@ -20,3 +20,11 @@ export const AuthContainer = styled(Paper)(({ theme }) => ({
 export const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: "none",
 }));
+
+export const LoadingWrapper = styled(Paper)(({ theme }) => ({
+  marginTop: theme.spacing(8),
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  padding: theme.spacing(2),
+}));
