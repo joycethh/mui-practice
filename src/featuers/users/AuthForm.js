@@ -130,14 +130,14 @@ const Auth = () => {
             mb={1.5}
             sx={{ alignItems: "center" }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="h6">
                 {isSignup ? "Register" : "Log in"}
               </Typography>
             </Grid>
-            <Grid item xs={6} sx={{ alignItems: "center" }}>
+            <Grid item xs={12} sm={6} sx={{ alignItems: "center" }}>
               {isSignup ? (
-                <div style={{ float: "right" }}>
+                <div>
                   <Typography
                     vairant="body1"
                     style={{ display: "inline-block" }}
@@ -149,7 +149,7 @@ const Auth = () => {
                   </Button>
                 </div>
               ) : (
-                <div style={{ float: "right" }}>
+                <div>
                   <Typography
                     vairant="body1"
                     style={{ display: "inline-block" }}

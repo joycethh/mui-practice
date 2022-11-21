@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import ImageUploading from "react-images-uploading";
-import { Box, TextField, Card, IconButton, ImageListItem } from "@mui/material";
+import { TextField, Card, IconButton, ImageListItem } from "@mui/material";
 import { InsertPhoto, Clear } from "@mui/icons-material/";
 
 import {
