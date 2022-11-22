@@ -128,7 +128,7 @@ const Update = () => {
               color="secondary"
               onClick={handleSubmit}
             >
-              Submit
+              Edit
             </Button>
           </CardActions>
         </form>

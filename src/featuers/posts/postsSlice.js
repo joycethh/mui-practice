@@ -59,10 +59,8 @@ export const deletePost = createAsyncThunk(
   }
 );
 export const likePost = createAsyncThunk("/posts/likePost", async (postId) => {
-  console.log("postId", postId);
   try {
     const response = await postService.likePost(postId);
-    console.log("like response.data", response.data);
     return response.data;
   } catch (error) {
     return error.message;

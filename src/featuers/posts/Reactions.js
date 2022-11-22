@@ -8,13 +8,10 @@ import {
 } from "@mui/material";
 import { ThumbUp, Star, ThumbUpOutlined } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
-import { likesAdded, likePost } from "./postsSlice";
+import { likePost } from "./postsSlice";
 
 const Reactions = ({ post }) => {
   const dispatch = useDispatch();
-  // const handleLike = () => {
-  //   dispatch(likesAdded({ postId: post._id }));
-  // };
 
   const handleLike = () => {
     console.log("like button clicked");
@@ -22,8 +19,6 @@ const Reactions = ({ post }) => {
   };
 
   const Likes = () => {
-    //1. if no likes, return thumbup-outlined
-    //2. if there is likes, return thumbup + likes.length
     if (post.likes.length > 1) {
       return (
         <>
