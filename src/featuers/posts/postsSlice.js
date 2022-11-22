@@ -7,6 +7,8 @@ import { postService } from "../../service/api.service";
 
 //localhost:   baseURL: "http://localhost:5000/"
 //heroku: baseURL: "https://funget-social.herokuapp.com/",
+const user = JSON.parse(localStorage.getItem("profile"));
+console.log("user in postsSlice", user);
 
 const initialState = {
   posts: [],
@@ -56,6 +58,15 @@ export const deletePost = createAsyncThunk(
     }
   }
 );
+export const likePost = createAsyncThunk("/posts/likePost", async (postId) => {
+  console.log("postId", postId);
+  try {
+    const response = await postService.likePost(postId);
+    console.log("like response", response);
+  } catch (error) {
+    return error.message;
+  }
+});
 
 const postsSlice = createSlice({
   name: "posts",
@@ -96,6 +107,16 @@ const postsSlice = createSlice({
       .addCase(updatePost.fulfilled, (state, action) => {
         if (!action.payload) {
           console.log("update post is not complete");
+          return;
+        }
+        const restPosts = state.posts.filter(
+          (post) => post._id !== action.payload._id
+        );
+        state.posts = [...restPosts, action.payload];
+      })
+      .addCase(likePost.fulfilled, (state, action) => {
+        if (!action.payload) {
+          console.log("like post is not complete");
           return;
         }
         const restPosts = state.posts.filter(
