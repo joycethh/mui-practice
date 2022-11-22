@@ -20,14 +20,29 @@ const Reactions = ({ post }) => {
     console.log("like button clicked");
     dispatch(likePost(post._id));
   };
+
+  const Likes = () => {
+    //1. if no likes, return thumbup-outlined
+    //2. if there is likes, return thumbup + likes.length
+    if (post.likes.length > 1) {
+      return (
+        <>
+          <ThumbUp color="primary" />
+          <Typography ml={0.5}>{post.likes.length - 1}</Typography>
+        </>
+      );
+    }
+    return <ThumbUpOutlined />;
+  };
+
   return (
     <CardActions disableSpacing>
       <Tooltip title="like" arrow>
         <IconButton aria-label="likes" onClick={handleLike}>
-          {post.likes > 0 ? <ThumbUp color="primary" /> : <ThumbUpOutlined />}
+          <Likes />
         </IconButton>
       </Tooltip>
-      <Typography>{post.likes}</Typography>
+
       <Tooltip title="save" arrow>
         <IconButton aria-label="add to favorites">
           <Checkbox icon={<Star />} checkedIcon={<Star color="red" />} />

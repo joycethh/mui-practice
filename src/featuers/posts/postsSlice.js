@@ -62,7 +62,8 @@ export const likePost = createAsyncThunk("/posts/likePost", async (postId) => {
   console.log("postId", postId);
   try {
     const response = await postService.likePost(postId);
-    console.log("like response", response);
+    console.log("like response.data", response.data);
+    return response.data;
   } catch (error) {
     return error.message;
   }
@@ -112,7 +113,7 @@ const postsSlice = createSlice({
         const restPosts = state.posts.filter(
           (post) => post._id !== action.payload._id
         );
-        state.posts = [...restPosts, action.payload];
+        state.posts = [action.payload, ...restPosts];
       })
       .addCase(likePost.fulfilled, (state, action) => {
         if (!action.payload) {
@@ -122,7 +123,7 @@ const postsSlice = createSlice({
         const restPosts = state.posts.filter(
           (post) => post._id !== action.payload._id
         );
-        state.posts = [...restPosts, action.payload];
+        state.posts = [action.payload, ...restPosts];
       });
   },
 });
