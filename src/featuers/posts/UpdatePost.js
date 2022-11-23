@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { grey } from "@mui/material/colors";
 import {
-  CardActions,
   Dialog,
   DialogTitle,
   DialogActions,
@@ -104,33 +103,34 @@ const Update = () => {
           </CardContent>
 
           {/* action area */}
-          <CardActions>
-            <Button variant="outlined" onClick={() => setOpenAlert(true)}>
-              Delete
-            </Button>
-            <Dialog open={openAlert} onClose={() => setOpenAlert(false)}>
-              <DialogTitle>Move to trash?</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  The action can not be reversed. Are you sure to delete the
-                  post?
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => setOpenAlert(false)}>Cancel</Button>
-                <Button onClick={handleDelete} color="secondary">
-                  Delete
-                </Button>
-              </DialogActions>
-            </Dialog>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={handleSubmit}
-            >
-              Edit
-            </Button>
-          </CardActions>
+
+          <Button variant="outlined" onClick={() => setOpenAlert(true)}>
+            Delete
+          </Button>
+          <Dialog open={openAlert} onClose={() => setOpenAlert(false)}>
+            <DialogTitle>Move to trash?</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                The action can not be reversed. Are you sure to delete the post?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => setOpenAlert(false)}
+                variant="outlined"
+                size="small"
+                sx={{ mr: 1 }}
+              >
+                Cancel
+              </Button>
+              <Button variant="contained" onClick={handleDelete}>
+                Delete
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Button variant="contained" color="secondary" onClick={handleSubmit}>
+            Edit
+          </Button>
         </form>
       </Card>
     </>
