@@ -77,6 +77,7 @@ const PostExcerpt = ({ post }) => {
       </ButtonBase>
 
       <Reactions post={post} />
+      {/* <Comments /> */}
     </Card>
   );
 };

@@ -44,7 +44,7 @@ const likePost = (postId) => {
   return API.patch(`/posts/likes/${postId}`);
 };
 
-const commentPost = ({ postId, comments }) => {
+const commentPost = (postId, comments) => {
   return API.patch(`/posts/comments/${postId}`, comments);
 };
 export const authService = {

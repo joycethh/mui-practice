@@ -69,9 +69,9 @@ export const likePost = createAsyncThunk("/posts/likePost", async (postId) => {
 
 export const commentPost = createAsyncThunk(
   "/posts/commentPost",
-  async ({ postId, comments }) => {
+  async (postId, comments) => {
     try {
-      const response = await postService.commentPost({ postId, comments });
+      const response = await postService.commentPost(postId, comments);
       console.log("comment response", response);
       return response.data;
     } catch (error) {
