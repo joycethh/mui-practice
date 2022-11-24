@@ -69,9 +69,9 @@ export const likePost = createAsyncThunk("/posts/likePost", async (postId) => {
 
 export const commentPost = createAsyncThunk(
   "/posts/commentPost",
-  async (postId, comments) => {
+  async ({ postId, comment }) => {
     try {
-      const response = await postService.commentPost(postId, comments);
+      const response = await postService.commentPost({ postId, comment });
       console.log("comment response", response);
       return response.data;
     } catch (error) {
@@ -137,10 +137,16 @@ const postsSlice = createSlice({
         state.posts = [action.payload, ...restPosts];
       })
       .addCase(commentPost.fulfilled, (state, action) => {
-        const restPosts = state.posts.filter(
-          (post) => post._id !== action.payload._id
-        );
-        state.posts = [action.payload, ...restPosts];
+        if (!action.payload) {
+          console.log("like post is not complete");
+          return;
+        }
+        state.posts.map((post) => {
+          if (post._id === action.payload._id) {
+            return action.payload;
+          }
+          return state.posts;
+        });
       });
   },
 });

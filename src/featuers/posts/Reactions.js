@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Tooltip,
   Typography,
@@ -25,19 +25,10 @@ import { useDispatch } from "react-redux";
 import { commentPost, likePost } from "./postsSlice";
 
 const Reactions = ({ post }) => {
-  const [comment, setComment] = useState([""]);
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([1, 2, 3]);
   const [openDialog, setOpenDialog] = useState(false);
   const dispatch = useDispatch();
-
-  const handleLike = () => {
-    dispatch(likePost(post._id));
-  };
-
-  const handleSubmit = () => {
-    console.log("comments input", comment);
-    dispatch(commentPost(post._id, comment));
-    setOpenDialog(false);
-  };
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -49,6 +40,17 @@ const Reactions = ({ post }) => {
       );
     }
     return <ThumbUpOutlined />;
+  };
+
+  const handleLike = () => {
+    dispatch(likePost(post._id));
+  };
+
+  const handleSubmit = () => {
+    console.log("comments input", comment);
+
+    dispatch(commentPost({ postId: post._id, comment: comment }));
+    setOpenDialog(false);
   };
 
   return (
@@ -80,27 +82,30 @@ const Reactions = ({ post }) => {
         <div>
           <Collapse in={openDialog}>
             <List dense={true}>
-              <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                  <Avatar alt="" src="" sx={{ width: 35, height: 35 }} />
-                </ListItemAvatar>
-                <ListItemText
-                  primary="user's name"
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        sx={{ display: "inline" }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        Comments body goes here
-                      </Typography>
-                    </React.Fragment>
-                  }
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
+              {comments.map((e, index) => {
+                return (
+                  <ListItem alignItems="flex-start" key={index}>
+                    <ListItemAvatar>
+                      <Avatar alt="" src="" sx={{ width: 35, height: 35 }} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="user's name"
+                      secondary={
+                        <React.Fragment>
+                          <Typography
+                            sx={{ display: "inline" }}
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            {e} Comments body goes here
+                          </Typography>
+                        </React.Fragment>
+                      }
+                    />
+                  </ListItem>
+                );
+              })}
             </List>
             <TextField
               placeholder="Write your reply"
