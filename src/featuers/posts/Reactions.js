@@ -26,9 +26,14 @@ import { commentPost, likePost } from "./postsSlice";
 
 const Reactions = ({ post }) => {
   const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([1, 2, 3]);
+
   const [openDialog, setOpenDialog] = useState(false);
   const dispatch = useDispatch();
+  const commentsObjArry = post.comments.commentBody;
+  console.log("commentsObjArry", commentsObjArry);
+
+  const commentsArry = commentsObjArry.map(({ comments }) => comments);
+  console.log("commentsArry", commentsArry);
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -47,8 +52,6 @@ const Reactions = ({ post }) => {
   };
 
   const handleSubmit = () => {
-    console.log("comments input", comment);
-
     dispatch(commentPost({ postId: post._id, comment: comment }));
     setOpenDialog(false);
   };
@@ -81,32 +84,14 @@ const Reactions = ({ post }) => {
       <Box sx={{ maxWidth: 690, p: 1 }}>
         <div>
           <Collapse in={openDialog}>
-            <List dense={true}>
-              {comments.map((e, index) => {
-                return (
-                  <ListItem alignItems="flex-start" key={index}>
-                    <ListItemAvatar>
-                      <Avatar alt="" src="" sx={{ width: 35, height: 35 }} />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary="user's name"
-                      secondary={
-                        <React.Fragment>
-                          <Typography
-                            sx={{ display: "inline" }}
-                            component="span"
-                            variant="body2"
-                            color="text.primary"
-                          >
-                            {e} Comments body goes here
-                          </Typography>
-                        </React.Fragment>
-                      }
-                    />
-                  </ListItem>
-                );
-              })}
-            </List>
+            <List dense={true}></List>
+            {commentsArry.map((comment, index) => (
+              <>
+                <ListItem alignItems="flex-start" key={index}>
+                  <ListItemText>{comment}</ListItemText>
+                </ListItem>
+              </>
+            ))}
             <TextField
               placeholder="Write your reply"
               variant="standard"
