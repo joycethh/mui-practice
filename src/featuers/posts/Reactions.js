@@ -1,19 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   Tooltip,
   Typography,
   IconButton,
   Checkbox,
-  TextField,
   Box,
   Button,
   Collapse,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  List,
-  Avatar,
-  Divider,
 } from "@mui/material";
 import {
   ThumbUp,
@@ -22,14 +15,12 @@ import {
   ChatBubbleOutline,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { commentPost, likePost, getPostsError } from "./postsSlice";
+import { likePost, getPostsError } from "./postsSlice";
 
 const Reactions = ({ post }) => {
-  const [comment, setComment] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const postsError = useSelector(getPostsError);
   const dispatch = useDispatch();
-  const commentsObjArry = post?.comments?.commentBody;
 
   if (postsError === "failed") {
     return (
@@ -38,8 +29,6 @@ const Reactions = ({ post }) => {
       </section>
     );
   }
-  if (commentsObjArry?.length < 1) return null;
-  const commentsArry = commentsObjArry?.map(({ comments }) => comments);
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -55,11 +44,6 @@ const Reactions = ({ post }) => {
 
   const handleLike = () => {
     dispatch(likePost(post._id));
-  };
-
-  const handleSubmit = () => {
-    dispatch(commentPost({ postId: post._id, comment: comment }));
-    setOpenDialog(false);
   };
 
   return (
@@ -90,41 +74,7 @@ const Reactions = ({ post }) => {
       <Box sx={{ maxWidth: 690, p: 1 }}>
         <div>
           <Collapse in={openDialog}>
-            <List dense={true}></List>
-            {commentsArry?.map((comment, index) => (
-              <>
-                <ListItem alignItems="flex-start" key={index}>
-                  <ListItemText>{comment}</ListItemText>
-                </ListItem>
-              </>
-            ))}
-            <TextField
-              placeholder="Write your reply"
-              variant="standard"
-              autoFocus
-              fullWidth
-              margin="dense"
-              name="comments"
-              onChange={(e) => {
-                setComment({ [e.target.name]: e.target.value });
-              }}
-            />
-            <Button
-              onClick={() => setOpenDialog(false)}
-              variant="outlined"
-              size="small"
-              sx={{ mr: 1, mt: 1 }}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="contained"
-              onClick={handleSubmit}
-              size="small"
-              sx={{ mr: 1, mt: 1 }}
-            >
-              Send
-            </Button>
+            Comment function is coming soon. So does the save function.
           </Collapse>
         </div>
       </Box>
