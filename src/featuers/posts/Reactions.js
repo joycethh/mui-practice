@@ -21,19 +21,25 @@ import {
   ThumbUpOutlined,
   ChatBubbleOutline,
 } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
-import { commentPost, likePost } from "./postsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { commentPost, likePost, getPostsError } from "./postsSlice";
 
 const Reactions = ({ post }) => {
   const [comment, setComment] = useState("");
-
   const [openDialog, setOpenDialog] = useState(false);
+  const postsError = useSelector(getPostsError);
   const dispatch = useDispatch();
-  const commentsObjArry = post.comments.commentBody;
-  console.log("commentsObjArry", commentsObjArry);
+  const commentsObjArry = post?.comments?.commentBody;
 
-  const commentsArry = commentsObjArry.map(({ comments }) => comments);
-  console.log("commentsArry", commentsArry);
+  if (postsError === "failed") {
+    return (
+      <section>
+        <p>{postsError}</p>
+      </section>
+    );
+  }
+  if (commentsObjArry?.length < 1) return null;
+  const commentsArry = commentsObjArry?.map(({ comments }) => comments);
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -85,7 +91,7 @@ const Reactions = ({ post }) => {
         <div>
           <Collapse in={openDialog}>
             <List dense={true}></List>
-            {commentsArry.map((comment, index) => (
+            {commentsArry?.map((comment, index) => (
               <>
                 <ListItem alignItems="flex-start" key={index}>
                   <ListItemText>{comment}</ListItemText>

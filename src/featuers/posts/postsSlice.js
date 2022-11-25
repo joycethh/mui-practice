@@ -147,6 +147,10 @@ const postsSlice = createSlice({
           }
           return state.posts;
         });
+      })
+      .addCase(commentPost.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });
