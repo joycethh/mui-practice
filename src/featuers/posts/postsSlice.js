@@ -7,6 +7,8 @@ import { postService } from "../../service/api.service";
 
 //localhost:   baseURL: "http://localhost:5000/"
 //heroku: baseURL: "https://funget-social.herokuapp.com/",
+const user = JSON.parse(localStorage.getItem("profile"));
+console.log("user in postsSlice", user);
 
 const initialState = {
   posts: [],
@@ -51,6 +53,27 @@ export const deletePost = createAsyncThunk(
     try {
       const response = await postService.deletePost(postId);
       if (response.status === 200) return postId;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
+export const likePost = createAsyncThunk("/posts/likePost", async (postId) => {
+  try {
+    const response = await postService.likePost(postId);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+});
+
+export const commentPost = createAsyncThunk(
+  "/posts/commentPost",
+  async ({ postId, comment }) => {
+    try {
+      const response = await postService.commentPost({ postId, comment });
+      console.log("comment response", response);
+      return response.data;
     } catch (error) {
       return error.message;
     }
@@ -101,7 +124,33 @@ const postsSlice = createSlice({
         const restPosts = state.posts.filter(
           (post) => post._id !== action.payload._id
         );
-        state.posts = [...restPosts, action.payload];
+        state.posts = [action.payload, ...restPosts];
+      })
+      .addCase(likePost.fulfilled, (state, action) => {
+        if (!action.payload) {
+          console.log("like post is not complete");
+          return;
+        }
+        const restPosts = state.posts.filter(
+          (post) => post._id !== action.payload._id
+        );
+        state.posts = [action.payload, ...restPosts];
+      })
+      .addCase(commentPost.fulfilled, (state, action) => {
+        if (!action.payload) {
+          console.log("like post is not complete");
+          return;
+        }
+        state.posts.map((post) => {
+          if (post._id === action.payload._id) {
+            return action.payload;
+          }
+          return state.posts;
+        });
+      })
+      .addCase(commentPost.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });

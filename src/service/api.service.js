@@ -40,10 +40,24 @@ const deletePost = (postId) => {
   return API.delete(`/posts/edit/${postId}`);
 };
 
+const likePost = (postId) => {
+  return API.patch(`/posts/likes/${postId}`);
+};
+
+const commentPost = ({ postId, comment }) => {
+  return API.post(`/posts/comments/${postId}`, comment);
+};
 export const authService = {
   register,
   login,
   logout,
 };
 
-export const postService = { fetchPosts, createPost, updatePost, deletePost };
+export const postService = {
+  fetchPosts,
+  createPost,
+  updatePost,
+  deletePost,
+  likePost,
+  commentPost,
+};
