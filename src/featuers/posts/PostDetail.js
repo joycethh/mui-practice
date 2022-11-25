@@ -3,7 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { grey } from "@mui/material/colors";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import {
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  MoreVert,
+} from "@mui/icons-material";
 import {
   Box,
   Card,
@@ -16,7 +20,7 @@ import {
   Paper,
   IconButton,
 } from "@mui/material";
-import { MoreVert } from "@mui/icons-material";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
@@ -107,7 +111,9 @@ const PostDetails = () => {
   const { postId } = useParams();
 
   const post = useSelector((state) => selectPostById(state, postId));
-
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const isAuthor =
+    user?.result?.sub === post.userId || user?.result?._id === post.userId;
   const postsStatus = useSelector(getPostsStatus);
 
   if (!post) {
@@ -148,13 +154,15 @@ const PostDetails = () => {
               title={post.author}
               subheader={moment(post.createdAt).fromNow()}
               action={
-                <Tooltip title="Edit">
-                  <IconButton
-                    onClick={() => navigate(`/posts/edit/${post._id}`)}
-                  >
-                    <MoreVert />
-                  </IconButton>
-                </Tooltip>
+                isAuthor && (
+                  <Tooltip title="Edit">
+                    <IconButton
+                      onClick={() => navigate(`/posts/edit/${post._id}`)}
+                    >
+                      <MoreVert />
+                    </IconButton>
+                  </Tooltip>
+                )
               }
             />
 
