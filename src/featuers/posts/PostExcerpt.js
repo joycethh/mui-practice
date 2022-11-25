@@ -22,7 +22,7 @@ const PostExcerpt = ({ post }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   const isAuthor =
-    user?.result.sub === post.userId || user?.result._id === post.userId;
+    user?.result?.sub === post.userId || user?.result?._id === post.userId;
 
   const navigate = useNavigate();
 

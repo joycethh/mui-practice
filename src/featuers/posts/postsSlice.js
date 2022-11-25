@@ -5,8 +5,6 @@ import {
 } from "@reduxjs/toolkit";
 import { postService } from "../../service/api.service";
 
-//localhost:   baseURL: "http://localhost:5000/"
-//heroku: baseURL: "https://funget-social.herokuapp.com/",
 const user = JSON.parse(localStorage.getItem("profile"));
 console.log("user in postsSlice", user);
 

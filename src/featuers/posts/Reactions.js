@@ -31,7 +31,7 @@ const Reactions = ({ post }) => {
   }
 
   const Likes = () => {
-    if (post.likes.length > 0) {
+    if (post?.likes?.length > 0) {
       return (
         <>
           <ThumbUp color="primary" />

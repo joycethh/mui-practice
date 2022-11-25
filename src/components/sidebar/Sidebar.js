@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import {
   Box,
   List,
@@ -10,15 +9,9 @@ import {
   ListItemIcon,
   Paper,
 } from "@mui/material";
-import { List as ListIcon, FolderSpecial, Logout } from "@mui/icons-material";
-import { logout } from "../../featuers/users/usersSlice";
+import { List as ListIcon, FolderSpecial } from "@mui/icons-material";
 
 const Sidebar = () => {
-  const dispatch = useDispatch();
-  const handleLogout = () => {
-    dispatch(logout());
-  };
-
   return (
     <section>
       <Box
@@ -45,15 +38,6 @@ const Sidebar = () => {
                   <FolderSpecial />
                 </ListItemIcon>
                 <ListItemText primary="Saved" />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton onClick={handleLogout}>
-                <ListItemIcon>
-                  <Logout />
-                </ListItemIcon>
-                <ListItemText primary="Log out" />
               </ListItemButton>
             </ListItem>
           </List>
