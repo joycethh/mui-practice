@@ -57,7 +57,7 @@ const PostExcerpt = ({ post }) => {
             {post.message}
           </Typography>
         </CardContent>
-        {post.image && post.image.length > 0 && (
+        {post?.image && post?.image?.length > 0 && (
           <ImageList cols={3} sx={{ maxWidth: 780 }}>
             {post.image.map((element, index) => (
               <ImageListItem key={index}>
