@@ -168,6 +168,7 @@ const PostDetails = () => {
 
             <ImageCarousel>
               {post &&
+                post.image.length > 0 &&
                 post.image.map((element, index) => (
                   <div key={index} style={{ backgroundColor: "#304352" }}>
                     <img

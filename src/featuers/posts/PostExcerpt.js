@@ -26,8 +26,6 @@ const PostExcerpt = ({ post }) => {
 
   const navigate = useNavigate();
 
-  const imageArray = post.image;
-
   const openPost = () => {
     navigate(`/posts/${post._id}`);
   };
@@ -59,11 +57,9 @@ const PostExcerpt = ({ post }) => {
             {post.message}
           </Typography>
         </CardContent>
-
-        <ImageList cols={3} sx={{ maxWidth: 780 }}>
-          {imageArray &&
-            imageArray.length > 0 &&
-            imageArray.map((element, index) => (
+        {post.image && post.image.length > 0 && (
+          <ImageList cols={3} sx={{ maxWidth: 780 }}>
+            {post.image.map((element, index) => (
               <ImageListItem key={index}>
                 <img
                   src={element}
@@ -73,7 +69,8 @@ const PostExcerpt = ({ post }) => {
                 />
               </ImageListItem>
             ))}
-        </ImageList>
+          </ImageList>
+        )}
       </ButtonBase>
 
       <Reactions post={post} />
