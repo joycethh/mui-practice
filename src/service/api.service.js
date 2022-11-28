@@ -24,6 +24,7 @@ const logout = () => {
   localStorage.removeItem("profile");
 };
 
+//posts service
 const fetchPosts = () => {
   return API.get("/posts");
 };

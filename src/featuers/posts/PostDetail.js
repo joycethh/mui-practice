@@ -144,8 +144,14 @@ const PostDetails = () => {
         >
           <Card elevation={0}>
             <CardHeader
-              avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
-              title={post.author}
+              avatar={
+                <Avatar
+                  sx={{ bgcolor: grey[500] }}
+                  alt={post.authorName}
+                  src={post.authorAvatar}
+                ></Avatar>
+              }
+              title={post.authorName}
               subheader={moment(post.createdAt).fromNow()}
               action={
                 <Tooltip title="Edit">

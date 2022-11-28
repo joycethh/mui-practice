@@ -30,6 +30,7 @@ export const createPost = createAsyncThunk(
   async (newPost) => {
     try {
       const response = await postService.createPost(newPost);
+      console.log("create response", response);
       return response.data;
     } catch (error) {
       return error.message;
@@ -107,6 +108,7 @@ const postsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(createPost.fulfilled, (state, action) => {
+        console.log("create action.payload", action.payload);
         state.posts.unshift(action.payload);
       })
       .addCase(deletePost.fulfilled, (state, action) => {
