@@ -102,6 +102,7 @@ const Reactions = ({ post }) => {
                   {/* <ListItemText>{JSON.parse(comment.content)}</ListItemText> */}
                   <ListItemText>{comment.content}</ListItemText>
                 </ListItem>
+                <Divider />
               </>
             ))}
             <TextField
