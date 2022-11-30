@@ -70,9 +70,9 @@ export const likePost = createAsyncThunk("/posts/likePost", async (postId) => {
 
 export const commentPost = createAsyncThunk(
   "/posts/commentPost",
-  async ({ postId, comment }) => {
+  async ({ postId, content }) => {
     try {
-      const response = await postService.commentPost({ postId, comment });
+      const response = await postService.commentPost({ postId, content });
       console.log("comment response", response);
       return response.data;
     } catch (error) {
@@ -81,6 +81,18 @@ export const commentPost = createAsyncThunk(
   }
 );
 
+export const getComment = createAsyncThunk(
+  "/posts/comments/",
+  async (postId) => {
+    try {
+      const response = await postService.commentPost(postId);
+      console.log("getcomment response", response);
+      return response.data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
 const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -143,16 +155,24 @@ const postsSlice = createSlice({
           console.log("like post is not complete");
           return;
         }
-        state.posts.map((post) => {
-          if (post._id === action.payload._id) {
-            return action.payload;
-          }
-          return state.posts;
-        });
+        const restPosts = state.posts.filter(
+          (post) => post._id !== action.payload._id
+        );
+        state.posts = [action.payload, ...restPosts];
       })
       .addCase(commentPost.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(getComment.fulfilled, (state, action) => {
+        if (!action.payload) {
+          console.log("like post is not complete");
+          return;
+        }
+        const restPosts = state.posts.filter(
+          (post) => post._id !== action.payload._id
+        );
+        state.posts = [action.payload, ...restPosts];
       });
   },
 });

@@ -22,15 +22,16 @@ import {
   ChatBubbleOutline,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { commentPost, likePost, getPostsError } from "./postsSlice";
+import { commentPost, likePost, getPostsError, getComment } from "./postsSlice";
 
 const Reactions = ({ post }) => {
   const [comment, setComment] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const postsError = useSelector(getPostsError);
   const dispatch = useDispatch();
-  const commentsObjArry = post?.comments?.commentBody;
+  const commentsObjArry = post?.comments;
 
+  // console.log("commentsObjArry", commentsObjArry);
   if (postsError === "failed") {
     return (
       <section>
@@ -58,7 +59,8 @@ const Reactions = ({ post }) => {
   };
 
   const handleSubmit = () => {
-    dispatch(commentPost({ postId: post._id, comment: comment }));
+    dispatch(commentPost({ postId: post._id, content: comment }));
+    dispatch(getComment(post._id));
     setOpenDialog(false);
   };
 
@@ -91,7 +93,7 @@ const Reactions = ({ post }) => {
         <div>
           <Collapse in={openDialog}>
             <List dense={true}></List>
-            {commentsArry?.map((comment, index) => (
+            {commentsObjArry?.map((comment, index) => (
               <>
                 <ListItem alignItems="flex-start" key={index}>
                   <ListItemText>{comment}</ListItemText>

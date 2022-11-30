@@ -45,13 +45,17 @@ const likePost = (postId) => {
   return API.patch(`/posts/likes/${postId}`);
 };
 
-const commentPost = ({ postId, comment }) => {
-  return API.post(`/posts/comments/${postId}`, comment);
+const commentPost = ({ postId, content }) => {
+  return API.post(`/posts/comments/${postId}`, content);
 };
 export const authService = {
   register,
   login,
   logout,
+};
+
+export const getComment = (postId) => {
+  return API.get(`/posts/${postId}`);
 };
 
 export const postService = {
@@ -61,4 +65,5 @@ export const postService = {
   deletePost,
   likePost,
   commentPost,
+  getComment,
 };
