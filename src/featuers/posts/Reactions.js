@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   Tooltip,
   Typography,
@@ -30,8 +30,7 @@ const Reactions = ({ post }) => {
   const postsError = useSelector(getPostsError);
   const dispatch = useDispatch();
   const commentsObjArry = post?.comments;
-
-  // console.log("commentsObjArry", commentsObjArry);
+  console.log("commentsObjArry", commentsObjArry);
   if (postsError === "failed") {
     return (
       <section>
@@ -39,15 +38,13 @@ const Reactions = ({ post }) => {
       </section>
     );
   }
-  if (commentsObjArry?.length < 1) return null;
-  const commentsArry = commentsObjArry?.map(({ comments }) => comments);
 
   const Likes = () => {
-    if (post.likes.length > 0) {
+    if (post?.likes?.length > 0) {
       return (
         <>
           <ThumbUp color="primary" />
-          <Typography ml={0.5}>{post.likes.length}</Typography>
+          <Typography ml={0.5}>{post?.likes?.length}</Typography>
         </>
       );
     }
@@ -96,7 +93,14 @@ const Reactions = ({ post }) => {
             {commentsObjArry?.map((comment, index) => (
               <>
                 <ListItem alignItems="flex-start" key={index}>
-                  <ListItemText>{comment}</ListItemText>
+                  <ListItemAvatar>
+                    <Avatar
+                      alt={comment.authorName}
+                      src={comment.authorAvatar}
+                    />
+                  </ListItemAvatar>
+                  {/* <ListItemText>{JSON.parse(comment.content)}</ListItemText> */}
+                  <ListItemText>{comment.content}</ListItemText>
                 </ListItem>
               </>
             ))}

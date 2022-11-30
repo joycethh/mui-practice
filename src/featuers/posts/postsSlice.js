@@ -30,7 +30,7 @@ export const createPost = createAsyncThunk(
   async (newPost) => {
     try {
       const response = await postService.createPost(newPost);
-      console.log("create response", response);
+
       return response.data;
     } catch (error) {
       return error.message;
@@ -73,7 +73,7 @@ export const commentPost = createAsyncThunk(
   async ({ postId, content }) => {
     try {
       const response = await postService.commentPost({ postId, content });
-      console.log("comment response", response);
+
       return response.data;
     } catch (error) {
       return error.message;
@@ -86,7 +86,7 @@ export const getComment = createAsyncThunk(
   async (postId) => {
     try {
       const response = await postService.commentPost(postId);
-      console.log("getcomment response", response);
+
       return response.data;
     } catch (error) {
       return error.message;
@@ -120,20 +120,17 @@ const postsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(createPost.fulfilled, (state, action) => {
-        console.log("create action.payload", action.payload);
         state.posts.unshift(action.payload);
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         if (!action.payload) {
-          console.log("delete post is not complete");
-          return;
+          return "delete post is not complete";
         }
         state.posts = state.posts.filter((post) => post._id !== action.payload);
       })
       .addCase(updatePost.fulfilled, (state, action) => {
         if (!action.payload) {
-          console.log("update post is not complete");
-          return;
+          return "update post is not complete";
         }
         const restPosts = state.posts.filter(
           (post) => post._id !== action.payload._id
@@ -142,8 +139,7 @@ const postsSlice = createSlice({
       })
       .addCase(likePost.fulfilled, (state, action) => {
         if (!action.payload) {
-          console.log("like post is not complete");
-          return;
+          return "like post is not complete";
         }
         const restPosts = state.posts.filter(
           (post) => post._id !== action.payload._id
@@ -152,8 +148,7 @@ const postsSlice = createSlice({
       })
       .addCase(commentPost.fulfilled, (state, action) => {
         if (!action.payload) {
-          console.log("like post is not complete");
-          return;
+          return "like post is not complete";
         }
         const restPosts = state.posts.filter(
           (post) => post._id !== action.payload._id
@@ -166,8 +161,7 @@ const postsSlice = createSlice({
       })
       .addCase(getComment.fulfilled, (state, action) => {
         if (!action.payload) {
-          console.log("like post is not complete");
-          return;
+          return "like post is not complete";
         }
         const restPosts = state.posts.filter(
           (post) => post._id !== action.payload._id
