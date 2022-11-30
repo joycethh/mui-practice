@@ -5,9 +5,6 @@ import {
 } from "@reduxjs/toolkit";
 import { postService } from "../../service/api.service";
 
-const user = JSON.parse(localStorage.getItem("profile"));
-console.log("user in postsSlice", user);
-
 const initialState = {
   posts: [],
   status: "idle" | "loading" | "succeeded" | "failed",
