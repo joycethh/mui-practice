@@ -29,8 +29,10 @@ const Reactions = ({ post }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const postsError = useSelector(getPostsError);
   const dispatch = useDispatch();
+
   const commentsObjArry = post?.comments;
   console.log("commentsObjArry", commentsObjArry);
+
   if (postsError === "failed") {
     return (
       <section>
@@ -56,8 +58,9 @@ const Reactions = ({ post }) => {
   };
 
   const handleSubmit = () => {
-    dispatch(commentPost({ postId: post._id, content: comment }));
-    dispatch(getComment(post._id));
+    const commentInput = { ...comment, content: comment };
+    dispatch(commentPost({ postId: post._id, content: commentInput }));
+    // dispatch(getComment(post._id));
     setOpenDialog(false);
   };
 
@@ -90,7 +93,7 @@ const Reactions = ({ post }) => {
         <div>
           <Collapse in={openDialog}>
             <List dense={true}></List>
-            {commentsObjArry?.map((comment, index) => (
+            {/* {commentsObjArry?.map((comment, index) => (
               <>
                 <ListItem alignItems="flex-start" key={index}>
                   <ListItemAvatar>
@@ -99,12 +102,12 @@ const Reactions = ({ post }) => {
                       src={comment.authorAvatar}
                     />
                   </ListItemAvatar>
-                  {/* <ListItemText>{JSON.parse(comment.content)}</ListItemText> */}
+                  <ListItemText>{JSON.parse(comment.content)}</ListItemText>
                   <ListItemText>{comment.content}</ListItemText>
                 </ListItem>
                 <Divider />
               </>
-            ))}
+            ))} */}
             <TextField
               placeholder="Write your reply"
               variant="standard"

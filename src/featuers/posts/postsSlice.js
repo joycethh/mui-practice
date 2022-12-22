@@ -73,7 +73,7 @@ export const commentPost = createAsyncThunk(
   async ({ postId, content }) => {
     try {
       const response = await postService.commentPost({ postId, content });
-
+      console.log("comment response", response);
       return response.data;
     } catch (error) {
       return error.message;
