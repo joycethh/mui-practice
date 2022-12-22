@@ -22,16 +22,15 @@ import {
   ChatBubbleOutline,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { commentPost, likePost, getPostsError, getComment } from "./postsSlice";
+import { commentPost, likePost, getPostsError } from "./postsSlice";
 
 const Reactions = ({ post }) => {
   const [comment, setComment] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const postsError = useSelector(getPostsError);
   const dispatch = useDispatch();
-
-  const commentsObjArry = post?.comments;
-  console.log("commentsObjArry", commentsObjArry);
+  const comments = useSelector((state) => state.posts.comments);
+  console.log("comments", comments);
 
   if (postsError === "failed") {
     return (

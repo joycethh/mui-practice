@@ -12,6 +12,7 @@ console.log("user in postsSlice", user);
 
 const initialState = {
   posts: [],
+  comments: [],
   status: "idle" | "loading" | "succeeded" | "failed",
   error: null,
 };
@@ -53,6 +54,7 @@ export const deletePost = createAsyncThunk(
   async (postId) => {
     try {
       const response = await postService.deletePost(postId);
+      console.log("delete response", response);
       if (response.status === 200) return postId;
     } catch (error) {
       return error.message;
@@ -147,26 +149,18 @@ const postsSlice = createSlice({
         state.posts = [action.payload, ...restPosts];
       })
       .addCase(commentPost.fulfilled, (state, action) => {
-        if (!action.payload) {
-          return "like post is not complete";
-        }
+        console.log("commentPost action.payload", action.payload);
+
         const restPosts = state.posts.filter(
-          (post) => post._id !== action.payload._id
+          (post) => post._id !== action.payload.seletedPost._id
         );
-        state.posts = [action.payload, ...restPosts];
-      })
-      .addCase(commentPost.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
-      })
-      .addCase(getComment.fulfilled, (state, action) => {
-        if (!action.payload) {
-          return "like post is not complete";
-        }
-        const restPosts = state.posts.filter(
-          (post) => post._id !== action.payload._id
+        state.posts = [action.payload.seletedPost, ...restPosts];
+
+        const restComments = state.comments.filter(
+          (comment) => comment._id !== action.payload.newComment._id
         );
-        state.posts = [action.payload, ...restPosts];
+        state.comments = [action.payload.newComment, ...restComments];
+        console.log("state.comments", state.comments);
       });
   },
 });
@@ -183,7 +177,7 @@ export const selectPostById = (state, postId) =>
   state.posts.posts.find((post) => post._id === postId);
 export const getPostsStatus = (state) => state.posts.status;
 export const getPostsError = (state) => state.posts.error;
-
+export const selectAllComments = (state) => state.posts.comments;
 //actions
 export const { likesAdded } = postsSlice.actions;
 export default postsSlice.reducer;
