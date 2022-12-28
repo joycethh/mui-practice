@@ -29,6 +29,9 @@ const fetchPosts = () => {
   return API.get("/posts");
 };
 
+const getAPost = (id) => {
+  return API.get(`/posts/${id}`);
+};
 const createPost = (newPost) => {
   return API.post("/posts", newPost);
 };
@@ -60,6 +63,7 @@ export const getComment = (postId) => {
 
 export const postService = {
   fetchPosts,
+  getAPost,
   createPost,
   updatePost,
   deletePost,

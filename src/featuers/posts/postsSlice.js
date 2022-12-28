@@ -20,12 +20,22 @@ const initialState = {
 export const fetchPosts = createAsyncThunk("/posts/fetchPosts", async () => {
   try {
     const response = await postService.fetchPosts();
-    return [...response.data];
+    console.log("fetchAll-response", response);
+    return response.data.postData;
   } catch (error) {
     return error.message;
   }
 });
 
+export const getAPost = createAsyncThunk("/posts/getAPost", async (id) => {
+  try {
+    const response = await postService.getAPost(id);
+    console.log("getOne-response", response);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+});
 export const createPost = createAsyncThunk(
   "/posts/createPost",
   async (newPost) => {
@@ -98,16 +108,7 @@ export const getComment = createAsyncThunk(
 const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {
-    likesAdded(state, action) {
-      const { postId } = action.payload;
 
-      const post = state.posts.find((post) => post._id === postId);
-      if (post) {
-        post.likes++;
-      }
-    },
-  },
   extraReducers(builder) {
     builder
       .addCase(fetchPosts.pending, (state, action) => {
@@ -121,45 +122,51 @@ const postsSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
+      .addCase(getAPost.fulfilled, (state, action) => {
+        console.log("getOne-action.payload", action.payload);
+        state.posts = action.payload.postData;
+      })
       .addCase(createPost.fulfilled, (state, action) => {
-        state.posts.unshift(action.payload);
+        state.posts.unshift(action.payload.postData);
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         if (!action.payload) {
           return "delete post is not complete";
         }
-        state.posts = state.posts.filter((post) => post._id !== action.payload);
+        state.posts = state.posts.filter(
+          (post) => post._id !== action.payload.postData
+        );
       })
       .addCase(updatePost.fulfilled, (state, action) => {
         if (!action.payload) {
           return "update post is not complete";
         }
         const restPosts = state.posts.filter(
-          (post) => post._id !== action.payload._id
+          (post) => post._id !== action.payload.postData._id
         );
-        state.posts = [action.payload, ...restPosts];
+        state.posts = [action.payload.postData, ...restPosts];
       })
       .addCase(likePost.fulfilled, (state, action) => {
         if (!action.payload) {
           return "like post is not complete";
         }
         const restPosts = state.posts.filter(
-          (post) => post._id !== action.payload._id
+          (post) => post._id !== action.payload.postData._id
         );
-        state.posts = [action.payload, ...restPosts];
+        state.posts = [action.payload.postData, ...restPosts];
       })
       .addCase(commentPost.fulfilled, (state, action) => {
         console.log("commentPost action.payload", action.payload);
 
         const restPosts = state.posts.filter(
-          (post) => post._id !== action.payload.seletedPost._id
+          (post) => post._id !== action.payload.postData._id
         );
-        state.posts = [action.payload.seletedPost, ...restPosts];
+        state.posts = [action.payload.postData, ...restPosts];
 
         const restComments = state.comments.filter(
-          (comment) => comment._id !== action.payload.newComment._id
+          (comment) => comment._id !== action.payload.commentData._id
         );
-        state.comments = [action.payload.newComment, ...restComments];
+        state.comments = [action.payload.commentData, ...restComments];
         console.log("state.comments", state.comments);
       });
   },
