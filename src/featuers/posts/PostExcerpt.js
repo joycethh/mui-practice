@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 import Reactions from "./Reactions";
 
-const PostExcerpt = ({post} ) => {
+const PostExcerpt = ({ post }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   const isAuthor =
