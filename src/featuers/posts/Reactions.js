@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import moment from "moment";
 import {
   Tooltip,
   Typography,
@@ -13,7 +14,6 @@ import {
   ListItemText,
   List,
   Avatar,
-  Divider,
 } from "@mui/material";
 import {
   ThumbUp,
@@ -91,8 +91,32 @@ const Reactions = ({ post }) => {
       <Box sx={{ maxWidth: 690, p: 1 }}>
         <div>
           <Collapse in={openDialog}>
-            <List dense={true}></List>
-            {/* {commentsObjArry?.map((comment, index) => (
+            <List dense={true}>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar
+                    alt={comments.authorName}
+                    src={comments.authorAvatar}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={comments.authorName}
+                  secondary={
+                    <React.Fragment>
+                      {comments.content}
+                      <Typography
+                        sx={{ display: "inline", float: "right" }}
+                        component="span"
+                        variant="body2"
+                      >
+                        {moment(comments.createdAt).fromNow()}
+                      </Typography>
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+            </List>
+            {/* {comments?.map((comment, index) => (
               <>
                 <ListItem alignItems="flex-start" key={index}>
                   <ListItemAvatar>

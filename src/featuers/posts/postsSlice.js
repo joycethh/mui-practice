@@ -125,6 +125,7 @@ const postsSlice = createSlice({
       .addCase(getAPost.fulfilled, (state, action) => {
         console.log("getOne-action.payload", action.payload);
         state.posts = action.payload.postData;
+        state.comments = action.payload.commentData;
       })
       .addCase(createPost.fulfilled, (state, action) => {
         state.posts.unshift(action.payload.postData);
