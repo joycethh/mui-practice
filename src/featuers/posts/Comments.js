@@ -1,58 +1,24 @@
 import React, { useState } from "react";
 import moment from "moment";
+import { useDispatch } from "react-redux";
 import {
-  Tooltip,
   Typography,
-  IconButton,
   TextField,
   Box,
-  Button,
-  Collapse,
-  List,
   ListItem,
   ListItemAvatar,
   Avatar,
   ListItemText,
+  Button,
+  Collapse,
+  List,
 } from "@mui/material";
-import {
-  ThumbUp,
-  ThumbUpOutlined,
-  ChatBubbleOutline,
-} from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
-import { commentPost, likePost, getPostsError } from "./postsSlice";
+import { commentPost } from "./postsSlice";
 
-const Reactions = ({ post }) => {
+const Comments = ({ post, comments }) => {
   const [comment, setComment] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
-  const postsError = useSelector(getPostsError);
   const dispatch = useDispatch();
-  const comments = useSelector((state) => state.posts.comments);
-  console.log("comments", comments);
-
-  if (postsError === "failed") {
-    return (
-      <section>
-        <p>{postsError}</p>
-      </section>
-    );
-  }
-
-  const Likes = () => {
-    if (post?.likes?.length > 0) {
-      return (
-        <>
-          <ThumbUp color="primary" />
-          <Typography ml={0.5}>{post?.likes?.length}</Typography>
-        </>
-      );
-    }
-    return <ThumbUpOutlined />;
-  };
-
-  const handleLike = () => {
-    dispatch(likePost(post._id));
-  };
 
   const handleSubmit = () => {
     const commentInput = { ...comment, content: comment };
@@ -63,24 +29,7 @@ const Reactions = ({ post }) => {
   };
 
   return (
-    <>
-      <div>
-        <Tooltip title="like" arrow>
-          <Button aria-label="likes" onClick={handleLike}>
-            <Likes />
-          </Button>
-        </Tooltip>
-
-        <Tooltip title="comment" arrow>
-          <IconButton
-            aria-label="comment"
-            onClick={() => setOpenDialog((prev) => !prev)}
-          >
-            <ChatBubbleOutline />
-          </IconButton>
-        </Tooltip>
-      </div>
-
+    <div>
       <Box sx={{ maxWidth: 690, p: 1 }}>
         <div>
           <Collapse in={openDialog}>
@@ -115,11 +64,13 @@ const Reactions = ({ post }) => {
                   </>
                 );
               })}
+
               <TextField
                 placeholder="Write your reply"
                 variant="standard"
                 autoFocus
                 fullWidth
+                value={comment}
                 name="comments"
                 onChange={(e) => {
                   setComment({ [e.target.name]: e.target.value });
@@ -146,8 +97,8 @@ const Reactions = ({ post }) => {
           </Collapse>
         </div>
       </Box>
-    </>
+    </div>
   );
 };
 
-export default Reactions;
+export default Comments;

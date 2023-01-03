@@ -160,15 +160,16 @@ const postsSlice = createSlice({
       .addCase(commentPost.fulfilled, (state, action) => {
         console.log("commentPost action.payload", action.payload);
 
-        const restPosts = state.posts.filter(
-          (post) => post._id !== action.payload.postData._id
-        );
-        state.posts = [action.payload.postData, ...restPosts];
-
-        const restComments = state.comments.filter(
-          (comment) => comment._id !== action.payload.commentData._id
-        );
-        state.comments = [action.payload.commentData, ...restComments];
+        // const restPosts = state.posts.filter(
+        //   (post) => post._id !== action.payload.postData._id
+        // );
+        // state.posts = [action.payload.postData, ...restPosts];
+        state.posts = action.payload.postData;
+        state.comments = action.payload.commentData;
+        // const restComments = state.comments.filter(
+        //   (comment) => comment._id !== action.payload.commentData._id
+        // );
+        // state.comments = [action.payload.commentData, ...restComments];
         console.log("state.comments", state.comments);
       });
   },
