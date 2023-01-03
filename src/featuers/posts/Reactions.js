@@ -61,6 +61,7 @@ const Reactions = ({ post }) => {
     dispatch(commentPost({ postId: post._id, content: commentInput }));
     // dispatch(getComment(post._id));
     setOpenDialog(false);
+    setComment("");
   };
 
   return (
@@ -91,7 +92,7 @@ const Reactions = ({ post }) => {
       <Box sx={{ maxWidth: 690, p: 1 }}>
         <div>
           <Collapse in={openDialog}>
-            <List dense={true}>
+            {/* <List dense={true}>
               <ListItem alignItems="flex-start">
                 <ListItemAvatar>
                   <Avatar
@@ -115,22 +116,37 @@ const Reactions = ({ post }) => {
                   }
                 />
               </ListItem>
-            </List>
-            {/* {comments?.map((comment, index) => (
-              <>
-                <ListItem alignItems="flex-start" key={index}>
-                  <ListItemAvatar>
-                    <Avatar
-                      alt={comment.authorName}
-                      src={comment.authorAvatar}
+            </List> */}
+            {comments?.map((comment, index) => {
+              console.log("index", index);
+              return (
+                <>
+                  <ListItem alignItems="flex-start" key={index}>
+                    <ListItemAvatar>
+                      <Avatar
+                        alt={comment.authorName}
+                        src={comment.authorAvatar}
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={comment.authorName}
+                      secondary={
+                        <React.Fragment>
+                          {comment.content}
+                          <Typography
+                            sx={{ display: "inline", float: "right" }}
+                            component="span"
+                            variant="body2"
+                          >
+                            {moment(comment.createdAt).fromNow()}
+                          </Typography>
+                        </React.Fragment>
+                      }
                     />
-                  </ListItemAvatar>
-                  <ListItemText>{JSON.parse(comment.content)}</ListItemText>
-                  <ListItemText>{comment.content}</ListItemText>
-                </ListItem>
-                <Divider />
-              </>
-            ))} */}
+                  </ListItem>
+                </>
+              );
+            })}
             <TextField
               placeholder="Write your reply"
               variant="standard"

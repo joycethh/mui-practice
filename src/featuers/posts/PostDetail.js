@@ -112,6 +112,7 @@ const PostDetails = () => {
   }, [dispatch, postId]);
 
   const post = useSelector((state) => state.posts.posts);
+  console.log("post", post);
   const postsStatus = useSelector(getPostsStatus);
 
   if (!post) {

@@ -21,7 +21,7 @@ export const fetchPosts = createAsyncThunk("/posts/fetchPosts", async () => {
   try {
     const response = await postService.fetchPosts();
     console.log("fetchAll-response", response);
-    return response.data.postData;
+    return response.data;
   } catch (error) {
     return error.message;
   }
@@ -116,7 +116,8 @@ const postsSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.posts = action.payload;
+        state.posts = action.payload.postData;
+        state.comments = action.payload.commentData;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
