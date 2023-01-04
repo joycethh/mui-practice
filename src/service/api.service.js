@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: "https://funget-social.herokuapp.com/",
 });
 
 API.interceptors.request.use((req) => {
