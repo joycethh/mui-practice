@@ -26,10 +26,14 @@ const logout = () => {
   localStorage.removeItem("profile");
 };
 
+//posts service
 const fetchPosts = () => {
   return API.get("/posts");
 };
 
+const getAPost = (id) => {
+  return API.get(`/posts/${id}`);
+};
 const createPost = (newPost) => {
   return API.post("/posts", newPost);
 };
@@ -46,8 +50,8 @@ const likePost = (postId) => {
   return API.patch(`/posts/likes/${postId}`);
 };
 
-const commentPost = ({ postId, comment }) => {
-  return API.post(`/posts/comments/${postId}`, comment);
+const commentPost = ({ postId, content }) => {
+  return API.post(`/posts/comments/${postId}`, content);
 };
 export const authService = {
   register,
@@ -55,11 +59,17 @@ export const authService = {
   logout,
 };
 
+export const getComment = (postId) => {
+  return API.get(`/posts/${postId}`);
+};
+
 export const postService = {
   fetchPosts,
+  getAPost,
   createPost,
   updatePost,
   deletePost,
   likePost,
   commentPost,
+  getComment,
 };

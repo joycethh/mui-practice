@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { grey } from "@mui/material/colors";
 import {
@@ -24,7 +24,7 @@ import {
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
-import { selectPostById, getPostsStatus } from "./postsSlice";
+import { getPostsStatus, getAPost } from "./postsSlice";
 import Reactions from "./Reactions";
 
 const ImageCarousel = ({ children }) => {
@@ -108,12 +108,22 @@ const ImageCarousel = ({ children }) => {
 
 const PostDetails = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { postId } = useParams();
 
+<<<<<<< HEAD
   const post = useSelector((state) => selectPostById(state, postId));
   const user = JSON.parse(localStorage.getItem("profile"));
   const isAuthor =
     user?.result?.sub === post.userId || user?.result?._id === post.userId;
+=======
+  useEffect(() => {
+    dispatch(getAPost(postId));
+  }, [dispatch, postId]);
+
+  const post = useSelector((state) => state.posts.posts);
+
+>>>>>>> 4da107c43d1ee60b55f44ef9ea5524460f5d50e5
   const postsStatus = useSelector(getPostsStatus);
 
   if (!post) {
@@ -150,8 +160,14 @@ const PostDetails = () => {
         >
           <Card elevation={0}>
             <CardHeader
-              avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
-              title={post.author}
+              avatar={
+                <Avatar
+                  sx={{ bgcolor: grey[500] }}
+                  alt={post.authorName}
+                  src={post.authorAvatar}
+                ></Avatar>
+              }
+              title={post.authorName}
               subheader={moment(post.createdAt).fromNow()}
               action={
                 isAuthor && (
@@ -176,7 +192,8 @@ const PostDetails = () => {
 
             <ImageCarousel>
               {post &&
-                post.image.map((element, index) => (
+                post?.image?.length > 0 &&
+                post?.image?.map((element, index) => (
                   <div key={index} style={{ backgroundColor: "#304352" }}>
                     <img
                       src={element}
