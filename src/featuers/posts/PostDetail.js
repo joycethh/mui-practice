@@ -3,11 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { grey } from "@mui/material/colors";
-import {
-  KeyboardArrowLeft,
-  KeyboardArrowRight,
-  MoreVert,
-} from "@mui/icons-material";
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import {
   Box,
   Card,
@@ -20,7 +16,7 @@ import {
   Paper,
   IconButton,
 } from "@mui/material";
-
+import { MoreVert } from "@mui/icons-material";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
@@ -111,19 +107,12 @@ const PostDetails = () => {
   const dispatch = useDispatch();
   const { postId } = useParams();
 
-<<<<<<< HEAD
-  const post = useSelector((state) => selectPostById(state, postId));
-  const user = JSON.parse(localStorage.getItem("profile"));
-  const isAuthor =
-    user?.result?.sub === post.userId || user?.result?._id === post.userId;
-=======
   useEffect(() => {
     dispatch(getAPost(postId));
   }, [dispatch, postId]);
 
   const post = useSelector((state) => state.posts.posts);
 
->>>>>>> 4da107c43d1ee60b55f44ef9ea5524460f5d50e5
   const postsStatus = useSelector(getPostsStatus);
 
   if (!post) {
@@ -170,15 +159,13 @@ const PostDetails = () => {
               title={post.authorName}
               subheader={moment(post.createdAt).fromNow()}
               action={
-                isAuthor && (
-                  <Tooltip title="Edit">
-                    <IconButton
-                      onClick={() => navigate(`/posts/edit/${post._id}`)}
-                    >
-                      <MoreVert />
-                    </IconButton>
-                  </Tooltip>
-                )
+                <Tooltip title="Edit">
+                  <IconButton
+                    onClick={() => navigate(`/posts/edit/${post._id}`)}
+                  >
+                    <MoreVert />
+                  </IconButton>
+                </Tooltip>
               }
             />
 
