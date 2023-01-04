@@ -42,15 +42,6 @@ const Sidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/savedPosts">
-                <ListItemIcon>
-                  <FolderSpecial />
-                </ListItemIcon>
-                <ListItemText primary="Saved" />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
               <ListItemButton onClick={handleLogout}>
                 <ListItemIcon>
                   <Logout />
