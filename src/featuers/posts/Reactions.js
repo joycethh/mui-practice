@@ -22,7 +22,6 @@ import {
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { commentPost, likePost, getPostsError } from "./postsSlice";
-import { Navigate } from "react-router-dom";
 
 const Reactions = ({ post }) => {
   const [comment, setComment] = useState("");
@@ -31,7 +30,6 @@ const Reactions = ({ post }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const comments = useSelector((state) => state.posts.comments);
-  console.log("comments", comments);
 
   if (postsError === "failed") {
     return (
@@ -90,7 +88,6 @@ const Reactions = ({ post }) => {
           <Collapse in={openDialog}>
             <List dense={true}>
               {comments?.map((comment, index) => {
-                console.log("index", index);
                 return (
                   <>
                     <ListItem alignItems="flex-start" key={index}>

@@ -7,8 +7,6 @@ import { postService } from "../../service/api.service";
 
 //localhost:   baseURL: "http://localhost:5000/"
 //heroku: baseURL: "https://funget-social.herokuapp.com/",
-const user = JSON.parse(localStorage.getItem("profile"));
-console.log("user in postsSlice", user);
 
 const initialState = {
   posts: [],
@@ -20,7 +18,7 @@ const initialState = {
 export const fetchPosts = createAsyncThunk("/posts/fetchPosts", async () => {
   try {
     const response = await postService.fetchPosts();
-    console.log("fetchAll-response", response);
+
     return response.data;
   } catch (error) {
     return error.message;
@@ -30,7 +28,7 @@ export const fetchPosts = createAsyncThunk("/posts/fetchPosts", async () => {
 export const getAPost = createAsyncThunk("/posts/getAPost", async (id) => {
   try {
     const response = await postService.getAPost(id);
-    console.log("getOne-response", response);
+
     return response.data;
   } catch (error) {
     return error.message;
@@ -64,7 +62,7 @@ export const deletePost = createAsyncThunk(
   async (postId) => {
     try {
       const response = await postService.deletePost(postId);
-      console.log("delete response", response);
+
       if (response.status === 200) return postId;
     } catch (error) {
       return error.message;
@@ -85,7 +83,7 @@ export const commentPost = createAsyncThunk(
   async ({ postId, content }) => {
     try {
       const response = await postService.commentPost({ postId, content });
-      console.log("comment response", response);
+
       return response.data;
     } catch (error) {
       return error.message;
@@ -124,7 +122,6 @@ const postsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(getAPost.fulfilled, (state, action) => {
-        console.log("getOne-action.payload", action.payload);
         state.posts = action.payload.postData;
         state.comments = action.payload.commentData;
       })
@@ -158,8 +155,6 @@ const postsSlice = createSlice({
         state.posts = [action.payload.postData, ...restPosts];
       })
       .addCase(commentPost.fulfilled, (state, action) => {
-        console.log("commentPost action.payload", action.payload);
-
         // const restPosts = state.posts.filter(
         //   (post) => post._id !== action.payload.postData._id
         // );
@@ -170,7 +165,6 @@ const postsSlice = createSlice({
         //   (comment) => comment._id !== action.payload.commentData._id
         // );
         // state.comments = [action.payload.commentData, ...restComments];
-        console.log("state.comments", state.comments);
       });
   },
 });
