@@ -11,7 +11,9 @@ const Rightbar = () => {
       >
         <Paper sx={{ height: "100vh" }} elevation={0}>
           <List>
-            <ListItem>Recommended Posts</ListItem>
+            <ListItem>
+              Login in to write posts, leave comments and give likes.
+            </ListItem>
           </List>
         </Paper>
       </Box>
