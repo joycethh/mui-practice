@@ -22,7 +22,6 @@ import { Carousel } from "react-responsive-carousel";
 
 import { getPostsStatus, getAPost } from "./postsSlice";
 import Reactions from "./Reactions";
-import Comments from "./Comments";
 
 const ImageCarousel = ({ children }) => {
   const arrowStyles = {
@@ -113,9 +112,9 @@ const PostDetails = () => {
   }, [dispatch, postId]);
 
   const post = useSelector((state) => state.posts.posts);
-  console.log("post", post);
-  const comments = useSelector((state) => state.posts.comments);
-  console.log("comments", comments);
+  // console.log("post", post);
+  // const comments = useSelector((state) => state.posts.comments);
+  // console.log("comments", comments);
   const postsStatus = useSelector(getPostsStatus);
 
   if (!post) {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import {
   Tooltip,
@@ -21,12 +22,14 @@ import {
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { commentPost, likePost, getPostsError } from "./postsSlice";
+import { Navigate } from "react-router-dom";
 
 const Reactions = ({ post }) => {
   const [comment, setComment] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const postsError = useSelector(getPostsError);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const comments = useSelector((state) => state.posts.comments);
   console.log("comments", comments);
 
@@ -60,6 +63,7 @@ const Reactions = ({ post }) => {
 
     setOpenDialog(false);
     setComment("");
+    navigate("/posts/:postId");
   };
 
   return (

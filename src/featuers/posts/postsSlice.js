@@ -117,7 +117,7 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.posts = action.payload.postData;
-        state.comments = action.payload.commentData;
+        state.comments = null;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
