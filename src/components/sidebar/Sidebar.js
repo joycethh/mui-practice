@@ -18,7 +18,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/users");
+    navigate("/");
   };
 
   return (
