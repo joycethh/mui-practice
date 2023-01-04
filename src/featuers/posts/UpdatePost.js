@@ -123,7 +123,7 @@ const Update = () => {
               >
                 Cancel
               </Button>
-              <Button variant="contained" onClick={handleDelete}>
+              <Button variant="contained" onClick={handleDelete} sx={{ mr: 1 }}>
                 Delete
               </Button>
             </DialogActions>

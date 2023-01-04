@@ -1,10 +1,19 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
+=======
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+>>>>>>> 4da107c43d1ee60b55f44ef9ea5524460f5d50e5
 import {
   Tooltip,
   Typography,
   IconButton,
+<<<<<<< HEAD
+  Checkbox,
+  Box,
+  Button,
+  Collapse,
+=======
   TextField,
   Box,
   Button,
@@ -14,6 +23,7 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
+>>>>>>> 4da107c43d1ee60b55f44ef9ea5524460f5d50e5
 } from "@mui/material";
 import {
   ThumbUp,
@@ -21,15 +31,17 @@ import {
   ChatBubbleOutline,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { commentPost, likePost, getPostsError } from "./postsSlice";
+import { likePost, getPostsError } from "./postsSlice";
 
 const Reactions = ({ post }) => {
-  const [comment, setComment] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const postsError = useSelector(getPostsError);
   const dispatch = useDispatch();
+<<<<<<< HEAD
+=======
   const navigate = useNavigate();
   const comments = useSelector((state) => state.posts.comments);
+>>>>>>> 4da107c43d1ee60b55f44ef9ea5524460f5d50e5
 
   if (postsError === "failed") {
     return (
@@ -55,6 +67,8 @@ const Reactions = ({ post }) => {
     dispatch(likePost(post._id));
   };
 
+<<<<<<< HEAD
+=======
   const handleSubmit = () => {
     const commentInput = { ...comment, content: comment };
     dispatch(commentPost({ postId: post._id, content: commentInput }));
@@ -64,6 +78,7 @@ const Reactions = ({ post }) => {
     navigate(`/posts/${post._id}`);
   };
 
+>>>>>>> 4da107c43d1ee60b55f44ef9ea5524460f5d50e5
   return (
     <>
       <div>
@@ -86,6 +101,9 @@ const Reactions = ({ post }) => {
       <Box sx={{ maxWidth: 690, p: 1 }}>
         <div>
           <Collapse in={openDialog}>
+<<<<<<< HEAD
+            Comment function is coming soon. So does the save function.
+=======
             <List dense={true}>
               {comments?.map((comment, index) => {
                 return (
@@ -144,6 +162,7 @@ const Reactions = ({ post }) => {
             >
               Send
             </Button>
+>>>>>>> 4da107c43d1ee60b55f44ef9ea5524460f5d50e5
           </Collapse>
         </div>
       </Box>

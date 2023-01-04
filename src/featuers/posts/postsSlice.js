@@ -5,9 +5,12 @@ import {
 } from "@reduxjs/toolkit";
 import { postService } from "../../service/api.service";
 
+<<<<<<< HEAD
+=======
 //localhost:   baseURL: "http://localhost:5000/"
 //heroku: baseURL: "https://funget-social.herokuapp.com/",
 
+>>>>>>> 4da107c43d1ee60b55f44ef9ea5524460f5d50e5
 const initialState = {
   posts: [],
   comments: [],
