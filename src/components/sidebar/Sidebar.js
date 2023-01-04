@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   Box,
   List,
@@ -10,8 +11,16 @@ import {
   Paper,
 } from "@mui/material";
 import { List as ListIcon, FolderSpecial, Logout } from "@mui/icons-material";
+import { logout } from "../../featuers/users/usersSlice";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/users");
+  };
+
   return (
     <section>
       <Box
@@ -42,7 +51,7 @@ const Sidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/logout">
+              <ListItemButton onClick={handleLogout}>
                 <ListItemIcon>
                   <Logout />
                 </ListItemIcon>

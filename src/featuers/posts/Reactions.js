@@ -61,7 +61,7 @@ const Reactions = ({ post }) => {
 
     setOpenDialog(false);
     setComment("");
-    navigate("/posts/:postId");
+    navigate(`/posts/${post._id}`);
   };
 
   return (

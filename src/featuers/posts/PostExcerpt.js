@@ -23,7 +23,7 @@ const PostExcerpt = ({ post }) => {
   console.log("user", user);
   const isAuthor =
     user?.result.sub === post.authorId || user?.result._id === post.authorId;
-  console.log("isAuthor", isAuthor);
+
   const navigate = useNavigate();
 
   const openPost = () => {
