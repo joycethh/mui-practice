@@ -20,7 +20,7 @@ import Reactions from "./Reactions";
 
 const PostExcerpt = ({ post }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
-  console.log("user", user);
+
   const isAuthor =
     user?.result.sub === post.authorId || user?.result._id === post.authorId;
 

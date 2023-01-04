@@ -10,7 +10,7 @@ import {
   ListItemIcon,
   Paper,
 } from "@mui/material";
-import { List as ListIcon, FolderSpecial, Logout } from "@mui/icons-material";
+import { List as ListIcon, Logout } from "@mui/icons-material";
 import { logout } from "../../featuers/users/usersSlice";
 
 const Sidebar = () => {
@@ -38,15 +38,6 @@ const Sidebar = () => {
                   <ListIcon />
                 </ListItemIcon>
                 <ListItemText primary="Newsfeed" />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton component={Link} to="/savedPosts">
-                <ListItemIcon>
-                  <FolderSpecial />
-                </ListItemIcon>
-                <ListItemText primary="Saved" />
               </ListItemButton>
             </ListItem>
 
