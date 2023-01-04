@@ -1,23 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 import {
   Tooltip,
   Typography,
   IconButton,
-  Checkbox,
   TextField,
   Box,
   Button,
   Collapse,
+  List,
   ListItem,
   ListItemAvatar,
-  ListItemText,
-  List,
   Avatar,
-  Divider,
+  ListItemText,
 } from "@mui/material";
 import {
   ThumbUp,
-  Star,
   ThumbUpOutlined,
   ChatBubbleOutline,
 } from "@mui/icons-material";
@@ -29,7 +28,8 @@ const Reactions = ({ post }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const postsError = useSelector(getPostsError);
   const dispatch = useDispatch();
-  const commentsObjArry = post?.comments?.commentBody;
+  const navigate = useNavigate();
+  const comments = useSelector((state) => state.posts.comments);
 
   if (postsError === "failed") {
     return (
@@ -38,15 +38,13 @@ const Reactions = ({ post }) => {
       </section>
     );
   }
-  if (commentsObjArry?.length < 1) return null;
-  const commentsArry = commentsObjArry?.map(({ comments }) => comments);
 
   const Likes = () => {
-    if (post.likes.length > 0) {
+    if (post?.likes?.length > 0) {
       return (
         <>
           <ThumbUp color="primary" />
-          <Typography ml={0.5}>{post.likes.length}</Typography>
+          <Typography ml={0.5}>{post?.likes?.length}</Typography>
         </>
       );
     }
@@ -58,8 +56,12 @@ const Reactions = ({ post }) => {
   };
 
   const handleSubmit = () => {
-    dispatch(commentPost({ postId: post._id, comment: comment }));
+    const commentInput = { ...comment, content: comment };
+    dispatch(commentPost({ postId: post._id, content: commentInput }));
+
     setOpenDialog(false);
+    setComment("");
+    navigate(`/posts/${post._id}`);
   };
 
   return (
@@ -79,36 +81,53 @@ const Reactions = ({ post }) => {
             <ChatBubbleOutline />
           </IconButton>
         </Tooltip>
-
-        <Tooltip title="save" arrow>
-          <IconButton aria-label="add to favorites">
-            <Checkbox icon={<Star />} checkedIcon={<Star color="red" />} />
-          </IconButton>
-        </Tooltip>
       </div>
 
       <Box sx={{ maxWidth: 690, p: 1 }}>
         <div>
           <Collapse in={openDialog}>
-            <List dense={true}></List>
-            {commentsArry?.map((comment, index) => (
-              <>
-                <ListItem alignItems="flex-start" key={index}>
-                  <ListItemText>{comment}</ListItemText>
-                </ListItem>
-              </>
-            ))}
-            <TextField
-              placeholder="Write your reply"
-              variant="standard"
-              autoFocus
-              fullWidth
-              margin="dense"
-              name="comments"
-              onChange={(e) => {
-                setComment({ [e.target.name]: e.target.value });
-              }}
-            />
+            <List dense={true}>
+              {comments?.map((comment, index) => {
+                return (
+                  <>
+                    <ListItem alignItems="flex-start" key={index}>
+                      <ListItemAvatar>
+                        <Avatar
+                          alt={comment.authorName}
+                          src={comment.authorAvatar}
+                        />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={comment.authorName}
+                        secondary={
+                          <React.Fragment>
+                            {comment.content}
+                            <Typography
+                              sx={{ display: "inline", float: "right" }}
+                              component="span"
+                              variant="body2"
+                            >
+                              {moment(comment.createdAt).fromNow()}
+                            </Typography>
+                          </React.Fragment>
+                        }
+                      />
+                    </ListItem>
+                  </>
+                );
+              })}
+              <TextField
+                placeholder="Write your reply"
+                variant="standard"
+                autoFocus
+                fullWidth
+                name="comments"
+                onChange={(e) => {
+                  setComment({ [e.target.name]: e.target.value });
+                }}
+                sx={{ marginTop: 0.8 }}
+              />
+            </List>
             <Button
               onClick={() => setOpenDialog(false)}
               variant="outlined"

@@ -20,13 +20,11 @@ import Reactions from "./Reactions";
 
 const PostExcerpt = ({ post }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
-
+  console.log("user", user);
   const isAuthor =
-    user?.result.sub === post.userId || user?.result._id === post.userId;
+    user?.result.sub === post.authorId || user?.result._id === post.authorId;
 
   const navigate = useNavigate();
-
-  const imageArray = post.image;
 
   const openPost = () => {
     navigate(`/posts/${post._id}`);
@@ -35,7 +33,7 @@ const PostExcerpt = ({ post }) => {
   return (
     <Card sx={{ maxWidth: 690, mr: 2, ml: 2, mt: 2, mb: 1 }} elevation={0}>
       <CardHeader
-        avatar={<Avatar alt={post.userName} src={post.userAvatar}></Avatar>}
+        avatar={<Avatar alt={post.authorName} src={post.authorAvatar}></Avatar>}
         action={
           isAuthor && (
             <Tooltip title="Edit">
@@ -59,11 +57,9 @@ const PostExcerpt = ({ post }) => {
             {post.message}
           </Typography>
         </CardContent>
-
-        <ImageList cols={3} sx={{ maxWidth: 780 }}>
-          {imageArray &&
-            imageArray.length > 0 &&
-            imageArray.map((element, index) => (
+        {post?.image && post?.image?.length > 0 && (
+          <ImageList cols={3} sx={{ maxWidth: 780 }}>
+            {post.image.map((element, index) => (
               <ImageListItem key={index}>
                 <img
                   src={element}
@@ -73,7 +69,8 @@ const PostExcerpt = ({ post }) => {
                 />
               </ImageListItem>
             ))}
-        </ImageList>
+          </ImageList>
+        )}
       </ButtonBase>
 
       <Reactions post={post} />

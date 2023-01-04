@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { grey } from "@mui/material/colors";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
@@ -20,7 +20,7 @@ import { MoreVert } from "@mui/icons-material";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
-import { selectPostById, getPostsStatus } from "./postsSlice";
+import { getPostsStatus, getAPost } from "./postsSlice";
 import Reactions from "./Reactions";
 
 const ImageCarousel = ({ children }) => {
@@ -104,9 +104,14 @@ const ImageCarousel = ({ children }) => {
 
 const PostDetails = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { postId } = useParams();
 
-  const post = useSelector((state) => selectPostById(state, postId));
+  useEffect(() => {
+    dispatch(getAPost(postId));
+  }, [dispatch, postId]);
+
+  const post = useSelector((state) => state.posts.posts);
 
   const postsStatus = useSelector(getPostsStatus);
 
@@ -144,8 +149,14 @@ const PostDetails = () => {
         >
           <Card elevation={0}>
             <CardHeader
-              avatar={<Avatar sx={{ bgcolor: grey[500] }}>J</Avatar>}
-              title={post.author}
+              avatar={
+                <Avatar
+                  sx={{ bgcolor: grey[500] }}
+                  alt={post.authorName}
+                  src={post.authorAvatar}
+                ></Avatar>
+              }
+              title={post.authorName}
               subheader={moment(post.createdAt).fromNow()}
               action={
                 <Tooltip title="Edit">
@@ -168,7 +179,8 @@ const PostDetails = () => {
 
             <ImageCarousel>
               {post &&
-                post.image.map((element, index) => (
+                post?.image?.length > 0 &&
+                post?.image?.map((element, index) => (
                   <div key={index} style={{ backgroundColor: "#304352" }}>
                     <img
                       src={element}

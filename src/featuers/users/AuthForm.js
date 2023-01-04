@@ -121,7 +121,6 @@ const Auth = () => {
 
   const googleFailure = (error) => {
     console.log(error);
-    console.log("Auth-googleFailure: Google login failed");
   };
 
   if (userStatus === "loading") {
